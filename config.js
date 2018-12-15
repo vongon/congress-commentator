@@ -1,4 +1,5 @@
-// Save config data here, api keys, database ports, etc
+// replace this file with data in the link below
+// https://paper.dropbox.com/doc/Congress-Commentator-Config--ATwHo6jeqCx0nBut_EiLAZ7eAQ-xYEzMfpbVCa7PU3lziVFq
 
 exports.twitterKeys = {
   consumer_key: '',
