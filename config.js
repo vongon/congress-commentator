@@ -7,3 +7,7 @@ exports.twitterKeys = {
   access_token_key: '',
   access_token_secret: ''
 }
+
+exports.propublicaKeys = {
+  datastore: ''
+}
