@@ -1,3 +1,6 @@
+# Dont commit any secret config stuff!
+config*
+
 # Logs
 logs
 *.log

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ryanjamesmcgill/congress-commentator#readme",
   "dependencies": {
+    "propublica-congress-node": "^0.1.2",
     "twitter": "^1.7.1"
   }
 }
