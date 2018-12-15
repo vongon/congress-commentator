@@ -1,0 +1,22 @@
+{
+  "name": "congress-commentator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanjamesmcgill/congress-commentator.git"
+  },
+  "author": "Ryan McGill <ryanjamesmcgill@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanjamesmcgill/congress-commentator/issues"
+  },
+  "homepage": "https://github.com/ryanjamesmcgill/congress-commentator#readme",
+  "dependencies": {
+    "twitter": "^1.7.1"
+  }
+}
