@@ -1,4 +1,5 @@
 twitterService = require('./services/twitter');
+var fs = require('fs');
 
 main = (cb) => {
 	
@@ -7,8 +8,6 @@ main = (cb) => {
     console.log('tweeted!');
     return cb();
   })
-
-
 
   function tweetBill() {	
 	console.log('Attempting the tweetBill function!')
