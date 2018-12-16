@@ -1,4 +1,4 @@
-var { twitterKeys } = require('../env/config');
+var { twitterKeys } = require('../config');
 
 var Twitter = require('twitter');
 
@@ -12,3 +12,4 @@ var client = new Twitter({
 exports.tweet = (message, cb) => {
   client.post('statuses/update', {status: message}, cb);
 }
+
