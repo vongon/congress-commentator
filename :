@@ -1,0 +1,15 @@
+hiding keys in the env dungeon :see_no_evil:
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Sun Dec 16 13:52:37 2018 -0600
+#
+# On branch tweet-bill-v1
+# Your branch is ahead of 'origin/tweet-bill-v1' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	deleted:    config.js
+#	modified:   services/twitter.js
+#

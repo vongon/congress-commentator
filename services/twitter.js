@@ -1,4 +1,4 @@
-var { twitterKeys } = require('../config');
+var { twitterKeys } = require('../env/config');
 
 var Twitter = require('twitter');
 
