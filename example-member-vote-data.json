@@ -1,0 +1,611 @@
+{
+   "status":"OK",
+   "copyright":"Copyright (c) 2018 Pro Publica Inc. All Rights Reserved.",
+   "results":[
+      {
+         "member_id": "W000816",
+         "num_results": "20",
+         "offset": "0",
+         "votes": [
+           {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "435",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/435.json",
+           "bill": {
+             "bill_id": "hres1091-115",
+             "number": "H RES 1091",
+             "sponsor_id": "C000266",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hres1091.json",
+             "title": "Calling on the Government of Burma to release Burmese journalists Wa Lone and Kyaw Soe Oo sentenced to seven years imprisonment after investigating attacks against civilians by Burma&#39;s military and security forces, and for other purposes.",
+             "latest_action": "The title of the measure was amended. Agreed to without objection."
+           },
+           "amendment": {
+           },
+                     "description": "Calling on the Government of Burma to release Burmese journalists Wa Lone and Kyaw Soe Oo sentenced to seven years imprisonment after investigating attacks against civilians by Burma’s military and ...",
+           "question": "On Motion to Suspend the Rules and Agree, as Amended",
+           "result": "Passed",
+           "date": "2018-12-13",
+           "time": "11:11:00",
+           "total":              {
+               "yes": 394,
+               "no": 1,
+               "present": 0,
+               "not_voting": 37
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "434",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/434.json",
+           "bill": {
+             "bill_id": "hr2-115",
+             "number": "H R 2",
+             "sponsor_id": "C001062",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr2.json",
+             "title": "To provide for the reform and continuation of agricultural and other programs of the Department of Agriculture through fiscal year 2023, and for other purposes.",
+             "latest_action": "Motions to reconsider laid on the table Agreed to without objection."
+           },
+           "amendment": {
+           },
+                     "description": "Agriculture and Nutrition Act of 2018",
+           "question": "On Agreeing to the Conference Report",
+           "result": "Passed",
+           "date": "2018-12-12",
+           "time": "16:13:00",
+           "total":              {
+               "yes": 369,
+               "no": 47,
+               "present": 0,
+               "not_voting": 16
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "433",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/433.json",
+           "bill": {             "bill_id": "journal-115",
+             "number": "JOURNAL",
+             "api_uri": null,
+             "title": null,
+             "latest_action": null
+           },
+           "amendment": {
+           },
+                     "description": "",
+           "question": "On Approving the Journal",
+           "result": "Passed",
+           "date": "2018-12-12",
+           "time": "14:16:00",
+           "total":              {
+               "yes": 226,
+               "no": 169,
+               "present": 4,
+               "not_voting": 33
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "432",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/432.json",
+           "bill": {
+             "bill_id": "hres1176-115",
+             "number": "H RES 1176",
+             "sponsor_id": "N000189",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hres1176.json",
+             "title": "Providing for consideration of the conference report to accompany the bill (H.R. 2) to provide for the reform and continuation of agricultural and other programs of the Department of Agriculture through fiscal year 2023, and for other purposes.",
+             "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+           },
+           "amendment": {
+           },
+                     "description": "Providing for consideration of the conference report to accompany H.R. 2, the Agriculture and Nutrition Act of 2018, and for other purposes",
+           "question": "On Agreeing to the Resolution",
+           "result": "Passed",
+           "date": "2018-12-12",
+           "time": "14:08:00",
+           "total":              {
+               "yes": 206,
+               "no": 203,
+               "present": 0,
+               "not_voting": 24
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "431",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/431.json",
+           "bill": {
+             "bill_id": "hres1176-115",
+             "number": "H RES 1176",
+             "sponsor_id": "N000189",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hres1176.json",
+             "title": "Providing for consideration of the conference report to accompany the bill (H.R. 2) to provide for the reform and continuation of agricultural and other programs of the Department of Agriculture through fiscal year 2023, and for other purposes.",
+             "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+           },
+           "amendment": {
+           },
+                     "description": "Providing for consideration of the conference report to accompany H.R. 2, the Agriculture and Nutrition Act of 2018, and for other purposes",
+           "question": "On Ordering the Previous Question",
+           "result": "Passed",
+           "date": "2018-12-12",
+           "time": "14:00:00",
+           "total":              {
+               "yes": 220,
+               "no": 191,
+               "present": 0,
+               "not_voting": 21
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "430",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/430.json",
+           "bill": {
+             "bill_id": "s825-115",
+             "number": "S 825",
+             "sponsor_id": "M001153",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/s825.json",
+             "title": "A bill to provide for the conveyance of certain property to the Southeast Alaska Regional Health Consortium located in Sitka, Alaska, and for other purposes.",
+             "latest_action": "Presented to President."
+           },
+           "amendment": {
+           },
+                     "description": "Southeast Alaska Regional Health Consortium Land Transfer Act of 2017",
+           "question": "On Motion to Suspend the Rules and Pass",
+           "result": "Passed",
+           "date": "2018-12-11",
+           "time": "17:06:00",
+           "total":              {
+               "yes": 403,
+               "no": 3,
+               "present": 0,
+               "not_voting": 26
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "429",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/429.json",
+           "bill": {
+             "bill_id": "s3029-115",
+             "number": "S 3029",
+             "sponsor_id": "A000360",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/s3029.json",
+             "title": "A bill to revise and extend the Prematurity Research Expansion and Education for Mothers who deliver Infants Early Act (PREEMIE Act).",
+             "latest_action": "Presented to President."
+           },
+           "amendment": {
+           },
+                     "description": "PREEMIE Reauthorization Act",
+           "question": "On Motion to Suspend the Rules and Pass",
+           "result": "Passed",
+           "date": "2018-12-11",
+           "time": "16:57:00",
+           "total":              {
+               "yes": 406,
+               "no": 3,
+               "present": 0,
+               "not_voting": 23
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "428",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/428.json",
+           "bill": {
+             "bill_id": "hr7217-115",
+             "number": "H R 7217",
+             "sponsor_id": "B000213",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr7217.json",
+             "title": "To amend title XIX of the Social Security Act to provide States with the option of providing coordinated care for children with complex medical conditions through a health home, and for other purposes.",
+             "latest_action": "Received in the Senate."
+           },
+           "amendment": {
+           },
+                     "description": "Improving Medicaid Programs and Opportunities for Eligible Beneficiaries Act",
+           "question": "On Motion to Suspend the Rules and Pass",
+           "result": "Passed",
+           "date": "2018-12-11",
+           "time": "16:46:00",
+           "total":              {
+               "yes": 400,
+               "no": 11,
+               "present": 0,
+               "not_voting": 21
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "427",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/427.json",
+           "bill": {
+             "bill_id": "hr3008-115",
+             "number": "H R 3008",
+             "sponsor_id": "C001062",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr3008.json",
+             "title": "To authorize the Secretary of the Interior to conduct a special resource study of the George W. Bush Childhood Home, located at 1412 West Ohio Avenue, Midland, Texas, and for other purposes.",
+             "latest_action": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+           },
+           "amendment": {
+           },
+                     "description": "George W. Bush Childhood Home Study Act",
+           "question": "On Motion to Suspend the Rules and Pass",
+           "result": "Passed",
+           "date": "2018-12-10",
+           "time": "19:02:00",
+           "total":              {
+               "yes": 382,
+               "no": 4,
+               "present": 2,
+               "not_voting": 44
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "426",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/426.json",
+           "bill": {
+             "bill_id": "hres792-115",
+             "number": "H RES 792",
+             "sponsor_id": "S000248",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hres792.json",
+             "title": "Urging the Secretary of the Interior to recognize the historical significance of Roberto Clemente&#39;s place of death near Piñones in Loíza, Puerto Rico, by adding it to the National Register of Historic Places.",
+             "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+           },
+           "amendment": {
+           },
+                     "description": "Urging the Secretary of the Interior to recognize the historical significance of Roberto Clemente’s place of death near Pinones in Loiza, Puerto Rico, by adding it to the National Register ...",
+           "question": "On Motion to Suspend the Rules and Agree, as Amended",
+           "result": "Passed",
+           "date": "2018-12-10",
+           "time": "18:53:00",
+           "total":              {
+               "yes": 385,
+               "no": 1,
+               "present": 2,
+               "not_voting": 44
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "425",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/425.json",
+           "bill": {
+             "bill_id": "hr6901-115",
+             "number": "H R 6901",
+             "sponsor_id": "H001073",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr6901.json",
+             "title": "To amend chapter 36 of title 44, United States Code, to make certain changes relating to electronic Government services, and for other purposes.",
+             "latest_action": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+           },
+           "amendment": {
+           },
+                     "description": "Federal CIO Authorization Act of 2018",
+           "question": "On Motion to Suspend the Rules and Pass, as Amended",
+           "result": "Passed",
+           "date": "2018-11-30",
+           "time": "10:26:00",
+           "total":              {
+               "yes": 391,
+               "no": 0,
+               "present": 0,
+               "not_voting": 41
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "424",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/424.json",
+           "bill": {
+             "bill_id": "hr7187-115",
+             "number": "H R 7187",
+             "sponsor_id": "M001193",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr7187.json",
+             "title": "To extend the National Flood Insurance Program until December 7, 2018.",
+             "latest_action": "Became Public Law No: 115-281."
+           },
+           "amendment": {
+           },
+                     "description": "To extend the National Flood Insurance Program until December 7, 2018.",
+           "question": "On Motion to Suspend the Rules and Pass",
+           "result": "Passed",
+           "date": "2018-11-29",
+           "time": "19:04:00",
+           "total":              {
+               "yes": 350,
+               "no": 46,
+               "present": 0,
+               "not_voting": 36
+           },
+           "position": "No"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "423",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/423.json",
+           "bill": {
+             "bill_id": "hres1160-115",
+             "number": "H RES 1160",
+             "sponsor_id": "S000250",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hres1160.json",
+             "title": "Providing for consideration of the Senate amendment to the bill (H.R. 88) to modify the boundary of the Shiloh National Military Park located in Tennessee and Mississippi, to establish Parker&#39;s Crossroads Battlefield as an affiliated area of the National Park System, and for other purposes.",
+             "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+           },
+           "amendment": {
+           },
+                     "description": "Providing for consideration of the Senate amendment to the bill (H.R. 88) to modify the boundary of the Shiloh National Military Park located in Tennessee and Mississippi, to establish Parker’s ...",
+           "question": "On Agreeing to the Resolution",
+           "result": "Passed",
+           "date": "2018-11-29",
+           "time": "18:54:00",
+           "total":              {
+               "yes": 219,
+               "no": 181,
+               "present": 0,
+               "not_voting": 32
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "422",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/422.json",
+           "bill": {
+             "bill_id": "hr6207-115",
+             "number": "H R 6207",
+             "sponsor_id": "S000522",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr6207.json",
+             "title": "To support democracy and accountability in the Democratic Republic of the Congo, and for other purposes.",
+             "latest_action": "Received in the Senate and Read twice and referred to the Committee on Foreign Relations."
+           },
+           "amendment": {
+           },
+                     "description": "Democratic Republic of the Congo Democracy and Accountability Act of 2018",
+           "question": "On Motion to Suspend the Rules and Pass, as Amended",
+           "result": "Passed",
+           "date": "2018-11-27",
+           "time": "19:31:00",
+           "total":              {
+               "yes": 374,
+               "no": 11,
+               "present": 0,
+               "not_voting": 46
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "421",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/421.json",
+           "bill": {
+             "bill_id": "hr5273-115",
+             "number": "H R 5273",
+             "sponsor_id": "E000179",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr5273.json",
+             "title": "To reduce global fragility and violence by improving the capacity of the United States to reduce and address the causes of violence, violent conflict, and fragility in pilot countries, and for other purposes.",
+             "latest_action": "Received in the Senate and Read twice and referred to the Committee on Foreign Relations."
+           },
+           "amendment": {
+           },
+                     "description": "Global Fragility and Violence Reduction Act of 2018",
+           "question": "On Motion to Suspend the Rules and Pass, as Amended",
+           "result": "Passed",
+           "date": "2018-11-27",
+           "time": "19:08:00",
+           "total":              {
+               "yes": 376,
+               "no": 16,
+               "present": 0,
+               "not_voting": 38
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "420",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/420.json",
+           "bill": {
+             "bill_id": "hr6784-115",
+             "number": "H R 6784",
+             "sponsor_id": "D000614",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr6784.json",
+             "title": "To provide for removal of the gray wolf in the contiguous 48 States from the List of Endangered and Threatened Wildlife published under the Endangered Species Act of 1973.",
+             "latest_action": "Received in the Senate and Read twice and referred to the Committee on Environment and Public Works."
+           },
+           "amendment": {
+           },
+                     "description": "Manage our Wolves Act",
+           "question": "On Passage",
+           "result": "Passed",
+           "date": "2018-11-16",
+           "time": "11:06:00",
+           "total":              {
+               "yes": 196,
+               "no": 180,
+               "present": 0,
+               "not_voting": 54
+           },
+           "position": "Not Voting"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "419",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/419.json",
+           "bill": {
+             "bill_id": "hr5787-115",
+             "number": "H R 5787",
+             "sponsor_id": "D000628",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr5787.json",
+             "title": "To amend the Coastal Barrier Resources Act to give effect to more accurate maps of units of the John H. Chafee Coastal Barrier Resources System that were produced by digital mapping of such units, and for other purposes.",
+             "latest_action": "Received in the Senate and Read twice and referred to the Committee on Environment and Public Works."
+           },
+           "amendment": {
+           },
+                     "description": "Strengthening Coastal Communities Act",
+           "question": "On Motion to Suspend the Rules and Pass, as Amended",
+           "result": "Passed",
+           "date": "2018-11-16",
+           "time": "10:49:00",
+           "total":              {
+               "yes": 375,
+               "no": 1,
+               "present": 0,
+               "not_voting": 54
+           },
+           "position": "Not Voting"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "418",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/418.json",
+           "bill": {
+             "bill_id": "hres1142-115",
+             "number": "H RES 1142",
+             "sponsor_id": "N000189",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hres1142.json",
+             "title": "Providing for consideration of the bill (H.R. 6784) to provide for removal of the gray wolf in the contiguous 48 States from the List of Endangered and Threatened Wildlife published under the Endangered Species Act of 1973, and providing for proceedings during the period from November 19, 2018, through November 26, 2018.",
+             "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+           },
+           "amendment": {
+           },
+                     "description": "Providing for consideration of H.R. 6784, the Manage our Wolves Act; and providing for proceedings during the period from November 19, 2018, through November 26, 2018",
+           "question": "On Agreeing to the Resolution",
+           "result": "Passed",
+           "date": "2018-11-14",
+           "time": "17:07:00",
+           "total":              {
+               "yes": 201,
+               "no": 187,
+               "present": 0,
+               "not_voting": 42
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "417",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/417.json",
+           "bill": {
+             "bill_id": "hr2615-115",
+             "number": "H R 2615",
+             "sponsor_id": "P000601",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr2615.json",
+             "title": "To authorize the exchange of certain land located in Gulf Islands National Seashore, Jackson County, Mississippi, between the National Park Service and the Veterans of Foreign Wars, and for other purposes.",
+             "latest_action": "Became Public Law No: 115-279."
+           },
+           "amendment": {
+           },
+                     "description": "Gulf Islands National Seashore Land Exchange Act",
+           "question": "On Motion to Suspend the Rules and Concur in the Senate Amendment",
+           "result": "Passed",
+           "date": "2018-11-13",
+           "time": "19:24:00",
+           "total":              {
+               "yes": 375,
+               "no": 1,
+               "present": 0,
+               "not_voting": 54
+           },
+           "position": "Yes"
+         },
+                  {
+           "member_id": "W000816",
+           "chamber": "House",
+           "congress": "115",
+           "session": "2",
+           "roll_call": "416",
+           "vote_uri": "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/416.json",
+           "bill": {
+             "bill_id": "hr6064-115",
+             "number": "H R 6064",
+             "sponsor_id": "S001201",
+             "bill_uri": "https://api.propublica.org/congress/v1/115/bills/hr6064.json",
+             "title": "To rename the Oyster Bay National Wildlife Refuge as the Congressman Lester Wolff National Wildlife Refuge.",
+             "latest_action": "Received in the Senate and Read twice and referred to the Committee on Environment and Public Works."
+           },
+           "amendment": {
+           },
+                     "description": "To rename the Oyster Bay National Wildlife Refuge as the Congressman Lester Wolff National Wildlife Refuge",
+           "question": "On Motion to Suspend the Rules and Pass",
+           "result": "Passed",
+           "date": "2018-11-13",
+           "time": "18:57:00",
+           "total":              {
+               "yes": 385,
+               "no": 4,
+               "present": 2,
+               "not_voting": 36
+           },
+           "position": "Yes"
+         }
+       ]
+    }
+  ]
+}

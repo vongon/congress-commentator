@@ -7,7 +7,47 @@ main = (cb) => {
     console.log('tweeted!');
     return cb();
   })
+
+
+
+  function tweetBill() {	
+	console.log('Attempting the tweetBill function!')
+	// read the file and send to the cb
+	fs.readFile('./example-member-vote-data.json', handleBillData) 
+	  
+	function handleBillData(err, data) {
+		if (err) {
+		  throw err
+		  console.log('There was an error with the handleBillData function.')
+		} 
+		// Parse the buffer that fs.readFile creates
+		var proPublicaData = JSON.parse(data)
+
+		// 'votes' is an array and here we are just returning the first index; 
+		var mostRecentBill = proPublicaData.results[0].votes[0]
+
+		// this is the stuff we want to tweet
+		console.log ('Using fs.readFile to read the bill data! Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"])
+		
+		// trying to throw something into a variable we can tweet...but....		
+		var params = { status: 'Most recent vote: ' +  mostRecentBill.bill.number }
+		
+		// ...there appears to be some scope issue with the twitterService function...
+		twitterService.post('statuses/update', params, function (err, data, response) {
+		  if (err) {
+		  throw err
+		  console.log('There was an error with posting the tweet.')
+		} 
+	  })
+	}
 }
+  
+  tweetBill();
+
+
+} //end Main
+
+
 
 main((err) => {
   if (err) throw JSON.stringify(err);
