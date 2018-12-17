@@ -10,7 +10,6 @@ main = (cb) => {
   // })
 
   function tweetBill() {	
-	console.log('Attempting the tweetBill function!')
 	// read the file and send to the cb
 	fs.readFile('./example-member-vote-data.json', handleBillData) 
 	  
@@ -26,13 +25,13 @@ main = (cb) => {
 		var mostRecentBill = proPublicaData.results[0].votes[0]
 
 		// this is the stuff we want to tweet
-		console.log ('Using fs.readFile to read the bill data! Roger Williams member ID is: ' + proPublicaData.results[0].member_id + '. Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"])
+		console.log ('Using fs.readFile to read the bill data. Roger Williams member ID is: ' + proPublicaData.results[0].member_id + '. Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"])
 		
-		// trying to throw something into a variable we can tweet...but....		
-		var params = { status: 'Most recent vote: ' +  mostRecentBill.bill.number }
+		// storing the data we want to tweet in a variable		
+		var params = 'Roger Williams member ID is: ' + proPublicaData.results[0].member_id + '. Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"]
 		
-		// ...there appears to be some scope issue with the twitterService function...
-		twitterService.tweet('Roger Williams member ID is: ' + proPublicaData.results[0].member_id + '. Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"], function (err, data, response) {
+		// tweeting
+		twitterService.tweet(params, function (err, data, response) {
 		  if (err) return cb(err);
 		  console.log('Success!');
 		  return cb();
@@ -43,7 +42,6 @@ main = (cb) => {
 tweetBill();
 
 } //end Main
-
 
 
 main((err) => {
