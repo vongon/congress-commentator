@@ -26,7 +26,7 @@ main = (cb) => {
 		var billsArray = proPublicaData.results[0].votes 
 
 		// date of the vote
-		var voteDate = proPublicaData.results[0].votes[0].date
+		var mostRecentVoteDate = proPublicaData.results[0].votes[0].date
 		var abbreviatedBillQuestion = proPublicaData.results[0].votes[0].question.substring(0,30)
 		var abbreviatedBillDescription = mostRecentBill.description.substring(0,65)
 
@@ -36,11 +36,12 @@ main = (cb) => {
 		
 		// storing the data we want to tweet in a variable -- once deployed, member's Twitter handle should be used	
 		var params = '"' + abbreviatedBillQuestion + '" on ' + mostRecentBill.bill.number + 
-		', Roger Williams (R-Weatherford) voted "' + mostRecentBill["position"] + '". \n\n Description: "' + 
-		abbreviatedBillDescription +'".\n\n' + mostRecentBill.total["yes"] + ' member(s) voted "Yes".\n' 
-		+  mostRecentBill.total["no"] + ' voted "No".\n' + mostRecentBill.total["not_voting"] 
-		+ ' not voting.\n Result: ' + mostRecentBill.result + ' ' + voteDate + '.' 
+		', Roger Williams (R-Weatherford) voted "' + mostRecentBill["position"] + '". \n\nShort Description: "' + 
+		abbreviatedBillDescription +'".\n\n' + mostRecentBill.total["yes"] + ' member(s) voted "Yes". ' 
+		+  mostRecentBill.total["no"] + ' voted "No". ' + mostRecentBill.total["not_voting"] 
+		+ ' not voting. Result: ' + mostRecentBill.result + ' ' + mostRecentVoteDate + '.' 
 		
+
 		// tweeting
 		twitterService.tweet(params, function (err, data, response) {
 		  if (err) return cb(err);
