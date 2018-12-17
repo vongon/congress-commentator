@@ -24,11 +24,14 @@ main = (cb) => {
 		// 'votes' is an array and here we are just returning the first index; 
 		var mostRecentBill = proPublicaData.results[0].votes[0]
 
+		// date of the vote
+		var voteDate = proPublicaData.results[0].votes[0].date
+
 		// this is the stuff we want to tweet
 		console.log ('Using fs.readFile to read the bill data. Roger Williams member ID is: ' + proPublicaData.results[0].member_id + '. Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"])
 		
 		// storing the data we want to tweet in a variable		
-		var params = 'Roger Williams member ID is: ' + proPublicaData.results[0].member_id + '. Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"]
+		var params = 'On ' + voteDate + 'Roger Williams voted ' + mostRecentBill["position"] + 'on ' mostRecentBill.bill.number + ', ' + '"' mostRecentBill.description.substring(0,65) + '". ' + mostRecentBill.total["yes"] + 'members voted "Yes", ' +  mostRecentBill.total["no"] + 'members voted "No", ' + mostRecentBill.total["not_voting"] + 'not voting.' 
 		
 		// tweeting
 		twitterService.tweet(params, function (err, data, response) {
