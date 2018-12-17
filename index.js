@@ -3,11 +3,11 @@ var fs = require('fs');
 
 main = (cb) => {
 	
-  twitterService.tweet('test tweet', (err) => {
-    if (err) return cb(err);
-    console.log('tweeted!');
-    return cb();
-  })
+  // twitterService.tweet('test tweet', (err) => {
+  //   if (err) return cb(err);
+  //   console.log('tweeted!');
+  //   return cb();
+  // })
 
   function tweetBill() {	
 	console.log('Attempting the tweetBill function!')
@@ -32,17 +32,15 @@ main = (cb) => {
 		var params = { status: 'Most recent vote: ' +  mostRecentBill.bill.number }
 		
 		// ...there appears to be some scope issue with the twitterService function...
-		twitterService.post('statuses/update', params, function (err, data, response) {
-		  if (err) {
-		  throw err
-		  console.log('There was an error with posting the tweet.')
-		} 
-	  })
-	}
-}
-  
-  tweetBill();
+		twitterService.tweet('Roger Williams member ID is: ' + proPublicaData.results[0].member_id + '. Here is the most recent bill action was taken on: '+ mostRecentBill.bill.number + '. Most recent vote: ' + mostRecentBill["position"], function (err, data, response) {
+		  if (err) return cb(err);
+		  console.log('Success!');
+		  return cb();
+		}) 
+	  }
+	}	
 
+tweetBill();
 
 } //end Main
 
