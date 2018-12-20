@@ -16,8 +16,22 @@
     "url": "https://github.com/ryanjamesmcgill/congress-commentator/issues"
   },
   "homepage": "https://github.com/ryanjamesmcgill/congress-commentator#readme",
+  "devDependencies": {
+    "contributor": "0.1.25"
+  },
   "dependencies": {
     "propublica-congress-node": "^0.1.2",
     "twitter": "^1.7.1"
-  }
+  },
+  "contributors": [
+    {
+      "name": "Ryan McGill",
+      "email": null,
+      "url": "https://github.com/ryanjamesmcgill",
+      "contributions": 7,
+      "additions": 551,
+      "deletions": 15,
+      "hireable": true
+    }
+  ]
 }
