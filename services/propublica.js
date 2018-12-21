@@ -4,18 +4,20 @@ var Congress = require( 'propublica-congress-node' );
 
 var client = new Congress( propublicaKeys.datastore );
 
-exports.getLatestVoteData = getLatestVoteData = (cb) =>
+exports.getLatestVoteData = getLatestVoteData = (cb) => {
   client.memberVotePositions({
-    memberId: 'W000816'
-  }).then(function(res) {
-    return cb(null, res);
+    memberId: propublicaKeys.memberId
+  }).then((response) => {
+    const result = response.results[0];
+    return cb(null, result);
   }).catch((err) => {
     return cb(err)
   });
-  
+}
+
 if(!module.parent) {
   getLatestVoteData((err, res) => {
     if (err) throw err;
-    console.log('reponse:', res);
+    console.log('reponse:', JSON.stringify(res));
   });
 }
