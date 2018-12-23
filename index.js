@@ -8,7 +8,6 @@ const main = (cb) => {
 	console.log('connecting to database');
 	mongoose.connect('mongodb://localhost/congress-comentator', { useNewUrlParser: true }, (err) => {
 		if (err) return cb(err);
-		console.log
 		importData.importData(cb);
 	});
 }
