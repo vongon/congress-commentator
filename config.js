@@ -2,9 +2,9 @@
 
 // test account: https://twitter.com/RWilliamsVotes
 exports.congressPerson = {
-  name: '',
-  party: '',
-  sponsor: '', // is there a better name than 'sponsor' ?
+  name: '', // Roger Williams 
+  party: '', // R
+  sponsor: '', // Weatherford ~ is there a better name than 'sponsor' ?
 }
 exports.twitterKeys = {
   consumer_key: '',
