@@ -20,6 +20,8 @@
     "contributor": "0.1.25"
   },
   "dependencies": {
+    "async": "^2.6.1",
+    "mongoose": "^5.4.0",
     "propublica-congress-node": "^0.1.2",
     "twitter": "^1.7.1"
   },

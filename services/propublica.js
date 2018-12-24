@@ -1,21 +1,16 @@
-var { propublicaKeys } = require('../config');
+const config = require('../config');
 
-var Congress = require( 'propublica-congress-node' );
+const Congress = require( 'propublica-congress-node' );
 
-var client = new Congress( propublicaKeys.datastore );
+const client = new Congress( config.propublicaKeys.datastore );
 
-exports.getLatestVoteData = getLatestVoteData = (cb) =>
+exports.getLatestVoteData = getLatestVoteData = (cb) => {
   client.memberVotePositions({
-    memberId: 'W000816'
-  }).then(function(res) {
-    return cb(null, res);
+    memberId: config.propublicaKeys.memberId
+  }).then((response) => {
+    const result = response.results[0];
+    return cb(null, result);
   }).catch((err) => {
     return cb(err)
-  });
-  
-if(!module.parent) {
-  getLatestVoteData((err, res) => {
-    if (err) throw err;
-    console.log('reponse:', res);
   });
 }
