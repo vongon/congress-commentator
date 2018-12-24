@@ -4,7 +4,8 @@
 exports.congressPerson = {
   name: '', // Roger Williams 
   party: '', // R
-  sponsor: '', // Weatherford ~ is there a better name than 'sponsor' ?
+  jurisdiction: '', // primary town/city in member's jurisdiction
+  handle: '' //@RepRWilliams
 }
 exports.twitterKeys = {
   consumer_key: '',
