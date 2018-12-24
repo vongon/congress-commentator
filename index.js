@@ -7,7 +7,7 @@ const config = require('./config');
  
 
 const main = (cb) => {
-	async.series([
+  async.series([
     (sCb) => {
       // connect to database
       mongoose.connect(config.mongo.connectionString, { useNewUrlParser: true }, sCb);    
@@ -28,4 +28,4 @@ main((err) => {
   console.log('DONE!');
   process.exit();
 });
-	
+  
