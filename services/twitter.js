@@ -1,5 +1,6 @@
-var config = require('../config');
 var Twitter = require('twitter');
+
+var config = require('../config');
 
 var client = new Twitter({
   consumer_key: config.twitterKeys.consumer_key,

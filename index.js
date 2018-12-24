@@ -1,20 +1,32 @@
-const twitterService = require('./services/twitter');
-const proPublicaService = require('./services/propublica');
 const mongoose = require('mongoose');
+const async = require('async');
+
 const importData = require('./app/importData');
+const tweet = require('./app/tweet');
+const config = require('./config');
  
 
 const main = (cb) => {
-	console.log('connecting to database');
-	mongoose.connect('mongodb://localhost/congress-comentator', { useNewUrlParser: true }, (err) => {
-		if (err) return cb(err);
-		importData.importData(cb);
-	});
+	async.series([
+    (sCb) => {
+      // connect to database
+      mongoose.connect(config.mongo.connectionString, { useNewUrlParser: true }, sCb);    
+    },
+    (sCb) => {
+      // import new data from propublica
+      importData(sCb);
+    },
+    (sCb) => {
+      // tweet
+      tweet(sCb);
+    }
+  ], cb);
 }
 
 main((err) => {
   if (err) throw JSON.stringify(err);
   console.log('DONE!');
+  process.exit();
 });
 
 
