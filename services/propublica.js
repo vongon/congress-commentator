@@ -18,7 +18,6 @@ exports.getLatestVoteData = getLatestVoteData = (cb) => {
 }
 
 exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
-
 	var headers = {
 	    'X-API-Key': config.proPublicaFEC.fec_key
 	};
@@ -28,7 +27,9 @@ exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	};
 	function callback(error, response, body) {
 	    if (!error && response.statusCode == 200) {
-	        console.log(body);
+	        console.log('Got the campaign finance data:');
+	        // console.log(body)
+	        return body
 	    }
 	}
 	request(options, callback);
