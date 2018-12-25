@@ -29,7 +29,7 @@ exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	    if (!error && response.statusCode == 200) {
 	        console.log('Got the campaign finance data:');
 	        // console.log(body)
-	        return body
+	        
 	    }
 	}
 	request(options, callback);

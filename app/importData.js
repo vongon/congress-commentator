@@ -30,7 +30,8 @@ module.exports = importData = (cb) => {
       return cb(err);
     }
     const contributions = data.results[0]
-    console.log('Now we are inside the getCampaignFinanceData function')
+    console.log('Now we are inside the getCampaignFinanceData function', data.results[0])
+
   });
 
 }
