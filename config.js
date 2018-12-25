@@ -5,6 +5,7 @@ exports.congressPerson = {
   name: '', // Roger Williams 
   party: '', // R
   sponsor: '', // Weatherford ~ is there a better name than 'sponsor' ?
+  fec_id: '', // https://www.fec.gov/data/browse-data/?tab=candidates
 }
 exports.twitterKeys = {
   consumer_key: '',
