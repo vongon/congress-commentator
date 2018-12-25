@@ -24,5 +24,14 @@ module.exports = importData = (cb) => {
       });
     }, cb);
   });
+
+  propublicaService.getCampaignFinanceData((err, data) => {
+    if (err) {
+      return cb(err);
+    }
+    const contributions = data.results[0]
+    console.log('Got the campaign finance data', data.results[0])
+  });
+
 }
 

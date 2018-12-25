@@ -7,6 +7,7 @@ exports.congressPerson = {
   sponsor: '', // Weatherford ~ is there a better name than 'sponsor' ?
   fec_id: '', // https://www.fec.gov/data/browse-data/?tab=candidates
 }
+
 exports.twitterKeys = {
   consumer_key: '',
   consumer_secret: '',
@@ -18,8 +19,16 @@ exports.twitterKeys = {
 exports.propublicaKeys = {
   memberId: '' ,
   datastore: '',
+  
 }
 
 exports.mongo = {
   connectionString: '',
+}
+
+// campaign finance keys
+exports.proPublicaFEC = {
+  fec_key: '',
+  url: ''
+
 }
