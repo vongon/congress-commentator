@@ -2,6 +2,7 @@ const async = require('async');
 
 const propublicaService = require('../services/propublica');
 const Vote = require('../models/vote');
+const Contribution = require('../models/contribution')
 
 module.exports = importData = (cb) => {
   propublicaService.getLatestVoteData((err, data) => {
@@ -23,6 +24,7 @@ module.exports = importData = (cb) => {
         newVote.save(sCb);
       });
     }, cb);
+  });
 
     // FEC data
     propublicaService.getCampaignFinanceData((err, data) => {
@@ -37,7 +39,7 @@ module.exports = importData = (cb) => {
           return sCb(err);
         } 
         if (contributions.length > 0) {
-          console.log('Skipping vote uploaded because found existing entry for FEC data from API:', contributions.date_coverage_to);
+          console.log('Skipping contribution uploaded because found existing entry for FEC data from API:', contributions.date_coverage_to);
           return setImmediate(sCb);
         }
         console.log('Uploading new contributions record:', contributions.date_coverage_to);
@@ -48,8 +50,5 @@ module.exports = importData = (cb) => {
   });
 
 
-
-
-  });
 }
 

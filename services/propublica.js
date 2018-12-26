@@ -19,19 +19,20 @@ exports.getLatestVoteData = getLatestVoteData = (cb) => {
 
 exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	var headers = {
-	    'X-API-Key': config.proPublicaFEC.fec_key
+	    'X-API-Key': config.propublicaFEC.fec_key
 	};
 	var options = {
-	    url: config.proPublicaFEC.url,
+	    url: config.propublicaFEC.url,
 	    headers: headers
 	};
 	function callback(error, response, body) {
 	    if (!error && response.statusCode == 200) {
 	        console.log('Got the campaign finance data:', body);
+	        // Do something with the data here
 	        // console.log(body)
-	        return cb(body);
+	        // return cb(body);
 	    }
 	}
 	request(options, callback)
-} // end new function
+}
 

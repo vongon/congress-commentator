@@ -4,6 +4,7 @@ const propublicaService = require('../services/propublica');
 const config = require('../config');
 const twitterService = require('../services/twitter');
 const Vote = require('../models/vote');
+const Contribution = require('../models/contribution')
 
 module.exports = tweet = (cb) => {
   // find oldest vote that has not been tweeted yet
@@ -30,9 +31,9 @@ module.exports = tweet = (cb) => {
   });
 
   // find most up-to-date FEC data that has not been tweeted yet
-  Vote.findOne({
+  Contribution.findOne({
     tweetedAt: null, 
-    'data.member_id': config.propublicaKeys.memberId
+    'data.id': config.propublicaFEC.fec_id
   }).sort({createdAt: 1}).exec((err, contribution) => {
     if (err) {
       return cb(err);
@@ -57,7 +58,6 @@ module.exports = tweet = (cb) => {
 }
 
 const getFECTweetString = (contribution) => {
-  
   const name = config.congressPerson.name;
   const party = config.congressPerson.party;
   const jurisdiction = config.congressPerson.jurisdiction;
@@ -65,9 +65,8 @@ const getFECTweetString = (contribution) => {
   const pacMoney = contribution.total_from_pacs
   
   const fecMessage = `
-"As of ${upToDate}, ${name} (${party}-${jurisdiction}) accepted $"${pacMoney} from PACs".
+"As of ${upToDate}, ${name} (${party}-${jurisdiction}) had accepted $"${pacMoney} from PACs".
   `;
-
   return fecMessage;
 }
 
