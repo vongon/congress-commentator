@@ -27,11 +27,12 @@ exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	};
 	function callback(error, response, body) {
 	    if (!error && response.statusCode == 200) {
-	        console.log('Got the campaign finance data:');
+	        console.log('Got the campaign finance data:', body);
 	        // console.log(body)
-	        
+	        return cb(body);
+
 	    }
 	}
-	request(options, callback);
-}
+	request(options, callback)
+} // end new function
 
