@@ -29,5 +29,6 @@ exports.mongo = {
 // campaign finance keys
 exports.propublicaFEC = {
   fec_key: '',
-  url: '', // https://www.fec.gov/data/browse-data/?tab=candidates
+  url: '',
+  fec_id: '', // https://www.fec.gov/data/browse-data/?tab=candidates
 }
