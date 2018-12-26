@@ -28,8 +28,48 @@ module.exports = tweet = (cb) => {
       vote.save(cb);
     });
   });
+
+  // find most up-to-date FEC data that has not been tweeted yet
+  Vote.findOne({
+    tweetedAt: null, 
+    'data.member_id': config.propublicaKeys.memberId
+  }).sort({createdAt: 1}).exec((err, contribution) => {
+    if (err) {
+      return cb(err);
+    }
+    if (!contribution) {
+      console.log('No new contribution data available to tweet');
+      return cb()
+    }
+    const fecMessage = getFECTweetString(contribution.data);
+    console.log('Tweeting:', fecMessage);
+    twitterService.tweet(fecMessage, (err) => {
+      if (err) {
+        return cb(err);
+      }
+      contribution.tweetedAt = new Date();
+      contribution.save(cb);
+    });
+  });
+
+
+
 }
 
+const getFECTweetString = (contribution) => {
+  
+  const name = config.congressPerson.name;
+  const party = config.congressPerson.party;
+  const jurisdiction = config.congressPerson.jurisdiction;
+  const upToDate = contribution.date_coverage_to
+  const pacMoney = contribution.total_from_pacs
+  
+  const fecMessage = `
+"As of ${upToDate}, ${name} (${party}-${jurisdiction}) accepted $"${pacMoney} from PACs".
+  `;
+
+  return fecMessage;
+}
 
 const getTweetString = (vote) => {
   const abbreviatedBillQuestion = vote.question.substring(0,30);

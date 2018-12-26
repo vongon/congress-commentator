@@ -30,7 +30,6 @@ exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	        console.log('Got the campaign finance data:', body);
 	        // console.log(body)
 	        return cb(body);
-
 	    }
 	}
 	request(options, callback)
