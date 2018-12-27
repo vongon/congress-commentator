@@ -10,9 +10,8 @@ module.exports = importData = (cb) => {
 	    return cb(err);
 	  }
 
-    console.log('Importing data! Total from PACs this cycle to date: ', contributions.total_from_pacs)
-    return data.results[0];
-    
-  }, cb);
+    console.log('Importing data! Total from PACs this cycle to date: ', data.results[0].total_from_pacs)
+    return cb(null, data.results[0])
+  });
 }
 

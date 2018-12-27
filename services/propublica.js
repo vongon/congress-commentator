@@ -14,11 +14,9 @@ exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	  }
 	})
 	.then(function(response) {
-      console.log(response);
-      return response
-    })
-	.catch(function(err) {
-	  console.error(err);
+      return cb(null, response);
+	}).catch(function(err) {
+      return cb(err);
 	});
 
 }

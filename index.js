@@ -6,8 +6,17 @@ const tweet = require('./app/tweet');
 const config = require('./config');
 
 const main = (cb) => {
+  async.series([
+    (sCb) => {
+      // import new data from propublica 
+      importData(sCb);
+    },
+    (sCb) => {
+      // tweet
+      tweet(sCb);
+    }
+  ], cb);
 
-  importData(cb);
 }
 
 main((err) => {
