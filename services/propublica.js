@@ -18,7 +18,7 @@ exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
       return response
     })
 	.catch(function(err) {
-	  console.err(err);
+	  console.error(err);
 	});
 
 }

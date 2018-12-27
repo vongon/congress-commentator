@@ -2,9 +2,7 @@ const async = require('async');
 
 const config = require('../config');
 const twitterService = require('../services/twitter');
-const Contribution = require('../models/contribution')
-
-const request = require('request-promise');
+const Contribution = require('../models/contribution');
 
 module.exports = tweet = (cb) => {
 

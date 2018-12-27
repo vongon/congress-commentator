@@ -7,7 +7,7 @@ const config = require('./config');
 
 const main = (cb) => {
 
-  importData();
+  importData(cb);
 }
 
 main((err) => {
