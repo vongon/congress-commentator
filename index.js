@@ -17,6 +17,8 @@ const main = (cb) => {
     }
   ], cb);
 
+  importData(cb);
+
 }
 
 main((err) => {
