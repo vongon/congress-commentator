@@ -32,6 +32,7 @@ module.exports = tweet = (cb) => {
 
 
 const getTweetString = (vote) => {
+  const handle = config.congressPerson.handle
   const abbreviatedBillQuestion = vote.question.substring(0,30);
   const abbreviatedBillDescription = vote.description.substring(0,65);
   const billNumber = vote.bill.number;
@@ -46,7 +47,7 @@ const getTweetString = (vote) => {
   const voteDate = vote.date;
 
   const message = `
-"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${party}-${sponsor}) voted "${position}". \n\n
+"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${sponsor}) voted "${position}". \n\n
 Short Description: '${abbreviatedBillDescription}'. \n\n
 ${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting.
 Result: ${result} ${voteDate}.
