@@ -3,7 +3,19 @@ const Congress = require( 'propublica-congress-node' );
 const client = new Congress( config.propublicaKeys.datastore );
 const request = require('request-promise');
 
+// Vote data
+exports.getLatestVoteData = getLatestVoteData = (cb) => {
+  client.memberVotePositions({
+    memberId: config.propublicaKeys.memberId
+  }).then((response) => {
+    const result = response.results[0];
+    return cb(null, result);
+  }).catch((err) => {
+    return cb(err)
+  });
+}
 
+// FEC data
 exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	request({
 	  "method":"GET", 
