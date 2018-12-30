@@ -3,6 +3,7 @@ const async = require('async');
 
 const importData = require('./app/importData');
 const tweet = require('./app/tweet');
+
 const config = require('./config');
 
 const main = (cb) => {
@@ -16,9 +17,6 @@ const main = (cb) => {
       tweet(sCb);
     }
   ], cb);
-
-  importData(cb);
-
 }
 
 main((err) => {
@@ -26,4 +24,3 @@ main((err) => {
   console.log('DONE!');
   process.exit();
 });
-  

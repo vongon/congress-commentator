@@ -20,4 +20,3 @@ exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
 	});
 
 }
-
