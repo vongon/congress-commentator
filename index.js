@@ -3,13 +3,17 @@ const async = require('async');
 
 const importData = require('./app/importData');
 const tweet = require('./app/tweet');
-
 const config = require('./config');
+
 
 const main = (cb) => {
   async.series([
     (sCb) => {
-      // import new data from propublica 
+      // connect to database
+      mongoose.connect(config.mongo.connectionString, { useNewUrlParser: true }, sCb);    
+    },
+    (sCb) => {
+      // import new data from propublica
       importData(sCb);
     },
     (sCb) => {
