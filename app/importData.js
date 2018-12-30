@@ -8,12 +8,14 @@ module.exports = importData = (cb) => {
 	  if (err) {
 	    return cb(err);
 	  }
+  
 	  const contributions = data.results;
 	  async.eachSeries(contributions, (data, sCb) => {
 	  	Contribution.find({'data.fec_uri': data.fec_uri}).lean(true).exec((err, contributions) => {
 	  		if (err) {
 	  			return sCb(err);
 	  		}
+
 	  		if (contributions.length > 0) {
 	  			console.log('Skipping this contribution upload becase we have an existing entry for fec_uri:', data.fec_uri);
 	  			return setImmediate(sCb);
