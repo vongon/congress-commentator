@@ -28,7 +28,7 @@ module.exports = tweet = (cb) => {
       vote.tweetedAt = new Date();
       vote.save(cb);
 
-      console.log('Vote data successfully tweeted at', contribution.tweetedAt)
+      console.log('Vote data successfully tweeted at', vote.tweetedAt)
     });
   });
 
@@ -85,7 +85,7 @@ const getTweetString = (vote) => {
   const billNumber = vote.bill.number;
   const name = config.congressPerson.name;
   const party = config.congressPerson.party;
-  const sponsor = config.congressPerson.sponsor;
+  const jurisdiction = config.congressPerson.jurisdiction;
   const position = vote.position;
   const yesCount = vote.total.yes;
   const noCount = vote.total.no;
@@ -94,7 +94,7 @@ const getTweetString = (vote) => {
   const voteDate = vote.date;
 
   const message = `
-"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${sponsor}) voted "${position}". \n\n
+"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${jurisdiction}) voted "${position}". \n\n
 Short Description: '${abbreviatedBillDescription}'. \n\n
 ${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting.
 Result: ${result} ${voteDate}.
@@ -109,6 +109,7 @@ const getFECTweetString = (contribution) => {
   const name = config.congressPerson.name;
   const party = config.congressPerson.party;
   const jurisdiction = config.congressPerson.jurisdiction;
+  const handle = config.congressPerson.handle
   
   const fecURI = contribution.fec_uri
   const upToDate = contribution.date_coverage_to
@@ -119,7 +120,7 @@ const getFECTweetString = (contribution) => {
   const percentFromPACs = (pacMoney/totalMoney * 100).toFixed(2)
 
   // const fecMessage = `Testing FEC API.`
-  const fecMessage = `As of the reporting period ending ${upToDate}, ${name} (${party}-${jurisdiction}) had accepted $${totalMoneyCommas}, and $${pacMoneyWithCommas} of those contributions (${percentFromPACs}%) came from PACs. \n\n
+  const fecMessage = `As of the reporting period ending ${upToDate}, ${name} (${handle} ${party}-${jurisdiction}) had accepted $${totalMoneyCommas}, and $${pacMoneyWithCommas} of those contributions (${percentFromPACs}%) came from PACs. \n\n
 More information: ${fecURI}`;
 
   return fecMessage;
