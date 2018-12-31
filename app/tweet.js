@@ -38,7 +38,7 @@ const getTweetString = (vote) => {
   const billNumber = vote.bill.number;
   const name = config.congressPerson.name;
   const party = config.congressPerson.party;
-  const sponsor = config.congressPerson.sponsor;
+  const jurisdiction = config.congressPerson.jurisdiction;
   const position = vote.position;
   const yesCount = vote.total.yes;
   const noCount = vote.total.no;
@@ -47,7 +47,7 @@ const getTweetString = (vote) => {
   const voteDate = vote.date;
 
   const message = `
-"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${sponsor}) voted "${position}". \n\n
+"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${jurisdiction}) voted "${position}". \n\n
 Short Description: '${abbreviatedBillDescription}'. \n\n
 ${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting.
 Result: ${result} ${voteDate}.
