@@ -4,9 +4,10 @@
 exports.congressPerson = {
   name: '', // Roger Williams 
   party: '', // R
-  jurisdiction: '', // primary town/city in member's jurisdiction
-  handle: '' //@RepRWilliams
+  jurisdiction: '', // Weatherford
+  handle: '', // @RepRWilliams
 }
+
 exports.twitterKeys = {
   consumer_key: '',
   consumer_secret: '',
@@ -18,8 +19,16 @@ exports.twitterKeys = {
 exports.propublicaKeys = {
   memberId: '' ,
   datastore: '',
+  
 }
 
 exports.mongo = {
   connectionString: '',
+}
+
+// campaign finance keys
+exports.propublicaFEC = {
+  fec_key: '',
+  url: '',
+  fec_id: '', // https://www.fec.gov/data/browse-data/?tab=candidates
 }
