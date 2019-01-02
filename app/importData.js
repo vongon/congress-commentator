@@ -15,7 +15,7 @@ module.exports = importData = (cb) => {
           }
           const votes = data.votes;
           async.eachSeries(votes, (vote, voteCb) => {
-            Vote.find({'votes.vote_uri': vote.vote_uri}).lean(true).exec((err, votes) => {
+            Vote.find({'votes.vote_uri': votes.vote_uri}).lean(true).exec((err, votes) => {
               if (err) {
                 return voteCb(err);
               } 
@@ -23,8 +23,8 @@ module.exports = importData = (cb) => {
                 console.log('Skipping vote uploaded because found existing entry for vote_uri:', vote.vote_uri);
                 return setImmediate(voteCb);
               }
-              console.log('Uploading new vote_uri:', vote.vote_uri);
-              const newVote = new Vote({vote});
+              console.log('Uploading new vote_uri:', votes.vote_uri);
+              const newVote = new Vote({votes});
               newVote.save(voteCb);
             });
           }, sCb);
@@ -40,7 +40,7 @@ module.exports = importData = (cb) => {
         
           const contributions = data.results;
           async.eachSeries(contributions, (contribution, contributionCb) => {
-            Contribution.find({'contribution.fec_uri': contribution.fec_uri}).lean(true).exec((err, contributions) => {
+            Contribution.find({'contributions.fec_uri': contributions.fec_uri}).lean(true).exec((err, contributions) => {
               if (err) {
                 return contributionCb(err);
               }
@@ -49,8 +49,8 @@ module.exports = importData = (cb) => {
                 console.log('Skipping this contribution upload becase we have an existing entry for fec_uri:', contribution.fec_uri);
                 return setImmediate(contributionCb);
               }
-              console.log('Uploading new fec_uri:', contribution.fec_uri);
-              const newContribution = new Contribution({contribution});
+              console.log('Uploading new fec_uri:', contributions.fec_uri);
+              const newContribution = new Contribution({contributions});
               newContribution.save(contributionCb);
             })
           }, sCb)
