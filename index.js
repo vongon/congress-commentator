@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const async = require('async');
 
 const importData = require('./app/importData');
-const tweet = require('./app/tweet');
+const tweetVote = require('./app/tweetVote');
+const tweetContribution = require('./app/tweetContribution');
 const config = require('./config');
 
 
@@ -17,8 +18,12 @@ const main = (cb) => {
       importData(sCb);
     },
     (sCb) => {
-      // tweet
-      tweet(sCb);
+      // tweet votes
+      tweetVote(sCb);
+    }, 
+    (sCb) => {
+      // tweet contribution
+      tweetContribution(sCb);
     }
   ], cb);
 }

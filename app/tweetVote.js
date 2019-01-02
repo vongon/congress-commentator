@@ -6,7 +6,7 @@ const twitterService = require('../services/twitter');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
 
-module.exports = tweet = (cb) => {
+module.exports = tweetVote = (cb) => {
   // find oldest vote that has not been tweeted yet
   Vote.findOne({
     tweetedAt: null, 
@@ -30,49 +30,6 @@ module.exports = tweet = (cb) => {
 
       console.log('Vote data successfully tweeted at', vote.tweetedAt)
     });
-  });
-
-   /*find PPC Contribution data - The ProPublica FEC contribution data 
-   isn't updated very frequently, so we'll want to tweet about this on a 
-   different schedule than votes. Could we do a query like this to grab 
-   something that we haven't tweeted about, say, within the last 2 hours?
-   
-   Contribution.findOne({
-          tweetedAt: {
-            $lte: new Date().getTime() - (1000 * 60 * 120)
-          } 
-
-    */ 
- 
-    Contribution.findOne({
-    tweetedAt: null,
-    'data.id': config.propublicaFEC.fec_id
-  }).sort({createdAt: 1}).exec((err, contribution) => {
-    if (err) {
-      return cb(err);
-    }
-
-    // if there's nothing there
-    if (!contribution) {
-      console.log('No contribution data available to tweet')
-      return cb()
-    }
-
-    const FECmessage = getFECTweetString(contribution.data);
-    console.log('Tweeting FEC data:', FECmessage);
-
-    // tweet the FEC message
-    twitterService.tweet(FECmessage, (err) => {
-    if (err) {
-      return err;
-    }
-
-    // save the ProPublica data to the database
-    contribution.tweetedAt = new Date();
-    contribution.save(cb);
-
-    console.log('FEC data successfully tweeted at', contribution.tweetedAt)
-    }); 
   });
 
 };
