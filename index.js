@@ -24,7 +24,7 @@ const main = (cb) => {
     (sCb) => {
       // tweet contribution
       tweetContribution(sCb);
-    }
+    },
   ], cb);
 }
 

@@ -11,21 +11,21 @@ module.exports = importData = (cb) => {
         // get votes
         propublicaService.getLatestVoteData((err, data) => {
           if (err) {
-            return sCb(err);
+            return voteCb(err);
           }
           const votes = data.votes;
-          async.eachSeries(votes, (data, sCb) => {
+          async.eachSeries(votes, (data, voteCb) => {
             Vote.find({'data.vote_uri': data.vote_uri}).lean(true).exec((err, votes) => {
               if (err) {
-                return sCb(err);
+                return voteCb(err);
               } 
               if (votes.length > 0) {
                 console.log('Skipping vote uploaded because found existing entry for vote_uri:', data.vote_uri);
-                return setImmediate(sCb);
+                return setImmediate(voteCb);
               }
               console.log('Uploading new vote_uri:', data.vote_uri);
               const newVote = new Vote({data});
-              newVote.save(sCb);
+              newVote.save(voteCb);
             });
           }, sCb);
         }); // end getLatestVoteData
@@ -35,23 +35,23 @@ module.exports = importData = (cb) => {
         // get FEC data
         propublicaService.getCampaignFinanceData((err, data) => {
           if (err) {
-            return sCb(err);
+            return contributionsCb(err);
           }
         
           const contributions = data.results;
-          async.eachSeries(contributions, (data, sCb) => {
+          async.eachSeries(contributions, (data, contributionsCb) => {
             Contribution.find({'data.fec_uri': data.fec_uri}).lean(true).exec((err, contributions) => {
               if (err) {
-                return sCb(err);
+                return contributionsCb(err);
               }
 
               if (contributions.length > 0) {
                 console.log('Skipping this contribution upload becase we have an existing entry for fec_uri:', data.fec_uri);
-                return setImmediate(sCb);
+                return setImmediate(contributionsCb);
               }
               console.log('Uploading new fec_uri:', data.fec_uri);
               const newContribution = new Contribution({data});
-              newContribution.save(sCb);
+              newContribution.save(contributionsCb);
             })
           }, sCb)
         }); // end getCampaignFinanceData

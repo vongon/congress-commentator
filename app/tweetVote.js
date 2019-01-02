@@ -60,25 +60,3 @@ Result: ${result} ${voteDate}.
   return message;
 }
 
-// FEC tweet
-const getFECTweetString = (contribution) => {
-
-  const name = config.congressPerson.name;
-  const party = config.congressPerson.party;
-  const jurisdiction = config.congressPerson.jurisdiction;
-  const handle = config.congressPerson.handle
-  
-  const fecURI = contribution.fec_uri
-  const upToDate = contribution.date_coverage_to
-  const totalMoney = contribution.total_contributions
-  const totalMoneyCommas = totalMoney.toLocaleString();
-  const pacMoney = contribution.total_from_pacs 
-  const pacMoneyWithCommas = pacMoney.toLocaleString(); // format dollar amount in a better way?
-  const percentFromPACs = (pacMoney/totalMoney * 100).toFixed(2)
-
-  // const fecMessage = `Testing FEC API.`
-  const fecMessage = `As of the reporting period ending ${upToDate}, ${name} (${handle} ${party}-${jurisdiction}) had accepted $${totalMoneyCommas}, and $${pacMoneyWithCommas} of those contributions (${percentFromPACs}%) came from PACs. \n\n
-More information: ${fecURI}`;
-
-  return fecMessage;
-}
