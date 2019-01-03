@@ -50,7 +50,7 @@ module.exports = importData = (cb) => {
                 return setImmediate(contributionCb);
               }
               console.log('Uploading new fec_uri:', contribution.fec_uri);
-              new Contribution({data: contribution});
+              const newContribution = new Contribution({data: contribution});
               newContribution.save(contributionCb);
             })
           }, sCb)
