@@ -10,7 +10,9 @@ const main = (cb) => {
   async.series([
     (sCb) => {
       // connect to database
-      mongoose.connect(config.mongo.connectionString, { useNewUrlParser: true }, sCb);    
+      const options = config.mongo.options;
+      options.useNewUrlParser = true;
+      mongoose.connect(config.mongo.connectionString, options, sCb);
     },
     (sCb) => {
       // import new data from propublica
