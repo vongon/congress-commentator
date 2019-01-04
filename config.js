@@ -5,7 +5,6 @@ if (process.env.configPath) {
   return;
 }
 
-
 // test account: https://twitter.com/RepRWilliamsBot
 module.exports = {
   congressPerson: {

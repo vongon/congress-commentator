@@ -14,7 +14,15 @@ module.exports = importData = (cb) => {
             return sCb(err);
           }
           const votes = data.votes;
-          async.eachSeries(data.votes, (vote, voteCb) => {
+          
+          async.eachSeries(votes, (vote, voteCb) => {
+              // weird special case for JSON data in Speaker vote
+            if(vote.total && vote.total['Hon. Tammy']) {
+              vote.total['Hon'] = vote.total['Hon. Tammy']
+              delete vote.total['Hon. Tammy']
+            }
+            
+            // changing 'data.vote_uri' to 'vote.vote_uri'
             Vote.find({'data.vote_uri': data.vote_uri}).lean(true).exec((err, votes) => {
               if (err) {
                 return voteCb(err);
@@ -27,6 +35,7 @@ module.exports = importData = (cb) => {
               const newVote = new Vote({data: vote});
               newVote.save(voteCb);
             });
+
           }, sCb);
         }); // end getLatestVoteData
 

@@ -38,7 +38,7 @@ module.exports = tweetVote = (cb) => {
 const getTweetString = (vote) => {
   const handle = config.congressPerson.handle
   const abbreviatedBillQuestion = vote.question.substring(0,30);
-  const abbreviatedBillDescription = vote.description.substring(0,65);
+  const abbreviatedBillDescription = vote.description.substring(0,55);
   const billNumber = vote.bill.number;
   const name = config.congressPerson.name;
   const party = config.congressPerson.party;
