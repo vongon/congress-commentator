@@ -14,28 +14,27 @@ module.exports = importData = (cb) => {
             return sCb(err);
           }
           const votes = data.votes;
-          
-          async.eachSeries(votes, (vote, voteCb) => {
-              // weird special case for JSON data in Speaker vote
-            if(vote.total && vote.total['Hon. Tammy']) {
-              vote.total['Hon'] = vote.total['Hon. Tammy']
-              delete vote.total['Hon. Tammy']
-            }
+          async.eachSeries(votes, (data, voteCb) => {
+             
+             // weird temporary special case for JSON data in Speaker of the House vote
+              if(data.total && data.total['Hon. Tammy']) {
+                data.total['Hon'] = data.total['Hon. Tammy']
+                delete data.total['Hon. Tammy']
+              }
             
-            // changing 'data.vote_uri' to 'vote.vote_uri'
             Vote.find({'data.vote_uri': data.vote_uri}).lean(true).exec((err, votes) => {
               if (err) {
                 return voteCb(err);
               } 
               if (votes.length > 0) {
-                console.log('Skipping vote uploaded because found existing entry for vote_uri:', vote.vote_uri);
+                console.log('Skipping vote uploaded because found existing entry for vote_uri:', data.vote_uri);
                 return setImmediate(voteCb);
               }
-              console.log('Uploading new vote_uri:', vote.vote_uri);
-              const newVote = new Vote({data: vote});
+              console.log('Uploading new vote_uri:', data.vote_uri);
+              const newVote = new Vote({data});
+              console.log('console.logging "newVote" :', newVote)
               newVote.save(voteCb);
             });
-
           }, sCb);
         }); // end getLatestVoteData
 
@@ -64,8 +63,7 @@ module.exports = importData = (cb) => {
             })
           }, sCb)
         }); // end getCampaignFinanceData
-      }, 
-    
+      },  
     ], cb);
   
   }
