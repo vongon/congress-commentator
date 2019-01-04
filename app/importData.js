@@ -15,13 +15,6 @@ module.exports = importData = (cb) => {
           }
           const votes = data.votes;
           async.eachSeries(votes, (data, voteCb) => {
-             
-             // weird temporary special case for JSON data in Speaker of the House vote
-              if(data.total && data.total['Hon. Tammy']) {
-                data.total['Hon'] = data.total['Hon. Tammy']
-                delete data.total['Hon. Tammy']
-              }
-            
             Vote.find({'data.vote_uri': data.vote_uri}).lean(true).exec((err, votes) => {
               if (err) {
                 return voteCb(err);
@@ -31,8 +24,14 @@ module.exports = importData = (cb) => {
                 return setImmediate(voteCb);
               }
               console.log('Uploading new vote_uri:', data.vote_uri);
+
+              // weird special case for Speaker vote
+              if(data.total && data.total['Hon. Tammy']) {
+                data.total['Hon Tammy'] = data.total['Hon. Tammy']
+                delete data.total['Hon. Tammy']
+              }
+
               const newVote = new Vote({data});
-              console.log('console.logging "newVote" :', newVote)
               newVote.save(voteCb);
             });
           }, sCb);
