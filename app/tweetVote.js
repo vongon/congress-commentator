@@ -36,6 +36,30 @@ module.exports = tweetVote = (cb) => {
 
 // Votes tweet 
 const getTweetString = (vote) => {
+  // Speaker vote has no bill number and vote totals were strings
+  if (vote.question == "Election of the Speaker") {
+    const handle = config.congressPerson.handle
+    const abbreviatedBillQuestion = vote.question;
+    const name = config.congressPerson.name;
+    const party = config.congressPerson.party;
+    const jurisdiction = config.congressPerson.jurisdiction;
+    const position = vote.position;
+    const pelosiCount = vote.total["Pelosi"];
+    const mcCarthyCount = vote.total["McCarthy"];
+    const otherCount = vote.total["Massie"] + vote.total["Jordan"] + vote.total["Bustos"] + vote.total["Joseph Bid"] + vote.total["Lewis"] + vote.total["Kennedy"] + vote.total["Murphy"] + vote.total["Stacey Abr"] + vote.total["Fudge"] + vote.total["Hon Tammy"]
+    const notCount = vote.total["Not Voting"];
+    const presentCount = vote.total["Present"];
+    const result = vote.result
+    const voteDate = vote.date;
+
+    const message = `
+On "${abbreviatedBillQuestion}", ${name} (${handle} ${party}-${jurisdiction}) voted "${position}". \n\n
+${pelosiCount} member(s) voted "Pelosi". ${mcCarthyCount} member(s) voted "McCarthy". ${notCount} not voting, ${presentCount} "Present", ${otherCount } voted for other candidates.\n\n
+Result: ${result} elected Speaker of the House on ${voteDate}.`;
+
+    return message;
+  }
+
   const handle = config.congressPerson.handle
   const abbreviatedBillQuestion = vote.question.substring(0,30);
   const abbreviatedBillDescription = vote.description.substring(0,55);

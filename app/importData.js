@@ -25,7 +25,7 @@ module.exports = importData = (cb) => {
               }
               console.log('Uploading new vote_uri:', data.vote_uri);
 
-              // weird special case for Speaker vote
+              // weird special case for Speaker vote -- ProPublica fixed this for us so it can be safely removed
               if(data.total && data.total['Hon. Tammy']) {
                 data.total['Hon Tammy'] = data.total['Hon. Tammy']
                 delete data.total['Hon. Tammy']

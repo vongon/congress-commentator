@@ -7,27 +7,23 @@ const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
 
 module.exports = tweetContribution = (cb) => {
-	/*find PPC Contribution data - The ProPublica FEC contribution data 
-   isn't updated very frequently, so we'll want to tweet about this on a 
-   different schedule than votes. Could we do a query like this to grab 
-   something that we haven't tweeted about, say, within the last 2 hours?
-   
-   Contribution.findOne({
-          tweetedAt: {
-            $lte: new Date().getTime() - (1000 * 60 * 120)
-          } 
-    */ 
-    Contribution.findOne({
-    tweetedAt: null,
-    'data.id': config.propublicaFEC.fec_id
-  }).sort({createdAt: 1}).exec((err, contribution) => {
+    /*look for contribution data that we either haven't tweeted about 
+    within last 24 hours, or that hasn't been tweeted about at all*/
+    Contribution.findOne({$or: [
+      { tweetedAt: {
+            $lte: new Date().getTime() - (1000 * 60 * 60 * 24)
+          },
+    'data.id': config.propublicaFEC.fec_id},
+      { tweetedAt: null,
+    'data.id': config.propublicaFEC.fec_id}
+    ]}).sort({createdAt: 1}).exec((err, contribution) => {
     if (err) {
       return cb(err);
     }
 
     // if there's nothing there
     if (!contribution) {
-      console.log('No contribution data available to tweet')
+      console.log('No new contribution data available to tweet')
       return cb()
     }
 
@@ -40,7 +36,7 @@ module.exports = tweetContribution = (cb) => {
       return err;
     }
 
-    // save the ProPublica data to the database
+    // save a new ProPublica data contribution entry to the database
     contribution.tweetedAt = new Date();
     contribution.save(cb);
 
