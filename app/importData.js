@@ -19,6 +19,13 @@ module.exports = importData = (cb) => {
           return setImmediate(sCb);
         }
         console.log('Uploading new vote_uri:', data.vote_uri);
+
+        // weird special case for some bills
+        if(data.total && data.total['Hon. Tammy']) {
+          data.total['Hon Tammy'] = data.total['Hon. Tammy']
+          delete data.total['Hon. Tammy']
+        }
+
         const newVote = new Vote({data});
         newVote.save(sCb);
       });
