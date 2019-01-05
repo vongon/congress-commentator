@@ -48,7 +48,6 @@ const getTweetString = (vote) => {
     var mcCarthyCount = vote.total["McCarthy"];
     var otherCount = 0;
     Object.keys(vote.total).map((item) => {
-      console.log({item});
       if(!(item == "Pelosi" || item == "McCarthy")) {
         console.log(item, vote.total[item]);
         otherCount += vote.total[item];
