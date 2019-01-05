@@ -38,12 +38,12 @@ module.exports = importData = (cb) => {
       },
       (sCb)=> { 
         // get FEC data
-        propublicaService.getCampaignFinanceData((err, finainceData) => {
+        propublicaService.getCampaignFinanceData((err, financeData) => {
           if (err) {
             console.log('error from get finaince data', err);
             return sCb(err);
           }
-          async.eachSeries(finainceData.results, (data, contributionCb) => {
+          async.eachSeries(financeData.results, (data, contributionCb) => {
             Contribution.findOne({'data.id': data.id}).exec((err, contribution) => {
               if (err) {
                 return contributionCb(err);
@@ -64,4 +64,4 @@ module.exports = importData = (cb) => {
       },  
     ], cb);
   }
-  
+
