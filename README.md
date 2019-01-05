@@ -11,10 +11,10 @@
 
     run `npm install` in terminal inside app directory
 
-3) update `config.js` with secret keys
+3) add a local config file with secret keys
 
-    https://paper.dropbox.com/doc/Congress-Commentator-Config--ATwHo6jeqCx0nBut_EiLAZ7eAQ-xYEzMfpbVCa7PU3lziVFq
+    instructions: https://paper.dropbox.com/doc/Congress-Commentator-Config--ATwHo6jeqCx0nBut_EiLAZ7eAQ-xYEzMfpbVCa7PU3lziVFq
 
 4) run app
 
-    run `node index.js`
+    run `configPath='./localConfig.js' node index.js`
