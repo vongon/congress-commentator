@@ -5,7 +5,7 @@ if (process.env.configPath) {
   return;
 }
 
-// test account: https://twitter.com/RWilliamsVotes
+// test account: https://twitter.com/RepRWilliamsBot
 module.exports = {
   congressPerson: {
     name: '', // Roger Williams 
@@ -32,6 +32,8 @@ module.exports = {
   },
   mongo: {
     connectionString: '',
+  }
+};
     options: {}
   }
 };
