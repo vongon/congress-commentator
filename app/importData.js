@@ -40,7 +40,7 @@ module.exports = importData = (cb) => {
         // get FEC data
         propublicaService.getCampaignFinanceData((err, financeData) => {
           if (err) {
-            console.log('error from get finaince data', err);
+            console.log('error from get finance data', err);
             return sCb(err);
           }
           async.eachSeries(financeData.results, (data, contributionCb) => {
