@@ -36,33 +36,33 @@ module.exports = importData = (cb) => {
           });
         }, sCb);
       }); // end getLatestVoteData
-
     },
     (sCb)=> { 
       // get FEC data
-      propublicaService.getCampaignFinanceData((err, data) => {
+      propublicaService.getCampaignFinanceData((err, financeData) => {
         if (err) {
+          console.log('error from get finance data', err);
           return sCb(err);
         }
-      
-        const contributions = data.results;
-        async.eachSeries(data.results, (contribution, contributionCb) => {
-          Contribution.find({'data.fec_uri': contribution.fec_uri}).lean(true).exec((err, contributions) => {
+        async.eachSeries(financeData.results, (data, contributionCb) => {
+          Contribution.findOne({'data.id': data.id}).exec((err, contribution) => {
             if (err) {
               return contributionCb(err);
             }
 
-            if (contributions.length > 0) {
-              console.log('Skipping this contribution upload becase we have an existing entry for fec_uri:', contribution.fec_uri);
-              return setImmediate(contributionCb);
+            if (contribution) {
+              console.log(`Updating contribution data for member id: ${contribution.data.id}`);
+              contribution.data = data;
+              return contribution.save(contributionCb);
+            } else {
+              console.log(`Creating contribution data for member id: ${data.id}`);
+              const newContribution = new Contribution({data});
+              return newContribution.save(contributionCb);
             }
-            console.log('Uploading new fec_uri:', contribution.fec_uri);
-            const newContribution = new Contribution({data: contribution});
-            newContribution.save(contributionCb);
           })
         }, sCb)
       }); // end getCampaignFinanceData
     },  
-  ], cb);  
+  ], cb);
 }
 

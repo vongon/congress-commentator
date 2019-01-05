@@ -2,6 +2,7 @@ const config = require('../config');
 const Congress = require( 'propublica-congress-node' );
 const client = new Congress( config.propublicaKeys.datastore );
 const request = require('request-promise');
+const async = require('async');
 
 // Vote data
 exports.getLatestVoteData = getLatestVoteData = (cb) => {
@@ -17,18 +18,22 @@ exports.getLatestVoteData = getLatestVoteData = (cb) => {
 
 // FEC data
 exports.getCampaignFinanceData = getCampaignFinanceData = (cb) => {
-	request({
-	  "method":"GET", 
-	  "uri": config.propublicaFEC.url,
-	  "json": true,
-	  "headers": {
-	    'X-API-Key': config.propublicaFEC.fec_key
-	  }
-	})
-	.then(function(response) {
-      return cb(null, response);
-	}).catch(function(err) {
-      return cb(err);
-	});
+  // retry request 3 times before returning error because it has time-out errors
+  async.retry(3, _getCampaignFinanceData, cb);
+}
 
+const _getCampaignFinanceData = (cb) => {
+  request({
+    "method":"GET", 
+    "uri": config.propublicaFEC.url,
+    "json": true,
+    "headers": {
+      'X-API-Key': config.propublicaFEC.fec_key
+    }
+  })
+  .then(function(response) {
+    return cb(null, response);
+  }).catch(function(err) {
+    return cb(err);
+  });
 }
