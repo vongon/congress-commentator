@@ -32,8 +32,6 @@ module.exports = {
   },
   mongo: {
     connectionString: '',
-  }
-};
     options: {}
   }
 };
