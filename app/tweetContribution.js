@@ -5,18 +5,12 @@ const config = require('../config');
 const twitterService = require('../services/twitter');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
+const moment = require('moment');
 
 module.exports = tweetContribution = (cb) => {
     /*look for contribution data that we either haven't tweeted about 
     within last 24 hours, or that hasn't been tweeted about at all*/
-    Contribution.findOne({$or: [
-      { tweetedAt: {
-            $lte: new Date().getTime() - (1000 * 60 * 60 * 24)
-          },
-    'data.id': config.propublicaFEC.fec_id},
-      { tweetedAt: null,
-    'data.id': config.propublicaFEC.fec_id}
-    ]}).sort({createdAt: 1}).exec((err, contribution) => {
+    Contribution.findOne({'data.id': config.propublicaFEC.fec_id}).exec((err, contribution) => {
     if (err) {
       return cb(err);
     }
@@ -25,6 +19,11 @@ module.exports = tweetContribution = (cb) => {
     if (!contribution) {
       console.log('No new contribution data available to tweet')
       return cb()
+    }
+
+    if (!okayToTweet(contribution)) {
+      console.log(`Skipping tweeting contribution because it didn't pass validation`);
+      return cb();
     }
 
     const FECmessage = getFECTweetString(contribution.data);
@@ -43,6 +42,18 @@ module.exports = tweetContribution = (cb) => {
     console.log('FEC data successfully tweeted at', contribution.tweetedAt)
     }); 
   });
+}
+
+const okayToTweet = (contribution) => {
+  if (!contribution.tweetedAt) {
+    return true;
+  }
+  const tweetedAt = new moment(contribution.tweetedAt);
+  const cutoff = new moment().subtract(24, 'h');
+  if (tweetedAt.isBefore(cutoff)) {
+    return true;
+  }
+  return false;
 }
 
 // FEC tweet
