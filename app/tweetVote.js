@@ -46,7 +46,14 @@ const getTweetString = (vote) => {
     var position = vote.position;
     var pelosiCount = vote.total["Pelosi"];
     var mcCarthyCount = vote.total["McCarthy"];
-    var otherCount = vote.total["Massie"] + vote.total["Jordan"] + vote.total["Bustos"] + vote.total["Joseph Bid"] + vote.total["Lewis"] + vote.total["Kennedy"] + vote.total["Murphy"] + vote.total["Stacey Abr"] + vote.total["Fudge"] + vote.total["Hon Tammy"]
+    var otherCount = 0;
+    Object.keys(vote.total).map((item) => {
+      console.log({item});
+      if(!(item == "Pelosi" || item == "McCarthy")) {
+        console.log(item, vote.total[item]);
+        otherCount += vote.total[item];
+      }
+    })
     var notCount = vote.total["Not Voting"];
     var presentCount = vote.total["Present"];
     var result = vote.result
