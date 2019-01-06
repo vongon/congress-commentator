@@ -11,37 +11,37 @@ module.exports = tweetContribution = (cb) => {
     /*look for contribution data that we either haven't tweeted about 
     within last 24 hours, or that hasn't been tweeted about at all*/
     Contribution.findOne({'data.id': config.propublicaFEC.fec_id}).exec((err, contribution) => {
-    if (err) {
-      return cb(err);
-    }
+      if (err) {
+        return cb(err);
+      }
 
-    // if there's nothing there
-    if (!contribution) {
-      console.log('No new contribution data available to tweet')
-      return cb()
-    }
+      // if there's nothing there
+      if (!contribution) {
+        console.log('No new contribution data available to tweet')
+        return cb()
+      }
 
-    if (!okayToTweet(contribution)) {
-      console.log(`Skipping tweeting contribution because it didn't pass validation`);
-      return cb();
-    }
+      if (!okayToTweet(contribution)) {
+        console.log(`Skipping tweeting contribution because it didn't pass validation`);
+        return cb();
+      }
 
-    const FECmessage = getFECTweetString(contribution.data);
-    console.log('Tweeting FEC data:', FECmessage);
+      const FECmessage = getFECTweetString(contribution.data);
+      console.log('Tweeting FEC data:', FECmessage);
 
-    // tweet the FEC message
-    twitterService.tweet(FECmessage, (err) => {
-    if (err) {
-      return err;
-    }
+      // tweet the FEC message
+      twitterService.tweet(FECmessage, (err) => {
+      if (err) {
+        return cb(err);
+      }
 
-    // save a new ProPublica data contribution entry to the database
-    contribution.tweetedAt = new Date();
-    contribution.save(cb);
+      // save a new ProPublica data contribution entry to the database
+      contribution.tweetedAt = new Date();
+      contribution.save(cb);
 
-    console.log('FEC data successfully tweeted at', contribution.tweetedAt)
-    }); 
-  });
+      console.log('FEC data successfully tweeted at', contribution.tweetedAt)
+      });
+    });
 }
 
 const okayToTweet = (contribution) => {
