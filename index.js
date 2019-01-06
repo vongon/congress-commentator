@@ -31,7 +31,10 @@ const main = (cb) => {
 }
 
 main((err) => {
-  if (err) throw JSON.stringify(err);
+  if (err) {
+    throw JSON.stringify(err);
+    process.exit(1); // just to make sure the program quits when an error is thrown.
+  }
   console.log('DONE!');
   process.exit();
 });
