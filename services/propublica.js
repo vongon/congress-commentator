@@ -29,7 +29,15 @@ const _getCampaignFinanceData = (cb) => {
     "json": true,
     "headers": {
       'X-API-Key': config.propublicaFEC.fec_key
-    }
+    },
+    timeout: 1500
+    // function(err) {
+    // console.log(err.code === 'ETIMEDOUT');
+    // // Set to `true` if the timeout was a connection timeout, `false` or
+    // // `undefined` otherwise.
+    // console.log(err.connect === true);
+    // process.exit(0);
+  // } 
   })
   .then(function(response) {
     return cb(null, response);
@@ -37,3 +45,4 @@ const _getCampaignFinanceData = (cb) => {
     return cb(err);
   });
 }
+
