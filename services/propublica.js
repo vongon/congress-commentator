@@ -31,9 +31,10 @@ const _getCampaignFinanceData = (cb) => {
       'X-API-Key': config.propublicaFEC.fec_key
     }
   })
-  .then(function(response) {
+  .then((response) => {
     return cb(null, response);
-  }).catch(function(err) {
+  })
+  .catch((err) => {
     return cb(err);
   });
 }
