@@ -35,10 +35,7 @@ const _getCampaignFinanceData = (cb) => {
   .then(function(response) {
     return cb(null, response);
   }).catch(function(err) {
-    consol.log(err.code === 'ETIMEDOUT');
-    console.log(err.connect === true);
     return cb(err);
-    process.exit(0);
   });
 }
 
