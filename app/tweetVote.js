@@ -34,6 +34,14 @@ module.exports = tweetVote = (cb) => {
 
 };
 
+// trim tweet Question & Description without cutting off mid-word
+function trimString(string, maxLength) {
+  var trimmedString = string.substr(0, maxLength);
+  //re-trim if we are in the middle of a word
+  trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+  return trimmedString;
+}
+
 // Votes tweet 
 const getTweetString = (vote) => {
   // Speaker vote has no bill number and vote totals were strings
@@ -67,8 +75,8 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
   }
 
     var handle = config.congressPerson.handle
-    var abbreviatedBillQuestion = vote.question.substring(0,30);
-    var abbreviatedBillDescription = vote.description.substring(0,55);
+    var abbreviatedBillQuestion = trimString(vote.question, 25)
+    var abbreviatedBillDescription = trimString(vote.description, 50)
     var billNumber = vote.bill.number;
     var name = config.congressPerson.name;
     var party = config.congressPerson.party;
