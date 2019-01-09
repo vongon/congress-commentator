@@ -68,7 +68,7 @@ module.exports = importData = (cb) => {
     },
 
     (sCb)=> { 
-      // get FEC data from the FEC
+      // get PAC data from the FEC
       fecService.getPacContributions((err, pacData) => {
         if (err) {
           console.log('error from getPacContributions', err);

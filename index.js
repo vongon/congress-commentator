@@ -17,7 +17,7 @@ const main = (cb) => {
       mongoose.connect(config.mongo.connectionString, options, sCb);
     },
     (sCb) => {
-      // import new data from propublica
+      // import data 
       importData(sCb);
     },
     (sCb) => {
