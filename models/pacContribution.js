@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const PACContribution = new Schema({
-  // mixed type for FEC data from from propublica
+  // mixed type for PAC data from the FEC
   data: {},
   
   // set this date when we tweet about this contribution
