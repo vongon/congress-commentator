@@ -33,5 +33,11 @@ module.exports = {
   mongo: {
     connectionString: '',
     options: {}
+  },
+  // scraping keys
+  fec: {
+    url: '',
+    api_key: '',
+    committee_id: ''
   }
 };
