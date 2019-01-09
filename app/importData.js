@@ -67,7 +67,6 @@ module.exports = importData = (cb) => {
       }); // end getCampaignFinanceData
     },
 
-    
     (sCb)=> { 
       // get FEC data from the FEC
       fecService.getPacContributions((err, pacData) => {
@@ -99,9 +98,3 @@ module.exports = importData = (cb) => {
 
   ], cb);
 }
-
-
-
-  ], cb);
-}
-
