@@ -4,6 +4,9 @@ const propublicaService = require('../services/propublica');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution')
 
+const fecService = require('../services/fec');
+const PACContribution = require('../models/pacContribution');
+
 module.exports = importData = (cb) => {
 
   async.series([
@@ -38,7 +41,7 @@ module.exports = importData = (cb) => {
       }); // end getLatestVoteData
     },
     (sCb)=> { 
-      // get FEC data
+       // get FEC data from proPublica
       propublicaService.getCampaignFinanceData((err, financeData) => {
         if (err) {
           console.log('error from get finance data', err);
@@ -62,7 +65,43 @@ module.exports = importData = (cb) => {
           })
         }, sCb)
       }); // end getCampaignFinanceData
-    },  
+    },
+
+    
+    (sCb)=> { 
+      // get FEC data from the FEC
+      fecService.getPacContributions((err, pacData) => {
+        if (err) {
+          console.log('error from getPacContributions', err);
+          return sCb(err);
+        }
+        
+        async.eachSeries(pacData.results, (data, contributionCb) => {
+          PACContribution.countDocuments({'data.transaction_id': data.transaction_id}).exec((err, contribution) => {
+            
+            if (err) {
+              return contributionCb(err);
+            }
+
+            if (contribution) {
+              console.log('Skipping contribution uploaded because found existing entry for transaction_id:', data.transaction_id);
+              return setImmediate(contributionCb);
+
+            } else {
+              console.log(`Creating contribution data for transaction id: ${data.transaction_id}`);
+              const newPacContribution = new PACContribution({data});
+              return newPacContribution.save(contributionCb);              
+            }  
+          }) // end findOne
+        }, sCb)
+      }); // end getPacContributions
+    }
+
+  ], cb);
+}
+
+
+
   ], cb);
 }
 
