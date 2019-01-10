@@ -13,7 +13,7 @@ exports.getPacContributions = getPacContributions = (cb) => {
 	    return cb(err);
 	  }
 	  // do any modification or filtering here needed to get the contribution data
-	  process.stdout.write('Loading FEC receipts data for ' + config.congressPerson.name + ', ' + config.fec.committee_id);
+	  console.log('Loading FEC receipts data for ' + config.congressPerson.name + ', ' + config.fec.committee_id);
 	  return cb(null, body);
 	});
 
