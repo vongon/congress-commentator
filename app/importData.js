@@ -1,11 +1,10 @@
 const async = require('async')
-
 const propublicaService = require('../services/propublica');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution')
-
 const fecService = require('../services/fec');
 const PACContribution = require('../models/pacContribution');
+const config = require('../config')
 
 module.exports = importData = (cb) => {
 
@@ -66,35 +65,27 @@ module.exports = importData = (cb) => {
         }, sCb)
       }); // end getCampaignFinanceData
     },
-
     (sCb)=> { 
       // get PAC data from the FEC
       fecService.getPacContributions((err, pacData) => {
         if (err) {
-          console.log('error from getPacContributions', err);
           return sCb(err);
-        }
-        
+        }      
         async.eachSeries(pacData.results, (data, contributionCb) => {
-          PACContribution.countDocuments({'data.transaction_id': data.transaction_id}).exec((err, contribution) => {
-            
+          PACContribution.countDocuments({'data.transaction_id': data.transaction_id, 'data.committee_id': config.fec.committee_id}).exec((err, contributionCount) => {
             if (err) {
               return contributionCb(err);
             }
-
-            if (contribution) {
+            if (contributionCount > 0) {
               console.log('Skipping contribution uploaded because found existing entry for transaction_id:', data.transaction_id);
-              return setImmediate(contributionCb);
-
-            } else {
-              console.log(`Creating contribution data for transaction id: ${data.transaction_id}`);
-              const newPacContribution = new PACContribution({data});
-              return newPacContribution.save(contributionCb);              
-            }  
+              return contributionCb();
+            }
+            console.log(`Creating contribution data for transaction id: ${data.transaction_id}`);
+            const newPacContribution = new PACContribution({data});
+            return newPacContribution.save(contributionCb);               
           }) // end findOne
         }, sCb)
       }); // end getPacContributions
     }
-
   ], cb);
 }

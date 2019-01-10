@@ -1,5 +1,6 @@
-const request = require('request-promise');
-const config = require('../config')
+// const request = require('request-promise');
+const request = require('request');
+const config = require('../config');
 
 exports.getPacContributions = getPacContributions = (cb) => {
 	const options = {
@@ -8,12 +9,25 @@ exports.getPacContributions = getPacContributions = (cb) => {
 		json: true
 	}
 
-	request(options)
-	  .then((response) => {  
-	    return cb(null, response)
-	    process.stdout.write('Loading FEC receipts data for ' + config.congressPerson.name + ', ' + config.fec.committee_id);
-	  })
-	  .catch((err) => {
-	  	console.log(err)
-	  })	
+	// request(options)
+	//   .then((response) => {  
+	//     return cb(null, response)
+	//     process.stdout.write('Loading FEC receipts data for ' + config.congressPerson.name + ', ' + config.fec.committee_id);
+	//   })
+	//   .catch((err) => {
+	//   	console.log(err)
+	//   })	
+
+	request(options, (err, response, body) => {
+	  if (err) {
+	    return cb(err);
+	  }
+	  // do any modification or filtering here needed to get the contribution data
+	  process.stdout.write('Loading FEC receipts data for ' + config.congressPerson.name + ', ' + config.fec.committee_id);
+	  return cb(null, body);
+	});
+
 }
+
+
+

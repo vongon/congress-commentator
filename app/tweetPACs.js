@@ -13,20 +13,16 @@ module.exports = tweetContribution = (cb) => {
     	tweetedAt: null, 
     	'data.committee_id': config.fec.committee_id
     }).sort({createdAt: 1}).exec((err, contribution) => {
-      
-      // need to handle Null values so string methods don't break
-      handleNullValues(contribution.data)
-
       if (err) {
         return cb(err);
       }
-
+      // need to handle Null values so string methods don't break
+      handleNullValues(contribution.data)
       // if there's nothing there
       if (!contribution) {
         console.log('No new PAC contribution data available to tweet')
         return cb()
       }
-
       if (!okayToTweet(contribution)) {
         console.log(`Skipping tweeting PAC contribution because it didn't pass validation`);
         return cb();
@@ -57,9 +53,9 @@ const okayToTweet = (contribution) => {
   }
   const tweetedAt = new moment(contribution.tweetedAt);
   const cutoff = new moment().subtract(2, 'h');
-  if (tweetedAt.isBefore(cutoff)) {
-    return true;
-  }
+    if (tweetedAt.isBefore(cutoff)) {
+      return true;
+    }
   return false;
 }
 
@@ -69,7 +65,7 @@ String.prototype.toProperCase = function () {
 };
 
 // handle null values for string methods
-const handleNullValues = function(obj) {
+const handleNullValues = (obj) => {
 	Object.keys(obj).forEach(function(key) {
 	    if(obj[key] === null) {
 	        obj[key] = '-';
