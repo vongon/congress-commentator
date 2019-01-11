@@ -16,7 +16,6 @@ exports.getPacContributions = getPacContributions = (cb) => {
 	  console.log('Loading FEC receipts data for ' + config.congressPerson.name + ', ' + config.fec.committee_id);
 	  return cb(null, body);
 	});
-
 }
 
 

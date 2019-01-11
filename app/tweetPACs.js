@@ -61,17 +61,17 @@ const okayToTweet = (contribution) => {
 
 // properCase helper
 String.prototype.toProperCase = function () {
-    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-};
+  return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
 
 // handle null values for string methods
 const handleNullValues = (obj) => {
-	Object.keys(obj).forEach(function(key) {
-	    if(obj[key] === null) {
-	        obj[key] = '-';
-	    }
-	})
-  return obj
+  Object.keys(obj).forEach(function(key) {
+    if(obj[key] === null) {
+      obj[key] = '-';
+    }
+  })
+  return obj;
 }
 
 
