@@ -4,6 +4,7 @@ const async = require('async');
 const importData = require('./app/importData');
 const tweetVote = require('./app/tweetVote');
 const tweetContribution = require('./app/tweetContribution');
+const tweetPACs = require('./app/tweetPACs')
 const config = require('./config');
 
 
@@ -16,7 +17,7 @@ const main = (cb) => {
       mongoose.connect(config.mongo.connectionString, options, sCb);
     },
     (sCb) => {
-      // import new data from propublica
+      // import data 
       importData(sCb);
     },
     (sCb) => {
@@ -26,6 +27,10 @@ const main = (cb) => {
     (sCb) => {
       // tweet contribution
       tweetContribution(sCb);
+    },
+    (sCb) => {
+      // tweet PAC contribution data
+      tweetPACs(sCb);
     },
   ], cb);
 }
