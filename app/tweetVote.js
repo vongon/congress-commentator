@@ -39,14 +39,11 @@ function trimString(string, maxLength) {
   var trimmedString = string.substr(0, maxLength);
   //re-trim if we are in the middle of a word
   trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
-
   var lastWord = trimmedString.match(/\w+$/)[0];
   var lastIndex = trimmedString.lastIndexOf(" ");
-
   if (lastWord == "of" || lastWord == "the") {
     trimmedString = trimmedString.substring(0, lastIndex);
   }
-
   return trimmedString;
 }
 
