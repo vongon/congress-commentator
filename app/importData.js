@@ -17,7 +17,7 @@ module.exports = importData = (cb) => {
         }
         const votes = data.votes;
         async.eachSeries(votes, (data, voteCb) => {
-          Vote.find({'data.vote_uri': data.vote_uri, 'data.member_id': config.propublicaKeys.memberId}).lean(true).exec((err, votes) => {
+          Vote.find({'data.vote_uri': data.vote_uri, 'data.member_id': data.member_id}).lean(true).exec((err, votes) => {
             if (err) {
               return voteCb(err);
             } 
