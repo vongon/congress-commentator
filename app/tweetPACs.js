@@ -81,7 +81,8 @@ const handleDonorName = (str) => {
    'pac':"PAC",
    'Pac':"PAC",
    'political action committee':"PAC",
-   'Association':"Assn."
+   'Association':"Assn.",
+   'Companies':"Co's."
   };
 
   var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
