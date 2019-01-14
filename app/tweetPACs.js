@@ -74,6 +74,22 @@ const handleNullValues = (obj) => {
   return obj;
 }
 
+// to avoid 186 errors, we will have to abbreviate
+const handleDonorName = (str) => {
+  var mapObj = {
+   'Political Action Committee':"PAC",
+   'pac':"PAC",
+   'Pac':"PAC",
+   'political action committee':"PAC",
+   'Association':"Assn."
+  };
+
+  var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+  str = str.replace(re, function(matched){
+    return mapObj[matched];
+  });
+  return str
+}
 
 // PACs tweet
 const getPacTweetString = (contribution) => {
@@ -84,6 +100,7 @@ const getPacTweetString = (contribution) => {
   const handle = config.congressPerson.handle;
   const committee = contribution.committee.name.toProperCase();
   const donor = contribution.donor_committee_name.toProperCase();
+  const abbrevDonor = handleDonorName(donor)
   const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
   const amount = contribution.contribution_receipt_amount.toLocaleString()
   const donorDescription = contribution.entity_type_desc.toProperCase();
@@ -92,7 +109,7 @@ const getPacTweetString = (contribution) => {
   const pdf = contribution.pdf_url
 
 
-  const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${name} (${handle} ${party}-${jurisdiction}) from ${donor}, a ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
+  const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
 
   return pacMessage;
 } 
