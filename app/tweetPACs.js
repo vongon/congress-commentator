@@ -92,7 +92,7 @@ const getPacTweetString = (contribution) => {
   const pdf = contribution.pdf_url
 
 
-  const pacMessage = `On ${loadDate}, "${committee}" reported a contribution to ${name} (${handle} ${party}-${jurisdiction}) in the amount of $${amount} from ${donor}, a ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More information: ${pdf}`;
+  const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${name} (${handle} ${party}-${jurisdiction}) from ${donor}, a ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
 
   return pacMessage;
 }
