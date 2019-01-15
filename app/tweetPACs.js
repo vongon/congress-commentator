@@ -3,6 +3,7 @@ const async = require('async');
 const propublicaService = require('../services/propublica');
 const config = require('../config');
 const twitterService = require('../services/twitter');
+const bitlyService = require('../services/bitly')
 const Vote = require('../models/vote');
 const PACContribution = require('../models/pacContribution');
 const moment = require('moment');
@@ -109,6 +110,8 @@ const getPacTweetString = (contribution) => {
   const donorCity = contribution.contributor_city.toProperCase();
   const pdf = contribution.pdf_url
 
+  shortUrl = bitlyService.shortenUrl(pdf);
+  console.log('shortUrl: ', shortUrl)
 
   const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
 

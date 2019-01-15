@@ -7,7 +7,6 @@ const tweetContribution = require('./app/tweetContribution');
 const tweetPACs = require('./app/tweetPACs')
 const config = require('./config');
 
-
 const main = (cb) => {
   async.series([
     (sCb) => {
@@ -31,7 +30,7 @@ const main = (cb) => {
     (sCb) => {
       // tweet PAC contribution data
       tweetPACs(sCb);
-    },
+    }
   ], cb);
 }
 
