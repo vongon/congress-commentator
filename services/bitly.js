@@ -14,3 +14,8 @@ exports.shortenUrl = (url, cb) => {
 	return cb(null, result);
 	});
 } 
+
+bitlyService.shortenUrl(pdf, (err, shortUrl) => {
+    if (err) //handle error
+    return shortUrl
+  });
