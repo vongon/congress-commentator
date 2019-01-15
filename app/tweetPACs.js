@@ -110,8 +110,12 @@ const getPacTweetString = (contribution) => {
   const donorCity = contribution.contributor_city.toProperCase();
   const pdf = contribution.pdf_url
 
-  shortUrl = bitlyService.shortenUrl(pdf);
-  console.log('shortUrl: ', shortUrl)
+  var shortUrl = bitlyService.shortenUrl(pdf, (err, shortUrl) => {
+    if (err) //handle error
+    return shortUrl
+  });
+  
+  console.log(shortUrl)
 
   const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
 
