@@ -40,5 +40,8 @@ module.exports = {
     url: '',
     api_key: '',
     committee_id: ''
+  },
+  bitly: {
+    api_key: 'R_4c393728bbae488b858a20956413092d'
   }
 };
