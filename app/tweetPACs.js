@@ -30,18 +30,19 @@ module.exports = tweetContribution = (cb) => {
       }
 
       // const pacMessage = getPacTweetString(contribution.data);
-      var pacMessage = getPacTweetString(contribution.data, (err, pacMessage) => {
+      var pacTweet = getPacTweetString(contribution.data, (err, pacMessage) => {
         if (err) return cb(err);
         // now you have pacMessage with shortened url
+
         return cb(null, pacMessage);
       })
-      console.log('Tweeting PAC data:', pacMessage);
 
       // tweet the FEC message
-      twitterService.tweet(pacMessage, (err) => {
+      twitterService.tweet(pacTweet, (err) => {
       if (err) {
         return cb(err);
       }
+      console.log('Tweeting PAC data:', pacTweet); // still undefined
 
       // save a new PAC data contribution entry to the database
       contribution.tweetedAt = new Date();
@@ -120,9 +121,6 @@ const handleDonorName = (str) => {
 //   return pacMessage;
 // } 
 getPacTweetString = (contribution, cb) => {
-  bitlyService.shortenUrl(contribution, (err, shortUrl) => {
-    if (err) return cb(err);
-    /* put all existing tweet building logic here */
     const name = config.congressPerson.name;
     const party = config.congressPerson.party;
     const jurisdiction = config.congressPerson.jurisdiction;
@@ -137,6 +135,10 @@ getPacTweetString = (contribution, cb) => {
     const donorCity = contribution.contributor_city.toProperCase();
     const pdf = contribution.pdf_url
 
+  bitlyService.shortenUrl(pdf, (err, shortUrl) => {
+    if (err) return cb(err);
+    /* put all existing tweet building logic here */
+    
     const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${shortUrl}`;
 
     return cb(null, pacMessage);
