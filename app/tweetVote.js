@@ -7,6 +7,7 @@ const twitterService = require('../services/twitter');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
 
+const handleNullValues = require('../util/helpers').handleNullValues;
 const trimString = require('../util/helpers').trimString; 
 
 module.exports = tweetVote = (cb) => {
@@ -18,6 +19,9 @@ module.exports = tweetVote = (cb) => {
     if (err) {
       return cb(err);
     }
+    // need to handle any null values so string methods don't break
+    handleNullValues(vote.data)
+
     if (!vote) {
       console.log('No votes available to tweet');
       return cb()
