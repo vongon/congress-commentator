@@ -75,7 +75,7 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
 
     var handle = config.congressPerson.handle
     var abbreviatedBillQuestion = trimString(vote.question, 25)
-    var abbreviatedBillDescription = trimString(vote.description, 50)
+    var abbreviatedBillDescription = trimString(vote.description, 45)
     var billNumber = vote.bill.number;
     var name = config.congressPerson.name;
     var party = config.congressPerson.party;
