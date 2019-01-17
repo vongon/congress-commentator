@@ -29,7 +29,12 @@ module.exports = tweetContribution = (cb) => {
         return cb();
       }
 
-      const pacMessage = getPacTweetString(contribution.data);
+      // const pacMessage = getPacTweetString(contribution.data);
+      var pacMessage = getPacTweetString(contribution.data, (err, pacMessage) => {
+        if (err) return cb(err);
+        // now you have pacMessage with shortened url
+        return cb(null, pacMessage);
+      })
       console.log('Tweeting PAC data:', pacMessage);
 
       // tweet the FEC message
@@ -94,29 +99,46 @@ const handleDonorName = (str) => {
 }
 
 // PACs tweet
-const getPacTweetString = (contribution, cb) => {
+// const getPacTweetString = (contribution, cb) => {
 
-  const name = config.congressPerson.name;
-  const party = config.congressPerson.party;
-  const jurisdiction = config.congressPerson.jurisdiction;
-  const handle = config.congressPerson.handle;
-  const committee = contribution.committee.name.toProperCase();
-  const donor = contribution.donor_committee_name.toProperCase();
-  const abbrevDonor = handleDonorName(donor)
-  const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
-  const amount = contribution.contribution_receipt_amount.toLocaleString()
-  const donorDescription = contribution.entity_type_desc.toProperCase();
-  const donorState = contribution.contributor_state
-  const donorCity = contribution.contributor_city.toProperCase();
-  const pdf = contribution.pdf_url
+//   const name = config.congressPerson.name;
+//   const party = config.congressPerson.party;
+//   const jurisdiction = config.congressPerson.jurisdiction;
+//   const handle = config.congressPerson.handle;
+//   const committee = contribution.committee.name.toProperCase();
+//   const donor = contribution.donor_committee_name.toProperCase();
+//   const abbrevDonor = handleDonorName(donor)
+//   const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
+//   const amount = contribution.contribution_receipt_amount.toLocaleString()
+//   const donorDescription = contribution.entity_type_desc.toProperCase();
+//   const donorState = contribution.contributor_state
+//   const donorCity = contribution.contributor_city.toProperCase();
+//   const pdf = contribution.pdf_url
 
-  var shortUrl = bitlyService.shortenUrl(pdf, (err, shortUrl) => {
-    if (err) //handle error
-      return shortUrl
-  });
+//   const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${shortUrl}`;
 
+//   return pacMessage;
+// } 
+getPacTweetString = (contribution, cb) => {
+  bitlyService.shortenUrl(contribution, (err, shortUrl) => {
+    if (err) return cb(err);
+    /* put all existing tweet building logic here */
+    const name = config.congressPerson.name;
+    const party = config.congressPerson.party;
+    const jurisdiction = config.congressPerson.jurisdiction;
+    const handle = config.congressPerson.handle;
+    const committee = contribution.committee.name.toProperCase();
+    const donor = contribution.donor_committee_name.toProperCase();
+    const abbrevDonor = handleDonorName(donor)
+    const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
+    const amount = contribution.contribution_receipt_amount.toLocaleString()
+    const donorDescription = contribution.entity_type_desc.toProperCase();
+    const donorState = contribution.contributor_state
+    const donorCity = contribution.contributor_city.toProperCase();
+    const pdf = contribution.pdf_url
 
-  const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${shortUrl}`;
+    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${shortUrl}`;
 
-  return pacMessage;
-} 
+    return cb(null, pacMessage);
+  })
+}
