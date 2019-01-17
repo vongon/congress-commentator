@@ -29,7 +29,7 @@ module.exports = tweetContribution = (cb) => {
         return cb();
       }
 
-      const pacMessage = getPacTweetString(contribution.data, shortenUrl);
+      const pacMessage = getPacTweetString(contribution.data);
       console.log('Tweeting PAC data:', pacMessage);
 
       // tweet the FEC message
@@ -94,7 +94,7 @@ const handleDonorName = (str) => {
 }
 
 // PACs tweet
-const getPacTweetString = (contribution) => {
+const getPacTweetString = (contribution, cb) => {
 
   const name = config.congressPerson.name;
   const party = config.congressPerson.party;
@@ -110,7 +110,13 @@ const getPacTweetString = (contribution) => {
   const donorCity = contribution.contributor_city.toProperCase();
   const pdf = contribution.pdf_url
 
-  const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
+  var shortUrl = bitlyService.shortenUrl(pdf, (err, shortUrl) => {
+    if (err) //handle error
+      return shortUrl
+  });
+
+
+  const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${shortUrl}`;
 
   return pacMessage;
 } 
