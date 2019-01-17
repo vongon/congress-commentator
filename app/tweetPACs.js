@@ -29,25 +29,21 @@ module.exports = tweetContribution = (cb) => {
       }       
 
       // get tweet string + shortened URL
-      const pacMessage = getPacTweetString(contribution.data, (err, pacMessage) => {
+      getPacTweetString(contribution.data, (err, pacMessage) => {
         if (err) return cb(err);
         // now we have pacMessage with shortened url and can tweet:
         twitterService.tweet(pacMessage, (err) => {
           if (err) {
             return cb(err);
-        }
-          console.log('Tweeting PAC data:', pacMessage);
-        })
+        }       
         // save any new PAC data contribution entries to the database
         contribution.tweetedAt = new Date();
         contribution.save(cb);
 
         console.log('PAC data successfully tweeted at', contribution.tweetedAt)
         return cb(null, pacMessage);
-      });  
-
-        
-  });
+      });         
+    });
 }
 
 // tweeting PAC contributions every 2 hours
