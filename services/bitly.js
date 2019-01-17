@@ -6,6 +6,8 @@ var Bitly = new BitlyAPI({
 	client_secret: config.bitly.client_secret	
 });
 
+Bitly.setAccessToken(config.bitly.access_token);
+
 exports.shortenUrl = (url, cb) => {
 	Bitly.shortenLink(url, (err, result) => {
 		if (err) {

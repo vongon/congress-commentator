@@ -1,11 +1,11 @@
-
 // replace this file with data in https://paper.dropbox.com/doc/Congress-Commentator-Config--ATwHo6jeqCx0nBut_EiLAZ7eAg-xYEzMfpbVCa7PU3lziVFq
 
 if (process.env.configPath) {
   module.exports = require(process.env.configPath);
   return;
 }
-// test account: https://twitter.com/RepRWilliamsBot
+
+/// test account: https://twitter.com/RepRWilliamsBot
 module.exports = {
   congressPerson: {
     name: '', // Roger Williams 
