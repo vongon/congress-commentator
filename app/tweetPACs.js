@@ -33,7 +33,6 @@ module.exports = tweetContribution = (cb) => {
       var pacTweet = getPacTweetString(contribution.data, (err, pacMessage) => {
         if (err) return cb(err);
         // now you have pacMessage with shortened url
-
         return cb(null, pacMessage);
       })
 
@@ -116,7 +115,7 @@ const handleDonorName = (str) => {
 //   const donorCity = contribution.contributor_city.toProperCase();
 //   const pdf = contribution.pdf_url
 
-//   const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${shortUrl}`;
+//   const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
 
 //   return pacMessage;
 // } 
