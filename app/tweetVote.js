@@ -1,10 +1,13 @@
 const async = require('async');
+const config = require('../config');
 
 const propublicaService = require('../services/propublica');
-const config = require('../config');
 const twitterService = require('../services/twitter');
+
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
+
+const trimString = require('../util/helpers').trimString; 
 
 module.exports = tweetVote = (cb) => {
   // find oldest vote that has not been tweeted yet
@@ -33,19 +36,6 @@ module.exports = tweetVote = (cb) => {
   });
 
 };
-
-// trim tweet Question & Description without cutting off mid-word
-function trimString(string, maxLength) {
-  var trimmedString = string.substr(0, maxLength);
-  //re-trim if we are in the middle of a word
-  trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
-  // var lastWord = trimmedString.match(/\w+$/)[0];
-  // var lastIndex = trimmedString.lastIndexOf(" ");
-  // if (lastWord == "of" || lastWord == "the") {
-  //   trimmedString = trimmedString.substring(0, lastIndex);
-  // }
-  return trimmedString;
-}
 
 // Votes tweet 
 const getTweetString = (vote) => {
