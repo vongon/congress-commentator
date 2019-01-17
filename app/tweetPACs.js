@@ -9,7 +9,6 @@ const PACContribution = require('../models/pacContribution');
 const moment = require('moment');
 
 module.exports = tweetContribution = (cb) => {
-
     PACContribution.findOne({
     	tweetedAt: null, 
     	'data.committee_id': config.fec.committee_id
@@ -29,27 +28,26 @@ module.exports = tweetContribution = (cb) => {
         return cb();
       }       
 
-      // const pacMessage = getPacTweetString(contribution.data);
+      // get tweet string + shortened URL
       const pacMessage = getPacTweetString(contribution.data, (err, pacMessage) => {
         if (err) return cb(err);
-        // now you have pacMessage with shortened url
+        // now we have pacMessage with shortened url and can tweet:
+        twitterService.tweet(pacMessage, (err) => {
+          if (err) {
+            return cb(err);
+        }
+          console.log('Tweeting PAC data:', pacMessage);
+        })
+        // save any new PAC data contribution entries to the database
+        contribution.tweetedAt = new Date();
+        contribution.save(cb);
+
+        console.log('PAC data successfully tweeted at', contribution.tweetedAt)
         return cb(null, pacMessage);
-      })
+      });  
 
-      // tweet the FEC message
-      twitterService.tweet(pacMessage, (err) => {
-      if (err) {
-        return cb(err);
-      }
-      console.log('Tweeting PAC data:', pacMessage); // still undefined
-
-      // save a new PAC data contribution entry to the database
-      contribution.tweetedAt = new Date();
-      contribution.save(cb);
-
-      console.log('PAC data successfully tweeted at', contribution.tweetedAt)
-      });
-    });
+        
+  });
 }
 
 // tweeting PAC contributions every 2 hours
@@ -99,35 +97,31 @@ const handleDonorName = (str) => {
 }
 
 getPacTweetString = (contribution, cb) => {
-  // bitlyService.shortenUrl(contribution, (err, shortUrl) => {
-  //   if (err) {
-  //     return cb(err);
-  //   }
-    const name = config.congressPerson.name;
-    const party = config.congressPerson.party;
-    const jurisdiction = config.congressPerson.jurisdiction;
-    const handle = config.congressPerson.handle;
-    const committee = contribution.committee.name.toProperCase();
-    const donor = contribution.donor_committee_name.toProperCase();
-    const abbrevDonor = handleDonorName(donor)
-    const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
-    const amount = contribution.contribution_receipt_amount.toLocaleString()
-    const donorDescription = contribution.entity_type_desc.toProperCase();
-    const donorState = contribution.contributor_state
-    const donorCity = contribution.contributor_city.toProperCase();
-    const pdf = contribution.pdf_url
-
-    const shortUrl = bitlyService.shortenUrl(pdf, (err, shortUrl) =>{
-      if (err) {
-        return cb(err);
-      }
-      return shortUrl
-    });
+  const name = config.congressPerson.name;
+  const party = config.congressPerson.party;
+  const jurisdiction = config.congressPerson.jurisdiction;
+  const handle = config.congressPerson.handle;
+  const committee = contribution.committee.name.toProperCase();
+  const donor = contribution.donor_committee_name.toProperCase();
+  const abbrevDonor = handleDonorName(donor);
+  const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
+  const amount = contribution.contribution_receipt_amount.toLocaleString();
+  const donorDescription = contribution.entity_type_desc.toProperCase();
+  const donorState = contribution.contributor_state;
+  const donorCity = contribution.contributor_city.toProperCase();
+  const pdf = contribution.pdf_url;
   
-    /* put all existing tweet building logic here */ //(can't, bc need to get 'pdf' out of 'contribution argument above...')
-    
-    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\nMore info: ${shortUrl}`;
+  bitlyService.shortenUrl(pdf, (err, shortUrl) => {
+    if (err) {
+      return cb(err);
+    }
+    // handle bitly response data:
+    var json = JSON.parse(shortUrl);    
+    const shortLink = json.data.url;
+    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\nMore info: ${shortLink}`;
 
-    // return cb(null, pacMessage);
-    return pacMessage;
+    return cb(null, pacMessage);
+  })
 }
+
+    

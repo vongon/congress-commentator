@@ -22,7 +22,7 @@ module.exports = tweetContribution = (cb) => {
       }
 
       if (!okayToTweet(contribution)) {
-        console.log(`Skipping tweeting contribution because it didn't pass validation`);
+        console.log(`Skipping tweeting ProPublica contribution data because it didn't pass validation`);
         return cb();
       }
 
