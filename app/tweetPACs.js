@@ -3,12 +3,12 @@ const async = require('async');
 const propublicaService = require('../services/propublica');
 const config = require('../config');
 const twitterService = require('../services/twitter');
+const bitlyService = require('../services/bitly')
 const Vote = require('../models/vote');
 const PACContribution = require('../models/pacContribution');
 const moment = require('moment');
 
 module.exports = tweetContribution = (cb) => {
-
     PACContribution.findOne({
     	tweetedAt: null, 
     	'data.committee_id': config.fec.committee_id
@@ -26,23 +26,23 @@ module.exports = tweetContribution = (cb) => {
       if (!okayToTweet(contribution)) {
         console.log(`Skipping tweeting PAC contribution because it didn't pass validation`);
         return cb();
-      }
+      }       
 
-      const pacMessage = getPacTweetString(contribution.data);
-      console.log('Tweeting PAC data:', pacMessage);
+      // get tweet string + shortened URL
+      getPacTweetString(contribution.data, (err, pacMessage) => {
+        if (err) return cb(err);
+        // now we have pacMessage with shortened url and can tweet:
+        twitterService.tweet(pacMessage, (err) => {
+          if (err) {
+            return cb(err);
+        }       
+        // save any new PAC data contribution entries to the database
+        contribution.tweetedAt = new Date();
+        contribution.save(cb);
 
-      // tweet the FEC message
-      twitterService.tweet(pacMessage, (err) => {
-      if (err) {
-        return cb(err);
-      }
-
-      // save a new PAC data contribution entry to the database
-      contribution.tweetedAt = new Date();
-      contribution.save(cb);
-
-      console.log('PAC data successfully tweeted at', contribution.tweetedAt)
-      });
+        console.log('PAC data successfully tweeted at', contribution.tweetedAt)
+        return cb(null, pacMessage);
+      });         
     });
 }
 
@@ -92,25 +92,32 @@ const handleDonorName = (str) => {
   return str
 }
 
-// PACs tweet
-const getPacTweetString = (contribution) => {
-
+getPacTweetString = (contribution, cb) => {
   const name = config.congressPerson.name;
   const party = config.congressPerson.party;
   const jurisdiction = config.congressPerson.jurisdiction;
   const handle = config.congressPerson.handle;
   const committee = contribution.committee.name.toProperCase();
   const donor = contribution.donor_committee_name.toProperCase();
-  const abbrevDonor = handleDonorName(donor)
+  const abbrevDonor = handleDonorName(donor);
   const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
-  const amount = contribution.contribution_receipt_amount.toLocaleString()
+  const amount = contribution.contribution_receipt_amount.toLocaleString();
   const donorDescription = contribution.entity_type_desc.toProperCase();
-  const donorState = contribution.contributor_state
+  const donorState = contribution.contributor_state;
   const donorCity = contribution.contributor_city.toProperCase();
-  const pdf = contribution.pdf_url
+  const pdf = contribution.pdf_url;
+  
+  bitlyService.shortenUrl(pdf, (err, shortUrl) => {
+    if (err) {
+      return cb(err);
+    }
+    // handle bitly response data:
+    var json = JSON.parse(shortUrl);    
+    const shortLink = json.data.url;
+    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\nMore info: ${shortLink}`;
 
+    return cb(null, pacMessage);
+  })
+}
 
-  const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}. \n\n More info: ${pdf}`;
-
-  return pacMessage;
-} 
+    

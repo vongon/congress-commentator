@@ -21,9 +21,12 @@
   },
   "dependencies": {
     "async": "^2.6.1",
+    "btoa": "^1.2.1",
     "moment": "^2.23.0",
     "mongoose": "^5.4.0",
+    "node-bitlyapi": "^0.4.0",
     "propublica-congress-node": "^0.1.2",
+    "querystring": "^0.2.0",
     "request-promise": "^4.2.2",
     "twitter": "^1.7.1"
   },

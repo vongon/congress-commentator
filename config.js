@@ -40,5 +40,11 @@ module.exports = {
     url: '',
     api_key: '',
     committee_id: ''
+  },
+  bitly: {
+    api_key: '',
+    client_id: '',
+    client_secret: '',
+    access_token: ''
   }
 };
