@@ -44,6 +44,7 @@ module.exports = tweetContribution = (cb) => {
         return cb(null, pacMessage);
       });         
     });
+  })
 }
 
 // tweeting PAC contributions every 2 hours
