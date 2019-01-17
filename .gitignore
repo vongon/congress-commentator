@@ -1,5 +1,6 @@
 # Dont commit any secret config stuff!
 config*
+config.js
 
 # Logs
 logs
