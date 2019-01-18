@@ -46,5 +46,11 @@ module.exports = {
     client_id: '',
     client_secret: '',
     access_token: ''
-  }
+  },
+  imgur: {
+    client_id: '',
+    client_secret: '',
+    user: '',
+    pw: ''
+  } 
 };
