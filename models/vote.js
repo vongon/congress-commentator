@@ -13,6 +13,15 @@ const Vote = new Schema({
     type: Date,
     default: Date.now
   },
+
+  // store imgurUrl for each vote
+  imgurUrl: {
+    string: mongoose.SchemaTypes.Url,
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }
 });
 
 module.exports = mongoose.model('Vote', Vote);
