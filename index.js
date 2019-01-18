@@ -20,6 +20,14 @@ const main = (cb) => {
       importData(sCb);
     },
     (sCb) => {
+      // process data:
+      // 1. creates meme
+      // 2. uploads to imgur
+      // 3. saves imgur link to db
+      // 4. creates alt text for each image so screen readers can read tweets
+      // processData(sCb);
+    },
+    (sCb) => {
       // tweet votes
       tweetVote(sCb);
     }, 
