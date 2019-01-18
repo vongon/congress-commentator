@@ -25,11 +25,12 @@ const main = (cb) => {
       // 1. creates meme
       // 2. uploads to imgur
       // 3. saves imgur link to db
-      // 4. creates alt text for each image so screen readers can read tweets      
+      
     },
     (sCb) => {
       // tweet votes
       tweetVote(sCb);
+      // TODO: create alt text for each image so screen readers can read tweets      
     }, 
     (sCb) => {
       // tweet contribution
