@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const async = require('async');
 
 const importData = require('./app/importData');
+const processData = require('./app/processData');
 const tweetVote = require('./app/tweetVote');
 const tweetContribution = require('./app/tweetContribution');
 const tweetPACs = require('./app/tweetPACs')
@@ -20,12 +21,11 @@ const main = (cb) => {
       importData(sCb);
     },
     (sCb) => {
-      // process data:
+      // processData(sCb);
       // 1. creates meme
       // 2. uploads to imgur
       // 3. saves imgur link to db
-      // 4. creates alt text for each image so screen readers can read tweets
-      // processData(sCb);
+      // 4. creates alt text for each image so screen readers can read tweets      
     },
     (sCb) => {
       // tweet votes
