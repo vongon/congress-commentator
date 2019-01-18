@@ -12,28 +12,6 @@ const okayToTweet = (contribution) => {
   return false;
 };
 
-// trim tweet Question & Description without cutting off mid-word
-const trimString = (string, maxLength) => {
-  var trimmedString = string.substr(0, maxLength);
-  //re-trim if we are in the middle of a word
-  if (trimmedString.substr(0) != null) {
-  	trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
-  	var lastWord = trimmedString.match(/\w+$/)[0];
-  	var lastIndex = trimmedString.lastIndexOf(" ");
-
-		if (lastWord == 'of' ||
-		    lastWord == 'the' ||
-		    lastWord == 'and' ||
-		    lastWord == 'for' ||
-		    lastWord == 'with' ||
-		    lastWord == 'ending') {
-		    trimmedString = trimmedString.substring(0, lastIndex);
-		}
-  	return trimmedString;
-  }
-  return trimmedString
-}
-
 // handle null values for string methods
 const handleNullValues = (obj) => {
   Object.keys(obj).forEach(function(key) {
@@ -43,6 +21,26 @@ const handleNullValues = (obj) => {
   })
   return obj;
 };
+
+// trim tweet Question & Description without cutting off mid-word
+const trimString = (string, maxLength) => {
+  var trimmedString = string.substr(0, maxLength);
+
+  //re-trim if we are in the middle of a word
+  trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+  var lastWord = trimmedString.match(/\w+$/)[0];
+  var lastIndex = trimmedString.lastIndexOf(" ");
+
+		if (lastWord == 'of' ||
+		    lastWord == 'the' ||
+		    lastWord == 'and' ||
+		    lastWord == 'for' ||
+		    lastWord == 'with' ||
+		    lastWord == 'ending') {
+		    trimmedString = trimmedString.substring(0, lastIndex);
+		}
+  return trimmedString;
+}
 
 // to avoid 186 errors, abbreviate
 const handleDonorName = (str) => {
