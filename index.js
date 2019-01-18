@@ -21,7 +21,7 @@ const main = (cb) => {
       importData(sCb);
     },
     (sCb) => {
-      // processData(sCb);
+      processData(sCb);
       // 1. creates meme
       // 2. uploads to imgur
       // 3. saves imgur link to db

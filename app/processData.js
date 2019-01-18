@@ -11,6 +11,8 @@ const Vote = require('../models/vote');
 
 const config = require('../config');
 
+const handleNullValues = require('../util/helpers').handleNullValues;
+
 module.exports = processData = (cb) => {
   
   async.series([
@@ -42,7 +44,14 @@ module.exports = processData = (cb) => {
 }
 
 const getMemeTopString = (vote) => {
-	const topText = vote.bill.number + ': "' + vote.bill.title + '" \n\n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
+  // hack-y way to deal with null values
+  var title = vote.bill.title
+  if (title == null) {
+    title = String(title);
+    title = title.replace(/null\b/g, '');
+  }
+
+	const topText = vote.bill.number + ': "' + title + '" \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
 	return topText
 }
 const getMemeBottomString = (vote) => {
