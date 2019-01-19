@@ -32,6 +32,7 @@ module.exports = tweetContribution = (cb) => {
       // tweet the FEC message
       twitterService.tweet(FECmessage, (err) => {
       if (err) {
+        console.log('Problem with FEC tweet: ', err)
         return cb(err);
       }
 

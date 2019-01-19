@@ -26,6 +26,7 @@ module.exports = tweetVote = (cb) => {
     console.log('Tweeting vote data:', message);
     twitterService.tweet(message, (err) => {
       if (err) {
+        console.log('problem with tweet votes: ', err)
         return cb(err);
       }
       vote.tweetedAt = new Date();
