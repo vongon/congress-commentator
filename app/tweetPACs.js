@@ -38,6 +38,7 @@ module.exports = tweetContribution = (cb) => {
       // get tweet string + shortened URL
       getPacTweetString(contribution.data, (err, pacMessage) => {
         if (err) {
+          console.log('problem with this message', pacMessage)
           return cb(err);
         }
         // now we have pacMessage with shortened url and can tweet:
@@ -47,8 +48,11 @@ module.exports = tweetContribution = (cb) => {
         }
         console.log('Tweeting PAC data:', pacMessage) 
         // save any new PAC data contribution entries to the database
+        
         contribution.tweetedAt = new Date();
-        return contribution.save(cb);
+        contribution.save(cb);
+
+        console.log('PAC data successfully tweeted at', contribution.tweetedAt)
       });         
     });
   })

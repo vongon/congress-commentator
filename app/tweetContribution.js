@@ -36,8 +36,11 @@ module.exports = tweetContribution = (cb) => {
       }
 
       // save a new ProPublica data contribution entry to the database
+      // save a new ProPublica data contribution entry to the database
       contribution.tweetedAt = new Date();
-      return contribution.save(cb);
+      contribution.save(cb);
+
+      console.log('FEC data successfully tweeted at', contribution.tweetedAt)
       });
     });
 }
