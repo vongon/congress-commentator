@@ -14,10 +14,10 @@ const config = require('../config');
 const handleNullValues = require('../util/helpers').handleNullValues;
 
 module.exports = processData = (cb) => {
-  
   async.series([
+    // Create the meme
     (sCb)=> { 
-    // find a vote that doesn't have an image yet
+    // find a vote that doesn't have an image URL yet
     Vote.findOne({
       imgUrl: null, 
       'data.member_id': config.propublicaKeys.memberId
@@ -34,11 +34,19 @@ module.exports = processData = (cb) => {
 
       console.log('Adding message to meme:', topText, bottomText);
 
-      // Create the meme
-      imgurService.createMeme(topText, bottomText, cb) 
+      imgurService.createMeme(topText, bottomText, (err, link) => {
+        //do something
+        if (err) {
+          console.log(err)
+          return err
+        }
+        return cb(null, link)
+      })
+
     });
   },
     // (sCb)=> {
+    //   are there other things we need to do in processData?
     // }
   ], cb);
 }

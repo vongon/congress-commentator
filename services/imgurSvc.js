@@ -36,7 +36,6 @@ const uploadBase64 = (data) => {
     }); 
 }
 
-
 exports.createMeme = (topText, bottomText, cb) => {
   const memeGenerator = new memeLib({
     canvasOptions: { // optional
@@ -65,10 +64,11 @@ exports.createMeme = (topText, bottomText, cb) => {
       var fileContent = new Buffer.concat(fileContentArray);
       // encode
       var imgToUpload = fileContent.toString('base64');
-      // upload
-      uploadBase64(imgToUpload, cb);
+      // upload & generate link
+      uploadBase64(imgToUpload);
     })
     .catch((err) => {
       console.log(err)
     });
+  return cb
 }
