@@ -29,9 +29,7 @@ module.exports = tweetVote = (cb) => {
         return cb(err);
       }
       vote.tweetedAt = new Date();
-      vote.save(cb);
-
-      console.log('Vote data successfully tweeted at', vote.tweetedAt)
+      return vote.save(cb);
     });
   });
 
