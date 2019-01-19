@@ -35,8 +35,7 @@ module.exports = processData = (cb) => {
       memeService.createMeme(topText, bottomText, (err, link) => {
         //do something
         if (err) {
-          console.log(err)
-          return err
+          return cb(err)
         }
         return cb(null, link)
       })
@@ -58,7 +57,7 @@ const getMemeTopString = (vote) => {
     var topText = vote.bill.number + ': ' + title + ' \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
     return topText
   }
-	var topText = vote.bill.number + ': "' + title + '"" \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
+	var topText = vote.bill.number + ': "' + title + '" \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
 	return topText
 }
 
