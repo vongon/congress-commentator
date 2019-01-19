@@ -16,11 +16,11 @@ imgur.setCredentials(config.imgur.user, config.imgur.pw, config.imgur.client_id)
 exports.uploadFile = (path, cb) => {
 // Upload a single image
   imgur.uploadFile(path)
-    .then(function (json) {
+    .then((json) =>  {
       console.log('Imgur link: ', json.data.link);
       return cb(null, json.data.link);
     })
-    .catch(function (err) {
+    .catch((err) => {
       console.error(err.message);
       return cb(err)
     });
@@ -28,11 +28,11 @@ exports.uploadFile = (path, cb) => {
 
 exports.uploadBase64 = (data, cb) => {
   imgur.uploadBase64(data)
-    .then(function (json) {
+    .then((json) => {
       console.log('Meme uploaded to imgur!', json.data.link);
       return cb(null, json.data.link);     
       })
-    .catch(function (err) {
+    .catch((err) => {
       console.error(err.message);
       return cb(err)
     }); 
