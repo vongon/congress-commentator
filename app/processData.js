@@ -11,15 +11,13 @@ const Vote = require('../models/vote');
 
 const config = require('../config');
 
-const handleNullValues = require('../util/helpers').handleNullValues;
-
 module.exports = processData = (cb) => {
   async.series([
     // Create the meme
     (sCb)=> { 
     // find a vote that doesn't have an image URL yet
     Vote.findOne({
-      imgUrl: null, 
+      imgurUrl: null, 
       'data.member_id': config.propublicaKeys.memberId
     }).sort({createdAt: 1}).exec((err, vote) => {
       if (err) {
@@ -40,6 +38,7 @@ module.exports = processData = (cb) => {
           console.log(err)
           return err
         }
+
         return cb(null, link)
       })
 
@@ -52,7 +51,7 @@ module.exports = processData = (cb) => {
 }
 
 const getMemeTopString = (vote) => {
-  // hack-y way to deal with null values
+  // hack-y way to deal with null values here
   var title = vote.bill.title
   if (title == null) {
     title = String(title);
