@@ -38,7 +38,6 @@ module.exports = tweetContribution = (cb) => {
       // get tweet string + shortened URL
       getPacTweetString(contribution.data, (err, pacMessage) => {
         if (err) {
-          console.log('problem with this message', pacMessage)
           return cb(err);
         }
         // now we have pacMessage with shortened url and can tweet:
