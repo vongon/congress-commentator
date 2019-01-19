@@ -45,13 +45,10 @@ module.exports = tweetContribution = (cb) => {
           if (err) {
             return cb(err);
         }
-        console.log('Tweeting PAC data:', pacMessage)       
+        console.log('Tweeting PAC data:', pacMessage) 
         // save any new PAC data contribution entries to the database
         contribution.tweetedAt = new Date();
-        contribution.save(cb);
-
-        console.log('PAC data successfully tweeted at', contribution.tweetedAt)
-        return cb(null, pacMessage);
+        return contribution.save(cb);
       });         
     });
   })
