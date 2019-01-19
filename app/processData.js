@@ -5,7 +5,7 @@ const imgur = require('imgur');
 const memeLib = require('nodejs-meme-generator');
 
 const propublicaService = require('../services/propublica');
-const imgurService = require('../services/imgurSvc')
+const memeService = require('../services/meme')
 
 const Vote = require('../models/vote');
 
@@ -34,7 +34,7 @@ module.exports = processData = (cb) => {
 
       console.log('Adding message to meme:', topText, bottomText);
 
-      imgurService.createMeme(topText, bottomText, (err, link) => {
+      memeService.createMeme(topText, bottomText, (err, link) => {
         //do something
         if (err) {
           console.log(err)

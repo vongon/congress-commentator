@@ -4,6 +4,8 @@ const async = require('async');
 const imgur = require('imgur');
 const memeLib = require('nodejs-meme-generator');
 
+const imgurService = require('./imgurSvc');
+
 exports.createMeme = (topText, bottomText, cb) => {
   const memeGenerator = new memeLib({
     canvasOptions: { // optional
@@ -33,7 +35,7 @@ exports.createMeme = (topText, bottomText, cb) => {
       // encode
       var imgToUpload = fileContent.toString('base64');
       // upload & generate link
-      uploadBase64(imgToUpload);
+      imgurService.uploadBase64(imgToUpload, cb);
     })
     .catch((err) => {
       console.log(err)
