@@ -6,12 +6,10 @@ const memeLib = require('nodejs-meme-generator');
 
 const propublicaService = require('../services/propublica');
 const memeService = require('../services/meme')
-
 const Vote = require('../models/vote');
-
 const config = require('../config');
-
 const handleNullValues = require('../util/helpers').handleNullValues;
+
 
 module.exports = processData = (cb) => {
   async.series([

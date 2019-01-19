@@ -16,7 +16,7 @@ imgur.setCredentials(config.imgur.user, config.imgur.pw, config.imgur.client_id)
 exports.uploadFile = (path, cb) => {
 // Upload a single image
   imgur.uploadFile(path)
-    .then((json) =>  {
+    .then((json) => {
       console.log('Imgur link: ', json.data.link);
       return cb(null, json.data.link);
     })
