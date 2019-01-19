@@ -23,8 +23,8 @@ module.exports = tweetContribution = (cb) => {
       if (err) {
         return cb(err);
       }
-      // need to handle Null values so string methods don't break
-      handleNullValues(contribution.data)
+      // // need to handle Null values so string methods don't break
+      // handleNullValues(contribution.data)
       // if there's nothing there
       if (!contribution) {
         console.log('No new PAC contribution data available to tweet')
