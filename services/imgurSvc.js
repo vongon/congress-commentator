@@ -18,7 +18,7 @@ exports.uploadFile = (path, cb) => {
   imgur.uploadFile(path)
     .then(function (json) {
       console.log('Imgur link: ', json.data.link);
-      return json.data.link
+      return cb(null, json.data.link);
     })
     .catch(function (err) {
       console.error(err.message);
@@ -29,7 +29,7 @@ exports.uploadBase64 = (data, cb) => {
   imgur.uploadBase64(data)
     .then(function (json) {
       console.log('Meme uploaded to imgur!', json.data.link);
-      return json.data.link        
+      return cb(null, json.data.link);     
       })
     .catch(function (err) {
       console.error(err.message);
