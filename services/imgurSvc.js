@@ -22,6 +22,7 @@ exports.uploadFile = (path, cb) => {
     })
     .catch(function (err) {
       console.error(err.message);
+      return cb(err)
     });
 }
 
@@ -33,5 +34,6 @@ exports.uploadBase64 = (data, cb) => {
       })
     .catch(function (err) {
       console.error(err.message);
+      return cb(err)
     }); 
 }
