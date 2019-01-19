@@ -23,8 +23,6 @@ module.exports = tweetContribution = (cb) => {
       if (err) {
         return cb(err);
       }
-      // need to handle Null values so string methods don't break
-      handleNullValues(contribution.data)
       // if there's nothing there
       if (!contribution) {
         console.log('No new PAC contribution data available to tweet')
@@ -34,13 +32,15 @@ module.exports = tweetContribution = (cb) => {
         console.log(`Skipping tweeting PAC contribution because it didn't pass validation`);
         return cb();
       }       
-
+      // need to handle Null values so string methods don't break
+      handleNullValues(contribution.data)
       // get tweet string + shortened URL
       getPacTweetString(contribution.data, (err, pacMessage) => {
         if (err) return cb(err);
         // now we have pacMessage with shortened url and can tweet:
         twitterService.tweet(pacMessage, (err) => {
           if (err) {
+            console.log('PAC tweet err with contribution._id: ', contribution._id)
             return cb(err);
         }
         console.log('Tweeting PAC data:', pacMessage)       
