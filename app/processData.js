@@ -44,7 +44,7 @@ const addMemeUrl = (vote, cb) => {
         }
         console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
         
-        Vote.updateOne({'imgurUrl': null, 'vote.vote_uri': vote.vote_uri}, { $set: { 'imgurUrl': link} }, (err, result) => {
+        Vote.updateOne({_id: vote._id}, { $set: { 'imgurUrl': link} }, (err, result) => {
           if (err) {
             return cb(err)
           }
