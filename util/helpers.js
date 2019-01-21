@@ -19,20 +19,20 @@ const trimString = (string, maxLength) => {
   trimmedString = trimmedString.replace(/\b[-.,()&$#!\[\]{}"']+\B|\B[-.,()&$#!\[\]{}"']+\b/g, "");
   // now re-trim if we are in the middle of a word
   trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
- 	// remove awkward words at ends of phrases
+  // remove awkward words at ends of phrases
   var lastWord = trimmedString.match(/\w+$/)[0];
   var lastIndex = trimmedString.lastIndexOf(" ");
 
-		if (lastWord == 'of' ||
-		    lastWord == 'the' ||
-		    lastWord == 'and' ||
-		    lastWord == 'for' ||
-		    lastWord == 'with' ||
-		    lastWord == 'to' ||
-		    lastWord == 'to' ||
-		    lastWord == 'ending') {
-		    trimmedString = trimmedString.substring(0, lastIndex);
-		}
+    if (lastWord == 'of' ||
+        lastWord == 'the' ||
+        lastWord == 'and' ||
+        lastWord == 'for' ||
+        lastWord == 'with' ||
+        lastWord == 'to' ||
+        lastWord == 'to' ||
+        lastWord == 'ending') {
+        trimmedString = trimmedString.substring(0, lastIndex);
+    }
   return trimmedString + `...`; 
 }
 
@@ -53,10 +53,20 @@ const handleDonorName = (str) => {
    'pac':"PAC",
    'Pac':"PAC",
    'political action committee':"PAC",
+   'Political Committee':"PAC",
+   'Separate Segregated Fund':"SSF",
+   'separate segregated fund':"SSF",
    'Association':"Assn.",
-   'Companies':"Co's."
+   'Companies':"Co's.",
+   'National':"Nat'l.",
+   'International':"Int'l.",
+   'Of':"of",
+   'The':"the",
+   'And':"and"
   };
-
+  // remove anything in parentheses
+  str = str.replace(/ *\([^)]*\) */g, " ");
+  // replace anything in the dict with correct word
   var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
   str = str.replace(re, function(matched){
     return mapObj[matched];
@@ -66,9 +76,9 @@ const handleDonorName = (str) => {
 
 // properCase helper -- FEC data is all caps
 const toProperCase = (string) => {
-	return string.replace(/\w\S*/g, (txt) => { 
-		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-	});
+  return string.replace(/\w\S*/g, (txt) => { 
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 }
 
 module.exports = {
@@ -78,4 +88,3 @@ module.exports = {
     toProperCase: toProperCase,
     trimString: trimString
 };
-
