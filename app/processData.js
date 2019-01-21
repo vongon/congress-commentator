@@ -52,7 +52,13 @@ module.exports = processData = (cb) => {
     Vote.find({
       'imgurUrl': null
      }).exec((err, votes) => {
-      if(err) return cb(err)
+      if(err) {
+        return cb(err)
+      }
+      if (!votes.length) {
+        console.log('No votes need an imgurUrl at this time.')
+        return cb()
+      }
       async.eachSeries(votes, (vote, voteCb) => {
         addMemeUrl(vote, voteCb);
       }, cb);
@@ -66,21 +72,17 @@ const addMemeUrl = (vote, cb) => {
       const topText = getMemeTopString(vote.data);
       const bottomText = getMemeBottomString(vote.data);
 
-      console.log(`Adding text to meme: `, topText, bottomText);
-
       memeService.createMeme(topText, bottomText, (err, link) => {
-        //do something
         if (err) {
           return cb(err)
         }
-        // insert link
         console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
         
         Vote.update({'imgurUrl': null, 'vote.vote_uri': vote.vote_uri}, { $set: { 'imgurUrl': link} }, (err, result) => {
           if (err) {
             return cb(err)
           }
-          console.log('Vote.update result', result)
+
         })
         return cb(null, link)
       })
