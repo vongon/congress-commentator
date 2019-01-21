@@ -39,6 +39,7 @@ exports.createMeme = (topText, bottomText, cb) => {
     })
     .catch((err) => {
       console.log(err)
+      return cb(err)
     });
   // return cb?
 }
