@@ -76,13 +76,13 @@ const addMemeUrl = (vote, cb) => {
         // insert link
         console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
         
-        Vote.update({'vote.vote_uri': vote.vote_uri}, { $set: { 'imgurUrl': link} }, (err, result) => {
+        Vote.update({'imgurUrl': null, 'vote.vote_uri': vote.vote_uri}, { $set: { 'imgurUrl': link} }, (err, result) => {
           if (err) {
             return cb(err)
           }
           console.log('Vote.update result', result)
         })
-        // return cb(null, link)
+        return cb(null, link)
       })
 }
 
