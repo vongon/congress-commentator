@@ -54,6 +54,8 @@ const handleDonorName = (str) => {
    'Pac':"PAC",
    'political action committee':"PAC",
    'Political Committee':"PAC",
+   'Separate Segregated Fund':"SSF",
+   'separate segregated fund':"SSF",
    'Association':"Assn.",
    'Companies':"Co's.",
    'National':"Nat'l.",
