@@ -21,7 +21,7 @@ module.exports = processData = (cb) => {
       if(err) {
         return cb(err)
       }
-      if (!votes.length) {
+      if (votes.length == 0) {
         console.log('No votes need an imgurUrl at this time.')
         return cb()
       }
