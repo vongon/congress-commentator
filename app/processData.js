@@ -11,41 +11,83 @@ const config = require('../config');
 const handleNullValues = require('../util/helpers').handleNullValues;
 
 
+// module.exports = processData = (cb) => {
+//   async.series([
+//     // Create the meme
+//     (sCb)=> { 
+//     // find a vote that doesn't have an image URL yet
+//     Vote.findOne({
+//       'imgurUrl.string': null, 
+//       'data.member_id': config.propublicaKeys.memberId
+//     }).sort({createdAt: 1}).exec((err, vote) => {
+//       if (err) {
+//         return cb(err);
+//       }
+//       if (!vote) {
+//         console.log('No votes to add image to');
+//         return cb()
+//       }
+//       const topText = getMemeTopString(vote.data);
+//       const bottomText = getMemeBottomString(vote.data);
+
+//       console.log('Adding message to meme:', topText, bottomText);
+
+//       memeService.createMeme(topText, bottomText, (err, link) => {
+//         //do something
+//         if (err) {
+//           return cb(err)
+//         }
+//         return cb(null, link)
+//       })
+//     });
+//   }
+//   ], cb);
+// }
+
 module.exports = processData = (cb) => {
-  async.series([
-    // Create the meme
-    (sCb)=> { 
-    // find a vote that doesn't have an image URL yet
-    Vote.findOne({
+  async.series([ 
+   
+   (sCb) => {
+     /*add to db*/
+     Vote.find({query}).exec((err, votes) => {
+      if(err) return cb(err)
+      async.eachSeries(votes, (vote, voteCb) => {
+        addMemeUrl(vote, voteCb);
+      }, cb);
+    });
+   }
+
+  ], cb)
+}
+
+const addMemeUrl = (vote, cb) => {
+  Vote.findOne({
       'imgurUrl.string': null, 
-      'data.member_id': config.propublicaKeys.memberId
+      'vote.member_id': config.propublicaKeys.memberId
     }).sort({createdAt: 1}).exec((err, vote) => {
       if (err) {
         return cb(err);
       }
       if (!vote) {
-        console.log('No votes to add image to');
+        console.log(`No votes to add image to`);
         return cb()
       }
       const topText = getMemeTopString(vote.data);
       const bottomText = getMemeBottomString(vote.data);
 
-      console.log('Adding message to meme:', topText, bottomText);
+      console.log(`Adding text to meme: `, topText, bottomText);
 
       memeService.createMeme(topText, bottomText, (err, link) => {
         //do something
         if (err) {
           return cb(err)
         }
+        // insert link
         return cb(null, link)
       })
+    }
 
-    });
-  },
-    // (sCb)=> {
-    //   are there other things we need to do in processData?
-    // }
-  ], cb);
+  return cb(vote)
 }
 
 const getMemeTopString = (vote) => {
