@@ -53,10 +53,18 @@ const handleDonorName = (str) => {
    'pac':"PAC",
    'Pac':"PAC",
    'political action committee':"PAC",
+   'Political Committee':"PAC",
    'Association':"Assn.",
-   'Companies':"Co's."
+   'Companies':"Co's.",
+   'National':"Nat'l.",
+   'International':"Int'l.",
+   'Of':"of",
+   'The':"the",
+   'And':"and"
   };
-
+  // remove anything in parentheses
+  str = str.replace(/ *\([^)]*\) */g, " ");
+  // replace anything in the dict with correct word
   var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
   str = str.replace(re, function(matched){
     return mapObj[matched];
