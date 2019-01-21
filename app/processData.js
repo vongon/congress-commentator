@@ -75,13 +75,16 @@ const addMemeUrl = (vote, cb) => {
         }
         // insert link
         console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
-        return Vote.update({'vote.vote_uri': vote.vote_uri}, { $set: { 'imgurUrl': link} })
+        
+        Vote.update({'vote.vote_uri': vote.vote_uri}, { $set: { 'imgurUrl': link} }, (err, result) => {
+          if (err) {
+            return cb(err)
+          }
+          console.log('Vote.update result', result)
+        })
         // return cb(null, link)
       })
 }
-
-
-
 
 // db.votes.update({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}, { $set: { 'imgurUrl': 'https://imgur.com/MlW1F2f'} })
 // db.votes.find({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}).pretty()
