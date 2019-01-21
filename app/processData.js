@@ -48,8 +48,10 @@ module.exports = processData = (cb) => {
   async.series([ 
    
    (sCb) => {
-     /*add to db*/
-     Vote.find({query}).exec((err, votes) => {
+    /*add to db*/
+    Vote.find({
+      'imgurUrl': null
+     }).exec((err, votes) => {
       if(err) return cb(err)
       async.eachSeries(votes, (vote, voteCb) => {
         addMemeUrl(vote, voteCb);
@@ -61,17 +63,6 @@ module.exports = processData = (cb) => {
 }
 
 const addMemeUrl = (vote, cb) => {
-  Vote.findOne({
-      'imgurUrl.string': null, 
-      'vote.member_id': config.propublicaKeys.memberId
-    }).sort({createdAt: 1}).exec((err, vote) => {
-      if (err) {
-        return cb(err);
-      }
-      if (!vote) {
-        console.log(`No votes to add image to`);
-        return cb()
-      }
       const topText = getMemeTopString(vote.data);
       const bottomText = getMemeBottomString(vote.data);
 
@@ -83,12 +74,17 @@ const addMemeUrl = (vote, cb) => {
           return cb(err)
         }
         // insert link
-        return cb(null, link)
+        console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
+        return Vote.update({'vote.vote_uri': vote.vote_uri}, { $set: { 'imgurUrl': link} })
+        // return cb(null, link)
       })
-    }
-
-  return cb(vote)
 }
+
+
+
+
+// db.votes.update({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}, { $set: { 'imgurUrl': 'https://imgur.com/MlW1F2f'} })
+// db.votes.find({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}).pretty()
 
 const getMemeTopString = (vote) => {
   // hack-y way to deal with null values

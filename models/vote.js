@@ -18,7 +18,6 @@ const Vote = new Schema({
   // store imgurUrl for each vote
   imgurUrl: {
     string: mongoose.SchemaTypes.Url
-    }
   }
 });
 
