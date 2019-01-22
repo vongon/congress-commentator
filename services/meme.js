@@ -15,7 +15,7 @@ exports.createMeme = (topText, bottomText, cb) => {
     fontOptions: { // optional
       fontSize: 44,
       fontFamily: 'Helvetica',
-      lineHeight: 4
+      lineHeight: 2
     }
   });
 

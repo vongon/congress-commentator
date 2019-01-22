@@ -27,7 +27,7 @@ exports.uploadFile = (path, cb) => {
 }
 
 exports.uploadBase64 = (data, cb) => {
-  imgur.uploadBase64(data)
+  imgur.uploadBase64(data, {"title": 'Hello, world.', "description": 'imgur description.'})
     .then((json) => {
       console.log('Meme uploaded to imgur!', json.data.link);
       return cb(null, json.data.link);     
