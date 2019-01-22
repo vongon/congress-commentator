@@ -60,9 +60,9 @@ const handleDonorName = (str) => {
    'Companies':"Co's.",
    'National':"Nat'l.",
    'International':"Int'l.",
-   'Of':"of",
    'The':"the",
-   'And':"and"
+   'And':"and",
+   ' - Mpl Pac Akd Physician Insurers Of America Pac': ""
   };
   // remove anything in parentheses
   str = str.replace(/ *\([^)]*\) */g, " ");
