@@ -6,6 +6,7 @@ const memeLib = require('nodejs-meme-generator');
 
 const propublicaService = require('../services/propublica');
 const memeService = require('../services/meme')
+const imgurService = require('../services/imgurSvc')
 const Vote = require('../models/vote');
 const config = require('../config');
 const handleNullValues = require('../util/helpers').handleNullValues;
@@ -50,6 +51,18 @@ const addMemeUrl = (vote, cb) => {
           }
 
         })
+        var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
+        var imgurId = temp.replace(/"https:\/\/i.imgur.com\\/g, "");
+        var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
+        var description = topText
+        
+        imgurService.upDateMetaData(imgurId, title, description, (err, result) => {
+          if (err) {
+            return cb(err)
+          }
+          return result
+        });
+        
         return cb(null, link)
       })
 }

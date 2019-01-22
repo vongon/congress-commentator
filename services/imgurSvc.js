@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const async = require('async');
 const imgur = require('imgur');
+var imgurAPI = require('imgur-node-api');
 const memeLib = require('nodejs-meme-generator');
 
 const config = require('../config');
@@ -27,7 +28,7 @@ exports.uploadFile = (path, cb) => {
 }
 
 exports.uploadBase64 = (data, cb) => {
-  imgur.uploadBase64(data, {"title": 'Hello, world.', "description": 'imgur description.'})
+  imgur.uploadBase64(data)
     .then((json) => {
       console.log('Meme uploaded to imgur!', json.data.link);
       return cb(null, json.data.link);     
@@ -37,3 +38,19 @@ exports.uploadBase64 = (data, cb) => {
       return cb(err)
     }); 
 }
+
+exports.upDateMetaData = (id, title, description, cb) => {
+  imgurAPI.update({
+    id: id,
+    title: title,
+    description: description
+  }, (err,res) => {
+    if (err) {
+      return cb(err)
+    }
+  console.log('Metadata updated!', res.data);
+
+  return cb(res.data)
+  });
+}
+
