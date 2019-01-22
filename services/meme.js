@@ -9,13 +9,13 @@ const imgurService = require('./imgurSvc');
 exports.createMeme = (topText, bottomText, cb) => {
   const memeGenerator = new memeLib({
     canvasOptions: { // optional
-      canvasWidth: 1024,
-      canvasHeight: 800
+      canvasWidth: 506,
+      canvasHeight: 253
     },
     fontOptions: { // optional
-      fontSize: 40,
+      fontSize: 44,
       fontFamily: 'Helvetica',
-      lineHeight: 2
+      lineHeight: 4
     }
   });
 
