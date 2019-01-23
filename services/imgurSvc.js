@@ -45,13 +45,13 @@ exports.upDateMetaData = (id, title, description, cb) => {
     id: id,
     title: title,
     description: description
-  }, (err,res) => {
+  }, (err,response) => {
     if (err) {
       return cb(err)
     }
-    console.log('Metadata updated!', res.data);
+    console.log('Metadata updated!', response.data); // undefined
 
-  return cb(res.data)
+  return cb(response.data)
   });
 
 }

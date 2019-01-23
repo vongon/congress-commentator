@@ -15,15 +15,15 @@ module.exports = processData = (cb) => {
   async.series([ 
    
    (sCb) => {
-    // add imgurUrl to db
+    // add imgur url to db
     Vote.find({
-      'imgurUrl': null
+      'imgur.url': null
      }).exec((err, votes) => {
       if(err) {
         return sCb(err)
       }
       if (votes.length == 0) {
-        console.log('No votes need an imgurUrl at this time.')
+        console.log('No votes need an imgur Url at this time.')
         return sCb();
       }
       async.eachSeries(votes, (vote, voteCb) => {
@@ -32,10 +32,10 @@ module.exports = processData = (cb) => {
     });
    }, 
    (sCb) => {
-    //add metaData
+    //add metadata to db and post to imgur
     Vote.find({
-      'imgurTitle': null, 
-      'imgurUrl': { $ne: null }
+      'imgur.title': null, 
+      'imgur.url': { $ne: null }
      }).lean(true).exec((err, votes) => {
       if(err) {
         return sCb(err)
@@ -54,19 +54,19 @@ module.exports = processData = (cb) => {
 }
 
 const updateMemeMetaData = (vote, cb) => {  
-  var link = vote.imgurUrl
+  var link = vote.imgur.url
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
   var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
-  var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
+  var title = `On ${vote.data.bill.number} ${config.congressPerson.name} voted ${vote.data.position}`
   var description = getMemeTopString(vote.data)
       
   imgurService.upDateMetaData(imgurId, title, description, (err, result) => {
     if (err) {
       return cb(err)
     }
-    console.log(`Updating metadata for` + imgurId)
+    console.log(`Updating metadata for ` + imgurId)
         
-    Vote.updateOne({_id: vote._id}, { $set: { 'imgurTitle': title } }, (err, result) => {
+    Vote.updateOne({_id: vote._id}, { $set: { 'imgur.title': title, 'imgur.description': description} }, (err, result) => {
       if (err) {
         return cb(err)
       }
@@ -84,9 +84,9 @@ const addMemeUrl = (vote, cb) => {
     if (err) {
       return cb(err)
     }
-    console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
+    console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
         
-    Vote.updateOne({_id: vote._id}, { $set: { 'imgurUrl': link} }, (err, result) => {
+    Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link} }, (err, result) => {
       if (err) {
         return cb(err)
       }
