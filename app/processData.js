@@ -27,22 +27,27 @@ module.exports = processData = (cb) => {
         return cb()
       }
       async.eachSeries(votes, (vote, voteCb) => {
-        addMemeUrl(vote, voteCb);
+        // addMemeUrl(vote, voteCb);
+        addMemeUrl(vote, (err) => {
+          if (err) return voteCb(err);
+          updateMemeMetaData(vote, voteCb);
+        });
       });
     }, sCb);
    },
    (sCb) => {
     /*add metaData*/
     Vote.find({
-      'imgurTitle': null
+      'imgurTitle': null, 
+      'imgurUrl': {$ne: null}
      }).sort({createdAt: 1}).exec((err, votes) => {
       if(err) {
         return cb(err)
       }
-      // if (votes.length == 0) {
-      //   console.log('No votes need metadata updated at this time.')
-      //   return cb()
-      // }
+      if (votes.length == 0) {
+        console.log('No votes need metadata updated at this time.')
+        return cb()
+      }
       async.eachSeries(votes, (vote, voteCb) => {
         updateMemeMetaData(vote, voteCb);
       });
@@ -71,6 +76,7 @@ const updateMemeMetaData = (vote, cb) => {
       if (err) {
         return cb(err)
       }
+
     })
     return cb(result)
     });
