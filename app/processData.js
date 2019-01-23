@@ -31,9 +31,7 @@ module.exports = processData = (cb) => {
       }, sCb);
     });
    }, 
-   // (sCb) => { console.log('2nd function firing here.')},
    (sCb) => {
-    console.log('add metaData firing here.')
     //add metaData
     Vote.find({
       'imgurTitle': null, 
@@ -46,7 +44,6 @@ module.exports = processData = (cb) => {
         console.log('No votes need metadata updated at this time.')
         return sCb()
       }
-      console.log('through conditional in add metaData here.')
       // async.eachSeries(votes, (vote, voteCb) => {
       //   updateMemeMetaData(vote, voteCb);
       // }, sCb);
@@ -56,17 +53,13 @@ module.exports = processData = (cb) => {
   ], cb)
 }
 
-const updateMemeMetaData = (vote, cb) => {
-  console.log('Into updateMemeMetaData function here.')
-  
+const updateMemeMetaData = (vote, cb) => {  
   var link = vote.imgurUrl
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
   var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
   var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
   var description = getMemeTopString(vote.data)
-
-  console.log('Variables. imgurId: ' + imgurId + ' title: ' + title + ' description: ' + description)
-          
+      
   imgurService.upDateMetaData(imgurId, title, description, (err, result) => {
     if (err) {
       return cb(err)

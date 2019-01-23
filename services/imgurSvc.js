@@ -3,10 +3,7 @@ const path = require('path');
 const async = require('async');
 const imgur = require('imgur');
 var request = require('request');
-// var request = request.defaults({
-//   json: true
-// });
-// var imgurAPI = require('imgur-node-api');
+
 const memeLib = require('nodejs-meme-generator');
 
 const config = require('../config');
@@ -44,7 +41,6 @@ exports.uploadBase64 = (data, cb) => {
 }
 
 exports.upDateMetaData = (id, title, description, cb) => {
-  console.log('entering imgurSvc.upDateMetaData')
   imgur.update({
     id: id,
     title: title,
@@ -60,13 +56,9 @@ exports.upDateMetaData = (id, title, description, cb) => {
 
 }
 
-/**
- * Get current credit limits
- * @returns {promise}
- */
+// update metadata
 
  imgur.update = function(_params, _cb) {
-    console.log('deep, deep in the update function here')
     if(config.imgur.client_id && _params.id && (_params.title || _params.description)) {
       var options = {
         url: 'https://api.imgur.com/3/image/' + _params.id,
