@@ -36,8 +36,8 @@ exports.createMeme = (topText, bottomText, cb) => {
       // encode
       var imgToUpload = fileContent.toString('base64');
       // upload & generate link
-      // imgurService.uploadBase64(imgToUpload, cb);
-      imgurService.uploadBase64(imgToUpload, 'test-album', 'test-title', 'test-description')
+      imgurService.uploadBase64(imgToUpload, 'test-album', 'test-title', 'test-description');
+      // imgurService.uploadBase64(imgToUpload, 'test-album', 'test-title', 'test-description')
     })
     .catch((err) => {
       console.log(err)

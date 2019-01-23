@@ -75,7 +75,6 @@ const updateMemeMetaData = (vote, cb) => {
   });
 }
 
-
 const addMemeUrl = (vote, cb) => {
   const topText = getMemeTopString(vote.data);
   const bottomText = getMemeBottomString(vote.data);
