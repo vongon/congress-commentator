@@ -28,8 +28,8 @@ module.exports = processData = (cb) => {
       }
       async.eachSeries(votes, (vote, voteCb) => {
         addMemeUrl(vote, voteCb);
-      }, cb);
-    });
+      });
+    }, sCb);
    },
    (sCb) => {
     /*add metaData*/
@@ -45,16 +45,14 @@ module.exports = processData = (cb) => {
       }
       async.eachSeries(votes, (vote, voteCb) => {
         updateMemeMetaData(vote, voteCb);
-      }, cb);
-    });
+      });
+    }, sCb);
    }
-
 
   ], cb)
 }
 
 const updateMemeMetaData = (vote, cb) => {
-
   var link = vote.imgurUrl
 
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
