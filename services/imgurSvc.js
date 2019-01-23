@@ -34,7 +34,7 @@ var imgurAuth = new ClientOAuth2({
 
 const imgurAccessToken = imgurAuth.credentials.getToken()
   .then((user) => {
-    console.log('Inside imgurAccessToken function: ', user) //=> { accessToken: '...', tokenType: 'bearer', ... }
+    console.log(user.accessToken) //=> { accessToken: '...', tokenType: 'bearer', ... }
   })
   .catch((err) => {
     console.error('Error :', err.message);
@@ -47,7 +47,6 @@ const imgurAccessToken = imgurAuth.credentials.getToken()
       var options = {
         url: 'https://api.imgur.com/3/image/' + _params.id,
         headers: {
-          // 'Authorization': 'Client-ID ' + config.imgur.client_id
           'Authorization': 'Bearer ' + imgurAccessToken
         },
         form: {
