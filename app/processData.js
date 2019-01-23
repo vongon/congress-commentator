@@ -57,7 +57,7 @@ const updateMemeMetaData = (vote, cb) => {
   var link = vote.imgur.url
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
   var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
-  var title = `On ${vote.data.bill.number} ${config.congressPerson.name} voted ${vote.data.position}`
+  var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
   var description = getMemeTopString(vote.data)
       
   imgurService.upDateMetaData(imgurId, title, description, (err, result) => {
@@ -94,9 +94,6 @@ const addMemeUrl = (vote, cb) => {
     })
   })
 }
-        
-// db.votes.update({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}, { $set: { 'imgurUrl': 'https://imgur.com/MlW1F2f'} })
-// db.votes.find({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}).pretty()
 
 const getMemeTopString = (vote) => {
   // hack-y way to deal with null values
