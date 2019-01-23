@@ -39,10 +39,10 @@ module.exports = processData = (cb) => {
       if(err) {
         return cb(err)
       }
-      if (votes.length == 0) {
-        console.log('No votes need metadata updated at this time.')
-        return cb()
-      }
+      // if (votes.length == 0) {
+      //   console.log('No votes need metadata updated at this time.')
+      //   return cb()
+      // }
       async.eachSeries(votes, (vote, voteCb) => {
         updateMemeMetaData(vote, voteCb);
       });
@@ -57,6 +57,7 @@ const updateMemeMetaData = (vote, cb) => {
 
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
   var imgurId = temp.replace(/"https:\/\/i.imgur.com\\/g, "");
+  
   var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
   var description = getMemeTopString(vote.data)
           
@@ -90,8 +91,8 @@ const addMemeUrl = (vote, cb) => {
       if (err) {
         return cb(err)
       }
+      return cb(null, link)
     })
-    return cb(null, link)
   })
 }
         
