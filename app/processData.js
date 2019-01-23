@@ -15,7 +15,7 @@ module.exports = processData = (cb) => {
   async.series([ 
    
    (sCb) => {
-    /*add imgurUrl to db*/
+    // add imgurUrl to db
     Vote.find({
       'imgurUrl': null
      }).exec((err, votes) => {
@@ -24,23 +24,19 @@ module.exports = processData = (cb) => {
       }
       if (votes.length == 0) {
         console.log('No votes need an imgurUrl at this time.')
-        return cb()
+        return cb();
       }
       async.eachSeries(votes, (vote, voteCb) => {
-        // addMemeUrl(vote, voteCb);
-        addMemeUrl(vote, (err) => {
-          if (err) return voteCb(err);
-          updateMemeMetaData(vote, voteCb);
-        });
+        addMemeUrl(vote, voteCb);
       });
-    }, sCb);
+    },sCb;
    },
    (sCb) => {
-    /*add metaData*/
+    //add metaData
     Vote.find({
       'imgurTitle': null, 
       'imgurUrl': {$ne: null}
-     }).sort({createdAt: 1}).exec((err, votes) => {
+     }).exec((err, votes) => {
       if(err) {
         return cb(err)
       }
@@ -53,16 +49,13 @@ module.exports = processData = (cb) => {
       });
     }, sCb);
    }
-
   ], cb)
 }
 
 const updateMemeMetaData = (vote, cb) => {
   var link = vote.imgurUrl
-
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
   var imgurId = temp.replace(/"https:\/\/i.imgur.com\\/g, "");
-  
   var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
   var description = getMemeTopString(vote.data)
           
@@ -72,14 +65,13 @@ const updateMemeMetaData = (vote, cb) => {
     }
     console.log(`Updating metadata for ${imgurId}`)
         
-    Vote.updateOne({_id: vote._id}, { $set: { 'imgurTitle': title} }, (err, result) => {
+    Vote.updateOne({_id: vote._id}, { $set: { 'imgurTitle': title } }, (err, result) => {
       if (err) {
         return cb(err)
       }
-
-    })
-    return cb(result)
-    });
+      return cb()
+    })   
+  });
 }
 
 
