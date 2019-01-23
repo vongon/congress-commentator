@@ -2,10 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const async = require('async');
 const imgur = require('imgur');
-var request = require('request');
-var request = request.defaults({
-  json: true
-});
+var request = require('request').defaults({json: true});
 
 var ClientOAuth2 = require('client-oauth2')
 const memeLib = require('nodejs-meme-generator');
@@ -23,23 +20,23 @@ imgur.setCredentials(config.imgur.user, config.imgur.pw, config.imgur.client_id)
 // 'https://api.imgur.com/oauth2/authorize?client_id=f4dc6058ebf6adb&response_type=token'
 // https://congressionalvotesproject.imgur.com/oauth2/callback#access_token=5fd1fd009103a428fae93c9bf22fcafa449ad213&expires_in=315360000&token_type=bearer&refresh_token=80e57533234a8646c6788a72e709b018174b6e5a&account_username=CongressionalVotesProject&account_id=100335929
 
-var imgurAuth = new ClientOAuth2({
-  clientId: config.imgur.client_id,
-  clientSecret: config.imgur.client_secret,
-  accessTokenUri: 'https://api.imgur.com/oauth2/authorize?client_id=' + config.imgur.client_id + '&response_type=token',
-  authorizationUri: 'https://api.imgur.com/oauth2/authorize',
-  redirectUri: 'https://congressionalvotesproject.imgur.com/oauth2/callback',
-  scopes: []
-})
+// var imgurAuth = new ClientOAuth2({
+//   clientId: config.imgur.client_id,
+//   clientSecret: config.imgur.client_secret,
+//   accessTokenUri: 'https://api.imgur.com/oauth2/authorize?client_id=' + config.imgur.client_id + '&response_type=token',
+//   authorizationUri: 'https://api.imgur.com/oauth2/authorize',
+//   redirectUri: 'https://congressionalvotesproject.imgur.com/oauth2/callback',
+//   scopes: []
+// })
 
-const imgurAccessToken = imgurAuth.credentials.getToken()
-  .then((user) => {
-    console.log(user.accessToken) //=> { accessToken: '...', tokenType: 'bearer', ... }
-  })
-  .catch((err) => {
-    console.error('Error :', err.message);
-      return err
-  })
+// const imgurAccessToken = imgurAuth.credentials.getToken()
+//   .then((user) => {
+//     console.log(user.accessToken) //=> { accessToken: '...', tokenType: 'bearer', ... }
+//   })
+//   .catch((err) => {
+//     console.error('Error :', err.message);
+//       return err
+//   })
 
 // update metadata
  imgur.update = (_params, _cb) => {

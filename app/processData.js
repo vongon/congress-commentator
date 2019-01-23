@@ -31,25 +31,25 @@ module.exports = processData = (cb) => {
       }, sCb);
     });
    },
-   (sCb) => {
-    //add metadata to db and post to imgur
-    Vote.find({
-      'imgur.title': null, 
-      'imgur.url': { $ne: null }
-     }).lean(true).exec((err, votes) => {
-      if(err) {
-        return sCb(err)
-      }
-      if (votes.length == 0) {
-        console.log('No votes need metadata updated at this time.')
-        return sCb()
-      }
-      // async.eachSeries(votes, (vote, voteCb) => {
-      //   updateMemeMetaData(vote, voteCb);
-      // }, sCb);
-      async.eachSeries(votes, updateMemeMetaData, sCb);
-    });
-   }
+   // (sCb) => {
+   //  //add metadata to db and post to imgur
+   //  Vote.find({
+   //    'imgur.title': null, 
+   //    'imgur.url': { $ne: null }
+   //   }).lean(true).exec((err, votes) => {
+   //    if(err) {
+   //      return sCb(err)
+   //    }
+   //    if (votes.length == 0) {
+   //      console.log('No votes need metadata updated at this time.')
+   //      return sCb()
+   //    }
+   //    // async.eachSeries(votes, (vote, voteCb) => {
+   //    //   updateMemeMetaData(vote, voteCb);
+   //    // }, sCb);
+   //    async.eachSeries(votes, updateMemeMetaData, sCb);
+   //  });
+   // }
   ], cb)
 }
 
