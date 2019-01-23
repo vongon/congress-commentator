@@ -38,7 +38,7 @@ exports.createMeme = (topText, bottomText, cb) => {
       // upload & generate link
       // imgurService.uploadBase64(imgToUpload, cb);
       imgurService.uploadBase64(imgToUpload, 'test-album', 'test-title', 'test-description')
-    }, cb)
+    })
     .catch((err) => {
       console.log(err)
       return cb(err)
