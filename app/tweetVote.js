@@ -84,7 +84,7 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
     var result = vote.data.result
     var voteDate = vote.data.date;
     // need to remove extension and any quotes to embed img in tweet
-    var imgurUrl = JSON.stringify(vote.imgurUrl)
+    var imgurUrl = JSON.stringify(vote.imgur.url)
     imgurUrl = imgurUrl.replace(/\.[^/.]+$/, "")
     imgurUrl = imgurUrl.replace(/^"/,"");
 
