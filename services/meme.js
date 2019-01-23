@@ -6,6 +6,7 @@ const memeLib = require('nodejs-meme-generator');
 
 const imgurService = require('./imgurSvc');
 
+
 exports.createMeme = (topText, bottomText, cb) => {
   const memeGenerator = new memeLib({
     canvasOptions: { // optional

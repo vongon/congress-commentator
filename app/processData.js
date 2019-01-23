@@ -15,7 +15,7 @@ module.exports = processData = (cb) => {
   async.series([ 
    
    (sCb) => {
-    /*add to db*/
+    /*add imgurUrl to db*/
     Vote.find({
       'imgurUrl': null
      }).exec((err, votes) => {
@@ -30,43 +30,73 @@ module.exports = processData = (cb) => {
         addMemeUrl(vote, voteCb);
       }, cb);
     });
+   },
+   (sCb) => {
+    /*add metaData*/
+    Vote.find({
+      'imgurTitle': null
+     }).sort({createdAt: 1}).exec((err, votes) => {
+      if(err) {
+        return cb(err)
+      }
+      if (votes.length == 0) {
+        console.log('No votes need metadata updated at this time.')
+        return cb()
+      }
+      async.eachSeries(votes, (vote, voteCb) => {
+        updateMemeMetaData(vote, voteCb);
+      }, cb);
+    });
    }
+
 
   ], cb)
 }
 
-const addMemeUrl = (vote, cb) => {
-      const topText = getMemeTopString(vote.data);
-      const bottomText = getMemeBottomString(vote.data);
+const updateMemeMetaData = (vote, cb) => {
 
-      memeService.createMeme(topText, bottomText, (err, link) => {
-        if (err) {
-          return cb(err)
-        }
-        console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
-        
-        Vote.updateOne({_id: vote._id}, { $set: { 'imgurUrl': link} }, (err, result) => {
-          if (err) {
-            return cb(err)
-          }
+  var link = vote.imgurUrl
 
-        })
-        var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
-        var imgurId = temp.replace(/"https:\/\/i.imgur.com\\/g, "");
-        var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
-        var description = topText
+  var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
+  var imgurId = temp.replace(/"https:\/\/i.imgur.com\\/g, "");
+  var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
+  var description = getMemeTopString(vote.data)
+          
+  imgurService.upDateMetaData(imgurId, title, description, (err, result) => {
+    if (err) {
+      return cb(err)
+    }
+    console.log(`Updating metadata for ${imgurId}`)
         
-        imgurService.upDateMetaData(imgurId, title, description, (err, result) => {
-          if (err) {
-            return cb(err)
-          }
-          return result
-        });
-        
-        return cb(null, link)
-      })
+    Vote.updateOne({_id: vote._id}, { $set: { 'imgurTitle': title} }, (err, result) => {
+      if (err) {
+        return cb(err)
+      }
+    })
+    return cb(result)
+    });
 }
 
+
+const addMemeUrl = (vote, cb) => {
+  const topText = getMemeTopString(vote.data);
+  const bottomText = getMemeBottomString(vote.data);
+
+  memeService.createMeme(topText, bottomText, (err, link) => {
+    if (err) {
+      return cb(err)
+    }
+    console.log(`Inserting imgurUrl to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
+        
+    Vote.updateOne({_id: vote._id}, { $set: { 'imgurUrl': link} }, (err, result) => {
+      if (err) {
+        return cb(err)
+      }
+    })
+    return cb(null, link)
+  })
+}
+        
 // db.votes.update({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}, { $set: { 'imgurUrl': 'https://imgur.com/MlW1F2f'} })
 // db.votes.find({'data.vote_uri': 'https://api.propublica.org/congress/v1/116/house/sessions/1/votes/43.json', 'data.member_id': 'M001157'}).pretty()
 
