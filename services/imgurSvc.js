@@ -2,7 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const async = require('async');
 const imgur = require('imgur');
-var imgurAPI = require('imgur-node-api');
+var request = require('request');
+// var request = request.defaults({
+//   json: true
+// });
+// var imgurAPI = require('imgur-node-api');
 const memeLib = require('nodejs-meme-generator');
 
 const config = require('../config');
@@ -40,7 +44,8 @@ exports.uploadBase64 = (data, cb) => {
 }
 
 exports.upDateMetaData = (id, title, description, cb) => {
-  imgurAPI.update({
+  console.log('entering imgurSvc.upDateMetaData')
+  imgur.update({
     id: id,
     title: title,
     description: description
@@ -48,9 +53,42 @@ exports.upDateMetaData = (id, title, description, cb) => {
     if (err) {
       return cb(err)
     }
-  console.log('Metadata updated!', res.data);
+    console.log('Metadata updated!', res.data);
 
   return cb(res.data)
   });
+
 }
+
+/**
+ * Get current credit limits
+ * @returns {promise}
+ */
+
+ imgur.update = function(_params, _cb) {
+    console.log('deep, deep in the update function here')
+    if(config.imgur.client_id && _params.id && (_params.title || _params.description)) {
+      var options = {
+        url: 'https://api.imgur.com/3/image/' + _params.id,
+        headers: {
+          'Authorization': 'Client-ID ' + config.imgur.client_id
+        },
+        form: {
+          title: _params.title ? _params.title : null,
+          description: _params.description ? _params.description : null
+        }
+      };
+      request.post(options, function (err, req, body) {
+        if(err) {
+          return _cb(err);
+        }
+        _cb(null, body);
+      });
+    }
+  }
+
+
+
+
+
 

@@ -20,50 +20,58 @@ module.exports = processData = (cb) => {
       'imgurUrl': null
      }).exec((err, votes) => {
       if(err) {
-        return cb(err)
+        return sCb(err)
       }
       if (votes.length == 0) {
         console.log('No votes need an imgurUrl at this time.')
-        return cb();
+        return sCb();
       }
       async.eachSeries(votes, (vote, voteCb) => {
         addMemeUrl(vote, voteCb);
-      });
-    },sCb;
-   },
+      }, sCb);
+    });
+   }, 
+   // (sCb) => { console.log('2nd function firing here.')},
    (sCb) => {
+    console.log('add metaData firing here.')
     //add metaData
     Vote.find({
       'imgurTitle': null, 
-      'imgurUrl': {$ne: null}
-     }).exec((err, votes) => {
+      'imgurUrl': { $ne: null }
+     }).lean(true).exec((err, votes) => {
       if(err) {
-        return cb(err)
+        return sCb(err)
       }
       if (votes.length == 0) {
         console.log('No votes need metadata updated at this time.')
-        return cb()
+        return sCb()
       }
-      async.eachSeries(votes, (vote, voteCb) => {
-        updateMemeMetaData(vote, voteCb);
-      });
-    }, sCb);
+      console.log('through conditional in add metaData here.')
+      // async.eachSeries(votes, (vote, voteCb) => {
+      //   updateMemeMetaData(vote, voteCb);
+      // }, sCb);
+      async.eachSeries(votes, updateMemeMetaData, sCb);
+    });
    }
   ], cb)
 }
 
 const updateMemeMetaData = (vote, cb) => {
+  console.log('Into updateMemeMetaData function here.')
+  
   var link = vote.imgurUrl
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
-  var imgurId = temp.replace(/"https:\/\/i.imgur.com\\/g, "");
+  var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
   var title = `${config.congressPerson.name}'s vote on ${vote.data.bill.number}`
   var description = getMemeTopString(vote.data)
+
+  console.log('Variables. imgurId: ' + imgurId + ' title: ' + title + ' description: ' + description)
           
   imgurService.upDateMetaData(imgurId, title, description, (err, result) => {
     if (err) {
       return cb(err)
     }
-    console.log(`Updating metadata for ${imgurId}`)
+    console.log(`Updating metadata for` + imgurId)
         
     Vote.updateOne({_id: vote._id}, { $set: { 'imgurTitle': title } }, (err, result) => {
       if (err) {
