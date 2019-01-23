@@ -28,7 +28,7 @@ https://api.imgur.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&response_type=RE
         url: 'https://api.imgur.com/3/image/' + _params.id,
         headers: {
           // 'Authorization': 'Client-ID ' + config.imgur.client_id
-          'Authorization': 'Bearer' + access_token
+          'Authorization': 'Bearer ' + config.imgur.access_token
         },
         form: {
           title: _params.title ? _params.title : null,
@@ -78,9 +78,29 @@ exports.upDateMetaData = (id, title, description, cb) => {
     if (err) {
       return cb(err)
     }
-    console.log('Response.data: ', response.data); // undefined
+    console.log('Response.data: ', response.data); // true(?)
 
-    return cb(response.data)
+    return cb(null, response.data)
   });
-
 }
+
+// imgur access tokens are good for a month, so this needs to be implemented
+exports.generateImgurAccessToken = (clientId, cb) => {
+  const options = {
+    method: 'GET',
+    url: 'https://api.imgur.com/oauth2/authorize?client_id=' + config.imgur.client_id + '&response_type=access_token',
+
+  }
+  request(options, (err, response, body) => {
+    if (err) {
+      return cb(err);
+    }
+  console.log('Redirect URL :', response) 
+
+  return cb(null, body);
+
+  });
+}
+
+
+

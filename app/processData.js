@@ -30,7 +30,7 @@ module.exports = processData = (cb) => {
         addMemeUrl(vote, voteCb);
       }, sCb);
     });
-   }, 
+   },
    (sCb) => {
     //add metadata to db and post to imgur
     Vote.find({
