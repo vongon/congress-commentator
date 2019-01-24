@@ -7,11 +7,9 @@ const memeLib = require('nodejs-meme-generator');
 
 const config = require('../config');
 
-// Set imgur client id
+
 imgur.setClientId(config.imgur.client_id);
-// Get imgur client id
 imgur.getClientId();
-// Set credentials
 imgur.setCredentials(config.imgur.user, config.imgur.pw, config.imgur.client_id);
 
 exports.uploadFile = (path, cb) => {
