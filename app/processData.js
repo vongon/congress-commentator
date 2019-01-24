@@ -39,9 +39,6 @@ const addMemeUrl = (vote, cb) => {
   const topText = getMemeTopString(vote.data);
   const bottomText = getMemeBottomString(vote.data);
 
-  var link = vote.imgur.url
-  var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
-  var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
   var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
   var description = `Title: ${vote.data.bill.title}`
 
@@ -51,7 +48,7 @@ const addMemeUrl = (vote, cb) => {
     }
     console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
         
-    Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description, 'imgur.id': imgurId} }, (err, result) => {
+    Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, (err, result) => {
       if (err) {
         return cb(err)
       }

@@ -87,6 +87,7 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
     var imgurUrl = JSON.stringify(vote.imgur.url)
     imgurUrl = imgurUrl.replace(/\.[^/.]+$/, "")
     imgurUrl = imgurUrl.replace(/^"/,"");
+    // var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
 
     var message = `"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${jurisdiction}) voted "${position}".\n\nShort Description: '${abbreviatedBillDescription}'.\n\n${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting. Result: ${result} ${voteDate}.\n\n${imgurUrl}`;
 
