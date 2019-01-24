@@ -36,20 +36,22 @@ module.exports = tweetContribution = (cb) => {
       handleNullValues(contribution.data)
       // get tweet string + shortened URL
       getPacTweetString(contribution.data, (err, pacMessage) => {
-        if (err) return cb(err);
+        if (err) {
+          return cb(err);
+        }
         // now we have pacMessage with shortened url and can tweet:
         twitterService.tweet(pacMessage, (err) => {
           if (err) {
             console.log('PAC tweet err with contribution._id: ', contribution._id)
             return cb(err);
         }
-        console.log('Tweeting PAC data:', pacMessage)       
+        console.log('Tweeting PAC data:', pacMessage) 
         // save any new PAC data contribution entries to the database
+        
         contribution.tweetedAt = new Date();
         contribution.save(cb);
 
         console.log('PAC data successfully tweeted at', contribution.tweetedAt)
-        return cb(null, pacMessage);
       });         
     });
   })
@@ -77,7 +79,7 @@ getPacTweetString = (contribution, cb) => {
     // handle bitly response data:
     var json = JSON.parse(shortUrl);    
     const shortLink = json.data.url;
-    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\nMore info: ${shortLink}`;
+    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\n🔎 : ${shortLink}`;
 
     return cb(null, pacMessage);
   })
