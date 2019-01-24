@@ -23,6 +23,7 @@ const trimString = (string, maxLength) => {
   var lastWord = trimmedString.match(/\w+$/)[0];
   var lastIndex = trimmedString.lastIndexOf(" ");
 
+  var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ] 
     if (lastWord == 'of' ||
         lastWord == 'the' ||
         lastWord == 'and' ||
@@ -48,7 +49,7 @@ const handleNullValues = (obj) => {
 
 // to avoid 186 errors, abbreviate
 const handleDonorName = (str) => {
-  var mapObj = {
+  var abbrevDict = {
    'Political Action Committee':"PAC",
    'pac':"PAC",
    'Pac':"PAC",
@@ -67,9 +68,9 @@ const handleDonorName = (str) => {
   // remove anything in parentheses
   str = str.replace(/ *\([^)]*\) */g, " ");
   // replace anything in the dict with correct word
-  var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+  var re = new RegExp(Object.keys(abbrevDict).join("|"),"gi");
   str = str.replace(re, function(matched){
-    return mapObj[matched];
+    return abbrevDict[matched];
   });
   return str
 };

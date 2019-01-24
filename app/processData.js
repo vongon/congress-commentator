@@ -12,7 +12,6 @@ const config = require('../config');
 const handleNullValues = require('../util/helpers').handleNullValues;
 const trimString = require('../util/helpers').trimString; 
 
-
 module.exports = processData = (cb) => {
   async.series([ 
    
@@ -62,11 +61,10 @@ const addMemeUrl = (vote, cb) => {
 }
 
 const getMemeTopString = (vote) => {
-  // hack-y way to deal with null values
   var title = vote.bill.title
-
-  var abbrevTitle = trimString(title, 300)
-
+  // deal with super long bill titles:
+  var abbrevTitle = trimString(title, 350)
+  // hack-y way to deal with null values
   if (title == null) {
     title = String(title);
     title = title.replace(/null\b/g, '');
