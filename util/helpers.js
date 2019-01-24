@@ -70,6 +70,7 @@ const handleDonorName = (str) => {
   str = str.replace(/ *\([^)]*\) */g, " ");
   // replace anything in the dict with correct word
   var re = new RegExp(Object.keys(abbrevDict).join("|"),"gi");
+  
   str = str.replace(re, function(matched){
     return abbrevDict[matched];
   });
