@@ -23,7 +23,7 @@ const trimString = (string, maxLength) => {
   var lastWord = trimmedString.match(/\w+$/)[0];
   var lastIndex = trimmedString.lastIndexOf(" ");
 
-  var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ] 
+  // var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ] 
     if (lastWord == 'of' ||
         lastWord == 'the' ||
         lastWord == 'and' ||
@@ -40,7 +40,7 @@ const trimString = (string, maxLength) => {
 // handle null values for string methods
 const handleNullValues = (obj) => {
   Object.keys(obj).forEach(function(key) {
-    if(obj[key] === null) {
+    if(!obj[key]) {
       obj[key] = '-';
     }
   })

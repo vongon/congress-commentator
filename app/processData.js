@@ -65,7 +65,7 @@ const getMemeTopString = (vote) => {
   // deal with super long bill titles:
   var abbrevTitle = trimString(title, 350)
   // hack-y way to deal with null values
-  if (title == null) {
+  if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
     var topText = vote.bill.number + ': ' + title + ' \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
