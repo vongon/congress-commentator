@@ -68,14 +68,19 @@ const getMemeTopString = (vote) => {
   if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
-    var topText = vote.bill.number + ': ' + title + ' \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
+    // var topText = vote.bill.number + ': ' + title + ' \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
+    var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
     return topText
   }
-	var topText = vote.bill.number + ': "' + abbrevTitle + '" \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
+	// var topText = vote.bill.number + ': "' + abbrevTitle + '" \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
+    var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
 	return topText
 }
 
 const getMemeBottomString = (vote) => {
-	var bottomText = vote.question + ', ' + vote.total.no + ' member(s) voted "No", ' + vote.total.yes + ' member(s) voted "Yes", ' + `${vote.total.not_voting + vote.total.present}` + ' member(s) voted "Not voting" or "present". The bill ' + vote.result + ' on ' + vote.date + '.' 
+  var title = vote.bill.title
+  var abbrevTitle = trimString(title, 350)
+	// var bottomText = vote.question + ', ' + vote.total.no + ' member(s) voted "No", ' + vote.total.yes + ' member(s) voted "Yes", ' + `${vote.total.not_voting + vote.total.present}` + ' member(s) voted "Not voting" or "present". The bill ' + vote.result + ' on ' + vote.date + '.' 
+  var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.' 
 	return bottomText
 }

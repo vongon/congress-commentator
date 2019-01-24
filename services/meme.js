@@ -14,16 +14,18 @@ exports.createMeme = (topText, bottomText, title, description, cb) => {
       canvasHeight: 253
     },
     fontOptions: { // optional
-      fontSize: 44,
+      fontSize: 36,
       fontFamily: 'Helvetica',
-      lineHeight: 2
+      lineHeight: 4
     }
   });
 
   memeGenerator.generateMeme({
     topText: topText,
     bottomText: bottomText,
-    url: 'https://imgur.com/8PE28SH.png'
+    //old:
+    // url: 'https://imgur.com/8PE28SH.png'
+    url: 'https://i.imgur.com/72YRU2t.png'
     })
     // upload to imgur:
     .then((data) => {
