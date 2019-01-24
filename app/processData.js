@@ -43,7 +43,7 @@ const addMemeUrl = (vote, cb) => {
   var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
   var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
   var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
-  var description = getMemeTopString(vote.data)
+  var description = `Title: ${vote.data.bill.title}`
 
   memeService.createMeme(topText, bottomText, title, description, (err, link) => {
     if (err) {

@@ -22,7 +22,6 @@
   "dependencies": {
     "async": "^2.6.1",
     "btoa": "^1.2.1",
-    "client-oauth2": "^4.2.3",
     "imgur": "^0.3.1",
     "imgur-node-api": "^0.1.0",
     "moment": "^2.23.0",
