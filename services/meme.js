@@ -16,7 +16,7 @@ exports.createMeme = (topText, bottomText, title, description, cb) => {
     fontOptions: { // optional
       fontSize: 36,
       fontFamily: 'Helvetica',
-      lineHeight: 4
+      lineHeight: 2.5
     }
   });
 
@@ -46,11 +46,9 @@ exports.createMeme = (topText, bottomText, title, description, cb) => {
         description: description
       }
       imgurService.uploadBase64(imgurData, cb);
-      // imgurService.uploadBase64(imgToUpload, cb);
     })
     .catch((err) => {
       console.log(err)
       return cb(err)
     });
-  // return cb
 }

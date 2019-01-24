@@ -64,7 +64,7 @@ const getMemeTopString = (vote) => {
   var title = vote.bill.title
   // deal with super long bill titles:
   var abbrevTitle = trimString(title, 350)
-  // hack-y way to deal with null values
+  // hack-y way to deal with null values in bill titles
   if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
