@@ -82,18 +82,17 @@ const getMemeTopString = (vote) => {
     return topText;
   }
 
-  var title = vote.bill.title
-  // hack-y way to deal with null values in bill titles
-  if (!title) {
-    title = String(title);
-    title = title.replace(/null\b/g, '');
-    var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.';
-    return topText
-  }
+  // var title = vote.bill.title
+  // // deal with super long bill titles:
+  // if (!title) {
+  //   title = String(title);
+  //   title = title.replace(/null\b/g, '');
+  //   var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.';
+  //   return topText
+  // }
 
-  // deal with super long bill titles:
-  var abbrevTitle = trimString(title, 350)
-
+  // var abbrevTitle = trimString(title, 350)
+  //   // hack-y way to deal with null values in bill titles
   var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.';
 	return topText
 }
@@ -109,6 +108,8 @@ const getMemeBottomString = (vote) => {
   }
 
   var title = vote.bill.title
+  var abbrevTitle = trimString(title, 350)
+ 
   if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
@@ -116,7 +117,6 @@ const getMemeBottomString = (vote) => {
     return bottomText
   }
 
-  var abbrevTitle = trimString(title, 350)
   var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.'; 
 	return bottomText
 }
