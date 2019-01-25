@@ -58,14 +58,14 @@ const getMemeTopString = (vote) => {
   if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
-    var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
+    var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.';
     return topText
   }
 
   // deal with super long bill titles:
   var abbrevTitle = trimString(title, 350)
 
-  var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
+  var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.';
 	return topText
 }
 
@@ -74,10 +74,11 @@ const getMemeBottomString = (vote) => {
   if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
-    var bottomText = title + '. The bill ' + vote.result + ' on ' + vote.date + '.'     return topText
+    var bottomText = title + '. The bill ' + vote.result + ' on ' + vote.date + '.';  
+    return bottomText
   }
 
   var abbrevTitle = trimString(title, 350)
-  var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.' 
+  var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.'; 
 	return bottomText
 }
