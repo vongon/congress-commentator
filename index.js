@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const async = require('async');
 
 const importData = require('./app/importData');
-const processData = require('./app/processData');
+const processVote = require('./app/processVote');
 const tweetVote = require('./app/tweetVote');
 const tweetContribution = require('./app/tweetContribution');
 const tweetPACs = require('./app/tweetPACs')
