@@ -39,6 +39,7 @@ const addMemeUrl = (vote, cb) => {
   const topText = getMemeTopString(vote.data);
   const bottomText = getMemeBottomString(vote.data);
 
+  console.log("vote: ", vote)
   // deal with Speaker vote
   if (vote.data.question == "Election of the Speaker") {
     var name = config.congressPerson.name;
