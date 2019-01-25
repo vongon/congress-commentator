@@ -25,8 +25,10 @@ module.exports = tweetVote = (cb) => {
     }
 
     processVote(vote, (err) => {
+      if (err) return cb(err);
       const message = getTweetString(vote);
       console.log('Tweeting vote data:', message);
+      
       twitterService.tweet(message, (err) => {
         if (err) {
           console.log('tweetVote err', err)

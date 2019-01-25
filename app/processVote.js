@@ -21,7 +21,7 @@ module.exports = processVote = (vote, cb) => {
     Vote.find({
       // if we don't query for votes that don't have imgur.url's, how can we be sure
       // that the vote we're tweeting about has one?
-      // 'imgur.url':null,
+      'imgur.url':null,
       'vote._id': vote._id
      }).exec((err, votes) => {
       if(err) {
