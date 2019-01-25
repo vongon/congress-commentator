@@ -53,7 +53,7 @@ const addMemeUrl = (vote, cb) => {
 }
 
 const getMemeTopString = (vote) => {
-  console.log('vote.bill.title :', vote.bill.title)
+  console.log('vote: ', vote)
   var title = vote.bill.title
   // hack-y way to deal with null values in bill titles
   if (!title) {
