@@ -22,7 +22,7 @@ module.exports = tweetVote = (cb) => {
       console.log('No votes available to tweet');
       return cb()
     }
-    const message = getTweetString(vote.data);
+    const message = getTweetString(vote);
     console.log('Tweeting vote data:', message);
     twitterService.tweet(message, (err) => {
       if (err) {
@@ -43,24 +43,24 @@ const getTweetString = (vote) => {
   // Speaker vote has no bill number and vote totals were strings
   if (vote.question == "Election of the Speaker") {
     var handle = config.congressPerson.handle
-    var abbreviatedBillQuestion = vote.question;
+    var abbreviatedBillQuestion = vote.data.question;
     var name = config.congressPerson.name;
     var party = config.congressPerson.party;
     var jurisdiction = config.congressPerson.jurisdiction;
-    var position = vote.position;
-    var pelosiCount = vote.total["Pelosi"];
-    var mcCarthyCount = vote.total["McCarthy"];
+    var position = vote.data.position;
+    var pelosiCount = vote.data.total["Pelosi"];
+    var mcCarthyCount = vote.data.total["McCarthy"];
     var otherCount = 0;
-    Object.keys(vote.total).map((item) => {
+    Object.keys(vote.data.total).map((item) => {
       if(!(item == "Pelosi" || item == "McCarthy")) {
-        console.log(item, vote.total[item]);
-        otherCount += vote.total[item];
+        console.log(item, vote.data.total[item]);
+        otherCount += vote.data.total[item];
       }
     })
-    var notCount = vote.total["Not Voting"];
-    var presentCount = vote.total["Present"];
-    var result = vote.result
-    var voteDate = vote.date;
+    var notCount = vote.data.total["Not Voting"];
+    var presentCount = vote.data.total["Present"];
+    var result = vote.data.result
+    var voteDate = vote.data.date;
 
     var message = `
 On "${abbreviatedBillQuestion}", ${name} (${handle} ${party}-${jurisdiction}) voted "${position}". \n\n
@@ -71,25 +71,24 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
   }
 
     var handle = config.congressPerson.handle
-    var abbreviatedBillQuestion = trimString(vote.question, 25)
-    var abbreviatedBillDescription = trimString(vote.description, 45)
-    var billNumber = vote.bill.number;
+    var abbreviatedBillQuestion = trimString(vote.data.question, 25)
+    var abbreviatedBillDescription = trimString(vote.data.description, 45)
+    var billNumber = vote.data.bill.number;
     var name = config.congressPerson.name;
     var party = config.congressPerson.party;
     var jurisdiction = config.congressPerson.jurisdiction;
-    var position = vote.position;
-    var yesCount = vote.total.yes;
-    var noCount = vote.total.no;
-    var notCount = vote.total.not_voting;
-    var result = vote.result
-    var voteDate = vote.date;
+    var position = vote.data.position;
+    var yesCount = vote.data.total.yes;
+    var noCount = vote.data.total.no;
+    var notCount = vote.data.total.not_voting;
+    var result = vote.data.result
+    var voteDate = vote.data.date;
+    // need to remove extension and any quotes to embed img in tweet
+    var imgurUrl = JSON.stringify(vote.imgur.url)
+    imgurUrl = imgurUrl.replace(/\.[^/.]+$/, "")
+    imgurUrl = imgurUrl.replace(/^"/,"");
 
-    var message = `
-"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${jurisdiction}) voted "${position}". \n\n
-Short Description: '${abbreviatedBillDescription}'. \n\n
-${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting.
-Result: ${result} ${voteDate}.
-    `;
+    var message = `"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${jurisdiction}) voted "${position}".\n\nShort Description: '${abbreviatedBillDescription}'.\n\n${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting. Result: ${result} ${voteDate}.\n\n${imgurUrl}`;
 
     return message;
 }
