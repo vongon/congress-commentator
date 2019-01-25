@@ -54,8 +54,6 @@ const addMemeUrl = (vote, cb) => {
 
 const getMemeTopString = (vote) => {
   var title = vote.bill.title
-  // deal with super long bill titles:
-  var abbrevTitle = trimString(title, 350)
   // hack-y way to deal with null values in bill titles
   if (!title) {
     title = String(title);
@@ -64,7 +62,10 @@ const getMemeTopString = (vote) => {
     return topText
   }
 
-    var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
+  // deal with super long bill titles:
+  var abbrevTitle = trimString(title, 350)
+
+  var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
 	return topText
 }
 
