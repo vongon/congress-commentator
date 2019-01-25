@@ -50,13 +50,14 @@ const addMemeUrl = (vote, cb) => {
     var description = `Result: ${result} elected Speaker of the House.`
 
     memeService.createMeme(topText, bottomText, title, description, (err, link) => {
-    if (err) {
-      return cb(err)
-    }
-    console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.question}`)
-        
-    Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, cb)
-    })
+      if (err) {
+        return cb(err)
+      }
+      console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.question}`)
+          
+      Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, cb)
+      })
+    return cb(link)
   }
 
   var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
