@@ -53,7 +53,15 @@ const addMemeUrl = (vote, cb) => {
 }
 
 const getMemeTopString = (vote) => {
-  console.log('vote: ', vote)
+  // deal with Speaker vote
+  if (vote.question == "Election of the Speaker") {
+    var abbreviatedBillQuestion = vote.question;
+    var name = config.congressPerson.name;
+    var position = vote.position; 
+    var topText = `On "${abbreviatedBillQuestion}", ${name} voted "${position}".`;
+    return topText;
+  }
+
   var title = vote.bill.title
   // hack-y way to deal with null values in bill titles
   if (!title) {
@@ -71,6 +79,15 @@ const getMemeTopString = (vote) => {
 }
 
 const getMemeBottomString = (vote) => {
+  // deal with Speaker vote
+  if (vote.question == "Election of the Speaker") {
+    var result = vote.result
+    var voteDate = vote.date;
+    var bottomText = `Result: ${result} elected Speaker of the House on ${voteDate}.`
+
+    return bottomText;
+  }
+
   var title = vote.bill.title
   if (!title) {
     title = String(title);
