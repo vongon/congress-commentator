@@ -57,7 +57,6 @@ const addMemeUrl = (vote, cb) => {
           
       Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, cb)
       })
-    return cb
   }
 
   var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
