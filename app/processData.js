@@ -39,9 +39,6 @@ const addMemeUrl = (vote, cb) => {
   const topText = getMemeTopString(vote.data);
   const bottomText = getMemeBottomString(vote.data);
 
-  var link = vote.imgur.url
-  var temp = JSON.stringify(link).replace(/\.[^/.]+$/, "")
-  var imgurId = temp.replace(/^"https?:\/\/i.imgur.com\//,'')
   var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
   var description = `Title: ${vote.data.bill.title}`
 
@@ -51,12 +48,7 @@ const addMemeUrl = (vote, cb) => {
     }
     console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
         
-    Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, (err, result) => {
-      if (err) {
-        return cb(err)
-      }
-      return cb(null, link)
-    })
+    Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, cb)
   })
 }
 
@@ -64,15 +56,14 @@ const getMemeTopString = (vote) => {
   var title = vote.bill.title
   // deal with super long bill titles:
   var abbrevTitle = trimString(title, 350)
-  // hack-y way to deal with null values
+  // hack-y way to deal with null values in bill titles
   if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
-    // var topText = vote.bill.number + ': ' + title + ' \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
     var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
     return topText
   }
-	// var topText = vote.bill.number + ': "' + abbrevTitle + '" \n' + config.congressPerson.name + ' (' + config.congressPerson.party + '-' + config.congressPerson.jurisdiction + ') voted ' + '"' + vote.position + '"' + '.'
+
     var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.'
 	return topText
 }
@@ -80,7 +71,6 @@ const getMemeTopString = (vote) => {
 const getMemeBottomString = (vote) => {
   var title = vote.bill.title
   var abbrevTitle = trimString(title, 350)
-	// var bottomText = vote.question + ', ' + vote.total.no + ' member(s) voted "No", ' + vote.total.yes + ' member(s) voted "Yes", ' + `${vote.total.not_voting + vote.total.present}` + ' member(s) voted "Not voting" or "present". The bill ' + vote.result + ' on ' + vote.date + '.' 
   var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.' 
 	return bottomText
 }
