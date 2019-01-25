@@ -108,8 +108,14 @@ const getMemeBottomString = (vote) => {
   }
 
   var title = vote.bill.title
-  var abbrevTitle = trimString(title, 350)
- 
+  
+  // super long title
+  if (title.length > 350) {
+    var abbrevTitle = trimString(title, 170)
+    var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.'; 
+    return bottomText
+  }
+
   if (!title) {
     title = String(title);
     title = title.replace(/null\b/g, '');
@@ -117,6 +123,6 @@ const getMemeBottomString = (vote) => {
     return bottomText
   }
 
-  var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.'; 
+  var bottomText = title + '. The bill ' + vote.result + ' on ' + vote.date + '.'; 
 	return bottomText
 }
