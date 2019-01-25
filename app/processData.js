@@ -13,16 +13,16 @@ const handleNullValues = require('../util/helpers').handleNullValues;
 const trimString = require('../util/helpers').trimString; 
 
 
-// TODO 
-// 1) modify processData so it accepts a `vote._id`, prob best to rename to `processVote(id, cb)`
-// 2) modify `tweetVote` so that right before we get the tweet string, we run `processVote(vote._id, cb)` 
-module.exports = processVote = (id, cb) => {
+module.exports = processVote = (vote, cb) => {
   async.series([ 
    
    (sCb) => {
     // add imgur url to db
     Vote.find({
-      'vote._id': id
+      // if we don't query for votes that don't have imgur.url's, how can we be sure
+      // that the vote we're tweeting about has one?
+      // 'imgur.url':null,
+      'vote._id': vote._id
      }).exec((err, votes) => {
       if(err) {
         return sCb(err)
@@ -37,6 +37,7 @@ module.exports = processVote = (id, cb) => {
     });
    }
   ], cb)
+
 }
 
 const addMemeUrl = (vote, cb) => {

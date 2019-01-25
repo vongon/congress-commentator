@@ -9,6 +9,7 @@ const Contribution = require('../models/contribution');
 
 const trimString = require('../util/helpers').trimString; 
 
+
 module.exports = tweetVote = (cb) => {
   // find oldest vote that has not been tweeted yet
   Vote.findOne({
@@ -22,19 +23,25 @@ module.exports = tweetVote = (cb) => {
       console.log('No votes available to tweet');
       return cb()
     }
-    const message = getTweetString(vote);
-    console.log('Tweeting vote data:', message);
-    twitterService.tweet(message, (err) => {
-      if (err) {
-        console.log('tweetVote err', err)
-        return cb(err);
-      }
-      vote.tweetedAt = new Date();
-      vote.save(cb);
 
-      console.log('Vote data successfully tweeted at', vote.tweetedAt)
-    });
-  });
+    processVote(vote, (err) => {
+      const message = getTweetString(vote);
+      console.log('Tweeting vote data:', message);
+      twitterService.tweet(message, (err) => {
+        if (err) {
+          console.log('tweetVote err', err)
+          return cb(err);
+        }
+        vote.tweetedAt = new Date();
+        vote.save(cb);
+
+        console.log('Vote data successfully tweeted at', vote.tweetedAt)
+      });
+    
+    }); // end processVote
+
+   
+  }); //end sort
 
 };
 

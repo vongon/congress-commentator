@@ -20,13 +20,6 @@ const main = (cb) => {
       // import data 
       importData(sCb);
     },
-    // (sCb) => {
-    //   processData(sCb);
-    //   // 1. creates meme
-    //   // 2. uploads to imgur
-    //   // 3. saves imgur link to db
-      
-    // },
     (sCb) => {
       // tweet votes
       tweetVote(sCb);
