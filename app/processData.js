@@ -71,6 +71,12 @@ const getMemeTopString = (vote) => {
 
 const getMemeBottomString = (vote) => {
   var title = vote.bill.title
+  if (!title) {
+    title = String(title);
+    title = title.replace(/null\b/g, '');
+    var bottomText = title + '. The bill ' + vote.result + ' on ' + vote.date + '.'     return topText
+  }
+
   var abbrevTitle = trimString(title, 350)
   var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.' 
 	return bottomText
