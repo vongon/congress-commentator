@@ -67,7 +67,7 @@ const handleDonorName = (str) => {
    ' For Rural Electrification (Acre)': "",
    ' - Usaa Employee Pac': "",
    '/International Union Of Operating Engineers': "",
-   'The National Rural Electric Cooperative Association Action Committee For Rural Electrification (Acre)': "The Nat'l. Rural Electric Co-op Assn. Action Committee"
+   'The National Rural Electric Cooperative Association Action Committee For Rural Electrification (Acre)': "The Nat'l. Rural Electric Co-op Assn. (ACRE)"
   };
   // remove anything in parentheses
   str = str.replace(/ *\([^)]*\) */g, " ");
