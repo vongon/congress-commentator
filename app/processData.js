@@ -12,13 +12,17 @@ const config = require('../config');
 const handleNullValues = require('../util/helpers').handleNullValues;
 const trimString = require('../util/helpers').trimString; 
 
-module.exports = processData = (cb) => {
+
+// TODO 
+// 1) modify processData so it accepts a `vote._id`, prob best to rename to `processVote(id, cb)`
+// 2) modify `tweetVote` so that right before we get the tweet string, we run `processVote(vote._id, cb)` 
+module.exports = processVote = (id, cb) => {
   async.series([ 
    
    (sCb) => {
     // add imgur url to db
     Vote.find({
-      'imgur.url': null
+      'vote._id': id
      }).exec((err, votes) => {
       if(err) {
         return sCb(err)
@@ -80,18 +84,6 @@ const getMemeTopString = (vote) => {
     var topText = `On "${abbreviatedBillQuestion}", ${name} voted "${position}".`;
     return topText;
   }
-
-  // var title = vote.bill.title
-  // // deal with super long bill titles:
-  // if (!title) {
-  //   title = String(title);
-  //   title = title.replace(/null\b/g, '');
-  //   var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.';
-  //   return topText
-  // }
-
-  // var abbrevTitle = trimString(title, 350)
-  //   // hack-y way to deal with null values in bill titles
   var topText = vote.bill.number + ': ' + config.congressPerson.name + ' voted ' + '"' + vote.position + '"' + '.';
 	return topText
 }
