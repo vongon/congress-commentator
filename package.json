@@ -39,10 +39,19 @@
       "name": "Ryan McGill",
       "email": null,
       "url": "https://github.com/ryanjamesmcgill",
-      "contributions": 7,
-      "additions": 551,
-      "deletions": 15,
+      "contributions": 29,
+      "additions": 921,
+      "deletions": 969,
       "hireable": true
+    },
+    {
+      "name": "Matt",
+      "email": null,
+      "url": "https://github.com/TheeMattOliver",
+      "contributions": 146,
+      "additions": 3459,
+      "deletions": 1403,
+      "hireable": null
     }
   ]
 }
