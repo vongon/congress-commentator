@@ -1,6 +1,8 @@
 const async = require('async');
 const config = require('../config');
 
+const processData = require('./processData');
+
 const propublicaService = require('../services/propublica');
 const twitterService = require('../services/twitter');
 
@@ -22,20 +24,31 @@ module.exports = tweetVote = (cb) => {
       console.log('No votes available to tweet');
       return cb()
     }
-    const message = getTweetString(vote);
-    console.log('Tweeting vote data:', message);
-    twitterService.tweet(message, (err) => {
+
+    processData(vote._id, (err) => {
       if (err) {
-        console.log('tweetVote err', err)
         return cb(err);
       }
-      vote.tweetedAt = new Date();
-      vote.save(cb);
+      Vote.findOne({_id: vote._id}).exec((err, refreshedVote) => {
+        if (err) {
+          return cb(err);
+        }     
+        vote = refreshedVote;
+        const message = getTweetString(vote);
+        console.log('Tweeting vote data:', message);
+        twitterService.tweet(message, (err) => {
+          if (err) {
+            console.log('tweetVote err', err)
+            return cb(err);
+          }
+          vote.tweetedAt = new Date();
+          vote.save(cb);
 
-      console.log('Vote data successfully tweeted at', vote.tweetedAt)
+          console.log('Vote data successfully tweeted at', vote.tweetedAt)
+        });
+      });
     });
   });
-
 };
 
 // Votes tweet 

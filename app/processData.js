@@ -12,12 +12,13 @@ const config = require('../config');
 const handleNullValues = require('../util/helpers').handleNullValues;
 const trimString = require('../util/helpers').trimString; 
 
-module.exports = processData = (cb) => {
+module.exports = processData = (voteId, cb) => {
   async.series([ 
    
    (sCb) => {
     // add imgur url to db
     Vote.find({
+      '_id': voteId,
       'imgur.url': null
      }).exec((err, votes) => {
       if(err) {
