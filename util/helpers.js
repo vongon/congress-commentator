@@ -67,8 +67,7 @@ const handleDonorName = (str) => {
    ' For Rural Electrification (Acre)': "",
    ' - Usaa Employee Pac': "",
    '/International Union Of Operating Engineers': "",
-   'The National Rural Electric Cooperative Association Action Committee For Rural Electrification (Acre)': "Nat'l. Rural Electric Co-op Assn.",
-   'Farmers Group, Inc., Farmers Insurance Exchange, Fire Insurance Exchange And Truck Insurance Exchange Political Action Committee Aka Farmers Insurance Pac': "Farmers Group, Inc.",
+   'The National Rural Electric Cooperative Association Action Committee For Rural Electrification (Acre)': "Nat'l. Rural Electric Co-op",
    'Farmers Group, Inc., Farmers Insurance Exchange, Fire Insurance Exchange And Truck Insurance Exch...': "Farmers Insurance PAC"
   };
   // remove anything in parentheses
