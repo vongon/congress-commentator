@@ -13,7 +13,7 @@ const handleNullValues = require('../util/helpers').handleNullValues;
 const trimString = require('../util/helpers').trimString; 
 
 
-module.exports = processVote = (vote, cb) => {
+module.exports = processVote = (id, cb) => {
   async.series([ 
    
    (sCb) => {
@@ -22,7 +22,7 @@ module.exports = processVote = (vote, cb) => {
       // if we don't query for votes that don't have imgur.url's, how can we be sure
       // that the vote we're tweeting about has one?
       'imgur.url':null,
-      'vote._id': vote._id
+      'vote._id': id
      }).exec((err, votes) => {
       if(err) {
         return sCb(err)
@@ -45,24 +45,24 @@ const addMemeUrl = (vote, cb) => {
   const bottomText = getMemeBottomString(vote.data);
 
   console.log("vote: ", vote)
-  // deal with Speaker vote
-  if (vote.data.question == "Election of the Speaker") {
-    var name = config.congressPerson.name;
-    var position = vote.data.position;
-    var result = vote.data.result;
-    var title = `${vote.data.question}: ${config.congressPerson.name} voted "${vote.data.position}".` ;
+  // // deal with Speaker vote
+  // if (vote.data.question == "Election of the Speaker") {
+  //   var name = config.congressPerson.name;
+  //   var position = vote.data.position;
+  //   var result = vote.data.result;
+  //   var title = `${vote.data.question}: ${config.congressPerson.name} voted "${vote.data.position}".` ;
      
-    var description = `Result: ${result} elected Speaker of the House.`
+  //   var description = `Result: ${result} elected Speaker of the House.`
 
-    memeService.createMeme(topText, bottomText, title, description, (err, link) => {
-      if (err) {
-        return cb(err)
-      }
-      console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.question}`)
+  //   memeService.createMeme(topText, bottomText, title, description, (err, link) => {
+  //     if (err) {
+  //       return cb(err)
+  //     }
+  //     console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.question}`)
           
-      Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, cb)
-      })
-  }
+  //     Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, cb)
+  //     })
+  // }
 
   var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
   var description = `Title: ${vote.data.bill.title}`

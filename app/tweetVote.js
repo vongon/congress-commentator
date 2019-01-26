@@ -24,7 +24,8 @@ module.exports = tweetVote = (cb) => {
       return cb()
     }
 
-    processVote(vote, (err) => {
+    var voteId = vote._id
+    processVote(voteId, (err) => {
       if (err) return cb(err);
       const message = getTweetString(vote);
       console.log('Tweeting vote data:', message);
