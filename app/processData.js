@@ -35,7 +35,10 @@ module.exports = processData = (cb) => {
   ], cb)
 }
 
-const addMemeUrl = (vote, cb) => {
+const addMemeUrl = (err, vote, cb) => {
+  if (err) {
+    return cb(err)
+  }
   const topText = getMemeTopString(vote.data);
   const bottomText = getMemeBottomString(vote.data);
 
