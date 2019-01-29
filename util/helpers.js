@@ -14,16 +14,15 @@ const okayToTweet = (contribution) => {
 
 const trimString = (string, maxLength) => {
   if (string != null) {
-   var trimmedString = string.substr(0, maxLength);
-  // lastWord regex match will return null if we don't remove punctuation first
-  trimmedString = trimmedString.replace(/\b[-.,()&$#!\[\]{}"']+\B|\B[-.,()&$#!\[\]{}"']+\b/g, "");
-  // now re-trim if we are in the middle of a word
-  trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
-  // remove awkward words at ends of phrases
-  var lastWord = trimmedString.match(/\w+$/)[0];
-  var lastIndex = trimmedString.lastIndexOf(" ");
-
-  // var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ]
+    var trimmedString = string.substr(0, maxLength);
+    // lastWord regex match will return null if we don't remove punctuation first
+    trimmedString = trimmedString.replace(/\b[-.,()&$#!\[\]{}"']+\B|\B[-.,()&$#!\[\]{}"']+\b/g, "");
+    // now re-trim if we are in the middle of a word
+    trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+    // remove awkward words at ends of phrases
+    var lastWord = trimmedString.match(/\w+$/)[0];
+    var lastIndex = trimmedString.lastIndexOf(" ");
+    // var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ]
     if (lastWord == 'of' ||
         lastWord == 'the' ||
         lastWord == 'and' ||
