@@ -7,7 +7,7 @@ const twitterService = require('../services/twitter');
 const Vote = require('../models/vote');
 const Contribution = require('../models/contribution');
 const trimString = require('../util/helpers').trimString; 
-const trimString = require('../util/helpers').handleNullValues; 
+const handleNullValues = require('../util/helpers').handleNullValues; 
 
 
 module.exports = tweetVote = (cb) => {
