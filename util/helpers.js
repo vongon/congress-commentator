@@ -15,7 +15,8 @@ const okayToTweet = (contribution) => {
 const trimString = (string, maxLength) => {
   if (string === null) {
     var temp = String(string); 
-    var replaced = temp.replace("null", "N/A") 
+    var replaced = temp.replace("null", "N/A")
+    return replaced; 
   } 
   var trimmedString = string.substr(0, maxLength);
     // lastWord regex match will return null if we don't remove punctuation first
