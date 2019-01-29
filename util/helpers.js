@@ -12,9 +12,9 @@ const okayToTweet = (contribution) => {
   return false;
 };
 
-// trim tweet Question & Description 
 const trimString = (string, maxLength) => {
-  var trimmedString = string.substr(0, maxLength);
+  if (string != null) {
+   var trimmedString = string.substr(0, maxLength);
   // lastWord regex match will return null if we don't remove punctuation first
   trimmedString = trimmedString.replace(/\b[-.,()&$#!\[\]{}"']+\B|\B[-.,()&$#!\[\]{}"']+\b/g, "");
   // now re-trim if we are in the middle of a word
@@ -23,7 +23,7 @@ const trimString = (string, maxLength) => {
   var lastWord = trimmedString.match(/\w+$/)[0];
   var lastIndex = trimmedString.lastIndexOf(" ");
 
-  // var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ] 
+  // var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ]
     if (lastWord == 'of' ||
         lastWord == 'the' ||
         lastWord == 'and' ||
@@ -34,7 +34,9 @@ const trimString = (string, maxLength) => {
         lastWord == 'ending') {
         trimmedString = trimmedString.substring(0, lastIndex);
     }
-  return trimmedString + `...`; 
+    return trimmedString + `...`;  
+  } 
+  return String(string);
 }
 
 // handle null values for string methods
