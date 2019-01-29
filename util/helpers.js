@@ -13,7 +13,7 @@ const okayToTweet = (contribution) => {
 };
 
 const trimString = (string, maxLength) => {
-  if (!string) {
+  if (string === null) {
     return String(string);  
   } 
   var trimmedString = string.substr(0, maxLength);
@@ -40,12 +40,10 @@ const trimString = (string, maxLength) => {
 
 // handle null values for string methods
 const handleNullValues = (obj) => {
-  Object.keys(obj).forEach(function(key) {
+  Object.keys(obj).forEach((key) => {
     if(obj[key] == null) {
       obj[key] = '-';
-    } else if (obj[key] == '') {
-      obj[key] = '-';
-    }
+    } 
   })
   return obj;
 };
