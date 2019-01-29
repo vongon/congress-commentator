@@ -53,7 +53,6 @@ module.exports = tweetVote = (cb) => {
 
 // Votes tweet 
 const getTweetString = (vote) => {
-  console.log('Vote! ', vote)
   // Speaker vote has no bill number and vote totals were strings
   if (vote.question == "Election of the Speaker") {
     var handle = config.congressPerson.handle

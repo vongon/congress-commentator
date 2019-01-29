@@ -40,7 +40,7 @@ const trimString = (string, maxLength) => {
 // handle null values for string methods
 const handleNullValues = (obj) => {
   Object.keys(obj).forEach(function(key) {
-    if(obj[key]===null) {
+    if(!obj[key] || obj[key]='') {
       obj[key] = '-';
     }
   })
