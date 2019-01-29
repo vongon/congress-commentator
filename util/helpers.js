@@ -13,7 +13,7 @@ const okayToTweet = (contribution) => {
 };
 
 const trimString = (string, maxLength) => {
-  if (string === null) {
+  if (string == null) {
     return String(string);  
   } 
   var trimmedString = string.substr(0, maxLength);
