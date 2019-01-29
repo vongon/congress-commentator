@@ -62,10 +62,13 @@ const addMemeUrl = (vote, cb) => {
 
   var title = `${vote.data.question} for ${vote.data.bill.number}: ${config.congressPerson.name} voted "${vote.data.position}".`
   var description = `Title: ${vote.data.bill.title}`
+
+
   memeService.createMeme(topText, bottomText, title, description, (err, link) => {
     if (err) {
       return cb(err)
     }
+    description = handleNullValues(description);
     console.log(`Inserting imgur url to db for ${config.congressPerson.name}'s vote on ${vote.data.bill.number}`)
         
     Vote.updateOne({_id: vote._id}, { $set: { 'imgur.url': link, 'imgur.title': title, 'imgur.description': description} }, cb)
