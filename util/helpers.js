@@ -13,8 +13,10 @@ const okayToTweet = (contribution) => {
 };
 
 const trimString = (string, maxLength) => {
-  if (string != null) {
-    var trimmedString = string.substr(0, maxLength);
+  if (!string) {
+    return String(string);  
+  } 
+  var trimmedString = string.substr(0, maxLength);
     // lastWord regex match will return null if we don't remove punctuation first
     trimmedString = trimmedString.replace(/\b[-.,()&$#!\[\]{}"']+\B|\B[-.,()&$#!\[\]{}"']+\b/g, "");
     // now re-trim if we are in the middle of a word
@@ -34,8 +36,6 @@ const trimString = (string, maxLength) => {
         trimmedString = trimmedString.substring(0, lastIndex);
     }
     return trimmedString + `...`;  
-  } 
-  return String(string);
 }
 
 // handle null values for string methods
