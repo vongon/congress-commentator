@@ -14,9 +14,6 @@ const okayToTweet = (contribution) => {
 
 // trim tweet Question & Description 
 const trimString = (string, maxLength) => {
-  if (!string) {
-    string = String(string);
-  }
   var trimmedString = string.substr(0, maxLength);
   // lastWord regex match will return null if we don't remove punctuation first
   trimmedString = trimmedString.replace(/\b[-.,()&$#!\[\]{}"']+\B|\B[-.,()&$#!\[\]{}"']+\b/g, "");
