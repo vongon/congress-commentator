@@ -85,7 +85,19 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
 
     var handle = config.congressPerson.handle
     var abbreviatedBillQuestion = trimString(vote.data.question, 25)
-    var abbreviatedBillDescription = trimString(vote.data.description, 45)
+    var abbreviatedBillDescription = '';
+    
+    if (vote.data.description === null) {
+      var temp = String(string); 
+      var replaced = temp.replace("null", "N/A")
+      abbreviatedBillDescription = replaced; 
+    } else {
+      abbreviatedBillDescription = trimString(vote.data.description, 45)
+    }
+
+
+
+
     var billNumber = vote.data.bill.number;
     var name = config.congressPerson.name;
     var party = config.congressPerson.party;
@@ -101,7 +113,7 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
     imgurUrl = imgurUrl.replace(/\.[^/.]+$/, "")
     imgurUrl = imgurUrl.replace(/^"/,"");
 
-    var message = `"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${jurisdiction}) voted "${position}".\n\nShort Description: '${abbreviatedBillDescription}'.\n\n${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting. Result: ${result} ${voteDate}.\n\n${imgurUrl}`;
+    var message = `"${abbreviatedBillQuestion}" on ${billNumber}, ${name} (${handle} ${party}-${jurisdiction}) voted "${position}".\n\nShort Description: '${abbreviatedBillDescription}'.\n\n${yesCount} member(s) voted "Yes". ${noCount} member(s) voted "No". ${notCount} not voting. Result: ${result} ${voteDate}.\n${imgurUrl}`;
 
     return message;
 }
