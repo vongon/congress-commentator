@@ -24,19 +24,19 @@ const trimString = (string, maxLength) => {
   // now re-trim if we are in the middle of a word
   trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
   // remove awkward words at ends of phrases
-  var lastWord = trimmedString.match(/\w+$/)[0];
-  var lastIndex = trimmedString.lastIndexOf(" ");
-  // var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ]
-  if (lastWord == 'of' ||
-        lastWord == 'the' ||
-        lastWord == 'and' ||
-        lastWord == 'for' ||
-        lastWord == 'with' ||
-        lastWord == 'to' ||
-        lastWord == 'to' ||
-        lastWord == 'ending') {
-        trimmedString = trimmedString.substring(0, lastIndex);
-    }
+  // var lastWord = trimmedString.match(/\w+$/)[0];
+  // var lastIndex = trimmedString.lastIndexOf(" ");
+  // // var lastWordsOkayToDelete = ['of','the', 'and', 'for', 'with', 'to', 'ending' ]
+  // if (lastWord == 'of' ||
+  //       lastWord == 'the' ||
+  //       lastWord == 'and' ||
+  //       lastWord == 'for' ||
+  //       lastWord == 'with' ||
+  //       lastWord == 'to' ||
+  //       lastWord == 'to' ||
+  //       lastWord == 'ending') {
+  //       trimmedString = trimmedString.substring(0, lastIndex);
+  //   }
     return trimmedString + `...`;  
 }
 
