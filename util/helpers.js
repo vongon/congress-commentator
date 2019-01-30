@@ -65,6 +65,7 @@ const handleDonorName = (str) => {
    'National':"Nat'l.",
    'International':"Int'l.",
    'The':"the",
+   'the':"the",
    'And':"and",
    'and': "and",
    ' - Mpl Pac Akd Physician Insurers Of America Pac': "",
