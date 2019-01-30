@@ -66,6 +66,7 @@ const handleDonorName = (str) => {
    'International':"Int'l.",
    'The':"the",
    'And':"and",
+   'and': "and",
    ' - Mpl Pac Akd Physician Insurers Of America Pac': "",
    ' For Rural Electrification (Acre)': "",
    ' - Usaa Employee Pac': "",
