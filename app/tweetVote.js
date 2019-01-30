@@ -85,19 +85,7 @@ Result: ${result} elected Speaker of the House on ${voteDate}.`;
 
     var handle = config.congressPerson.handle
     var abbreviatedBillQuestion = trimString(vote.data.question, 25)
-    var abbreviatedBillDescription = '';
-    
-    if (vote.data.description === null) {
-      var temp = String(string); 
-      var replaced = temp.replace("null", "N/A")
-      abbreviatedBillDescription = replaced; 
-    } else {
-      abbreviatedBillDescription = trimString(vote.data.description, 45)
-    }
-
-
-
-
+    var abbreviatedBillDescription = trimString(vote.data.description, 45)
     var billNumber = vote.data.bill.number;
     var name = config.congressPerson.name;
     var party = config.congressPerson.party;
