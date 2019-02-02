@@ -73,6 +73,7 @@ const handleDonorName = (str) => {
    ' - Usaa Employee Pac': "",
    '/International Union Of Operating Engineers': "",
    'The National Rural Electric Cooperative Association Action Committee For Rural Electrification (Acre)': "Nat'l. Rural Electric Co-op",
+   'the National Rural Electric Cooperative Association Action Committee For Rural Electrifica': "Nat'l. Rural Electric Co-op",
    'the Nat\'l. Rural Electric Cooperative Assn. Action Committee For Rural Electrifica': "Nat'l. Rural Electric Co-op",
    'the National Rural Electric Cooperative Association Action Committee For Rural Electrifica': "Nat'l. Rural Electric Co-op",
    'THE NATIONAL RURAL ELECTRIC COOPERATIVE ASSOCIATION ACTION COMMITTEE FOR RURAL ELECTRIFICA': "Nat'l. Rural Electric Co-op",
