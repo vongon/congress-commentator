@@ -76,7 +76,8 @@ const handleDonorName = (str) => {
    'the Nat\'l. Rural Electric Cooperative Assn. Action Committee For Rural Electrifica': "Nat'l. Rural Electric Co-op",
    'the National Rural Electric Cooperative Association Action Committee For Rural Electrifica': "Nat'l. Rural Electric Co-op",
    'THE NATIONAL RURAL ELECTRIC COOPERATIVE ASSOCIATION ACTION COMMITTEE FOR RURAL ELECTRIFICA': "Nat'l. Rural Electric Co-op",
-   'Farmers Group, Inc., Farmers Insurance Exchange, Fire Insurance Exchange And Truck Insurance Exch...': "Farmers Insurance PAC"
+   'Farmers Group, Inc., Farmers Insurance Exchange, Fire Insurance Exchange And Truck Insurance Exch...': "Farmers Insurance PAC",
+   'Political Action Comm': "PAC"
   };
   // remove anything in parentheses
   str = str.replace(/ *\([^)]*\) */g, " ");
