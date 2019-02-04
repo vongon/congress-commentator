@@ -74,7 +74,8 @@ const handleDonorName = (str) => {
    '/International Union Of Operating Engineers': "",
    "The National Rural Electric Cooperative Association Action Committee For Rural Electrifica": "Nat'l. Rural Electric Co-op",
    'Farmers Group, Inc., Farmers Insurance Exchange, Fire Insurance Exchange And Truck Insurance Exch...': "Farmers Insurance PAC",
-   'American Fuels And Petrochemical Manufacturers Association Political Action Committee (Afp': "American Fuels & Petrochemical Manufacturers Assn. PAC",
+   'American Fuels And Petrochemical Manufacturers Association Political Action Committee': "American Fuels & Petrochemical Manufacturers Assn. PAC",
+   '(Afp': "",
    'Texas Association For Home Care & Hospice, Inc. Texas Home Care & Hospice PAC- Federal': "",
    'Political Action Comm': "PAC"
   };
