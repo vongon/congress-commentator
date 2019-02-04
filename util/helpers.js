@@ -72,9 +72,8 @@ const handleDonorName = (str) => {
    ' For Rural Electrification (Acre)': "",
    ' - Usaa Employee Pac': "",
    '/International Union Of Operating Engineers': "",
-   'The National Rural Electric Cooperative Association Action Committee For Rural Electrifica': "Nat'l. Rural Electric Co-op",
+   "The National Rural Electric Cooperative Association Action Committee For Rural Electrifica": "Nat'l. Rural Electric Co-op",
    'Farmers Group, Inc., Farmers Insurance Exchange, Fire Insurance Exchange And Truck Insurance Exch...': "Farmers Insurance PAC",
-   'American Fuels and Petrochemical Manufacturers Association Pac (Afp': "American Fuels & Petrochemical Manufacturers Assn.",
    'Texas Association For Home Care & Hospice, Inc. Texas Home Care & Hospice PAC- Federal': "",
    'Political Action Comm': "PAC"
   };
