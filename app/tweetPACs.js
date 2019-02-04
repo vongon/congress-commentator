@@ -80,7 +80,7 @@ getPacTweetString = (contribution, cb) => {
     // handle bitly response data:
     var json = JSON.parse(shortUrl);    
     const shortLink = json.data.url;
-    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a PAC registered in ${donorCity}, ${donorState}.\n\n🔎 : ${shortLink}`;
+    const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\n🔎 : ${shortLink}`;
 
     return cb(null, pacMessage);
   })
