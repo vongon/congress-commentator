@@ -94,10 +94,27 @@ const toProperCase = (string) => {
   });
 }
 
+// to avoid 186 errors, abbreviate
+const handleRecipientName = (str) => {
+  var thingsWeDontCareAbout = ['CREDIT CARD MERCHANT FEES' ]
+
+  var abbrevDict = {   
+  };
+  // remove anything in parentheses
+  str = str.replace(/ *\([^)]*\) */g, " ");
+  // replace anything in the dict with correct word
+  var re = new RegExp(Object.keys(abbrevDict).join("|"),"gi");
+  str = str.replace(re, function(matched){
+    return abbrevDict[matched];
+  });
+  return str
+};
+
 module.exports = {
     okayToTweet: okayToTweet,
     handleNullValues: handleNullValues,
     handleDonorName: handleDonorName,
     toProperCase: toProperCase,
-    trimString: trimString
+    trimString: trimString,
+    handleRecipientName: handleRecipientName
 };
