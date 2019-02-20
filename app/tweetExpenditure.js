@@ -6,7 +6,7 @@ const propublicaService = require('../services/propublica');
 const twitterService = require('../services/twitter');
 const bitlyService = require('../services/bitly')
 
-const Vote = require('../models/expenditure');
+const Expenditure = require('../models/expenditure');
 
 const okayToTweet = require('../util/helpers').okayToTweet;
 const handleNullValues = require('../util/helpers').handleNullValues;
@@ -65,7 +65,7 @@ getExpenditureTweetString = (expenditure, cb) => {
   const committee = toProperCase(expenditure.committee.name)
   const recipient = toProperCase(expenditure.recipient_name)
   const loadDate = moment(expenditure.load_date).format('YYYY-MM-DD');
-  const amount = expenditure.expenditure_receipt_amount.toLocaleString();
+  const amount = expenditure.disbursement_amount.toLocaleString();
   const recipientDescription = toProperCase(expenditure.disbursement_description);
   const recipientState = expenditure.recipient_state;
   const recipientCity = toProperCase(expenditure.recipient_city)
@@ -78,7 +78,7 @@ getExpenditureTweetString = (expenditure, cb) => {
     // handle bitly response data:
     var json = JSON.parse(shortUrl);    
     const shortLink = json.data.url;
-    const expenditureMessage = `On ${loadDate}, ${handle} (${party}-${jurisdiction})'s' "${committee}" reported a $${amount} expenditure to "${abbrevRecipient}", in ${recipientCity}, ${recipientState} for "${recipientDescription}".\n\n🔎 : ${shortLink}`;
+    const expenditureMessage = `On ${loadDate}, ${handle} (${party}-${jurisdiction})'s' "${committee}" reported a $${amount} expenditure to "${recipient}", in ${recipientCity}, ${recipientState} for "${recipientDescription}".\n\n🔎 : ${shortLink}`;
 
     return cb(null, expenditureMessage);
   })

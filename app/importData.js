@@ -4,6 +4,7 @@ const Vote = require('../models/vote');
 const Contribution = require('../models/contribution')
 const fecService = require('../services/fec');
 const PACContribution = require('../models/pacContribution');
+const Expenditure = require('../models/expenditure');
 const config = require('../config')
 
 module.exports = importData = (cb) => {
@@ -88,7 +89,7 @@ module.exports = importData = (cb) => {
       }); // end getPacContributions
     },
     (sCb)=> { 
-      // get PAC data from the FEC
+      // get campaign expenditure from the FEC
       fecService.getCampaignExpenditures((err, expenditureData) => {
         if (err) {
           return sCb(err);
@@ -103,11 +104,11 @@ module.exports = importData = (cb) => {
               return expenditureCb();
             }
             console.log(`Creating expenditure data for transaction id: ${data.transaction_id}`);
-            const newPacContribution = new PACContribution({data});
-            return newPacContribution.save(expenditureCb);               
+            const newCampaignExpenditure = new Expenditure({data});
+            return newCampaignExpenditure.save(expenditureCb);               
           }) // end findOne
         }, sCb)
-      }); // end getPacContributions
+      }); // end getExpenditure
     }
   ], cb);
 }
