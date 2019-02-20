@@ -86,6 +86,28 @@ module.exports = importData = (cb) => {
           }) // end findOne
         }, sCb)
       }); // end getPacContributions
+    },
+    (sCb)=> { 
+      // get PAC data from the FEC
+      fecService.getCampaignExpenditures((err, expenditureData) => {
+        if (err) {
+          return sCb(err);
+        }      
+        async.eachSeries(expenditureData.results, (data, expenditureCb) => {
+          PACContribution.countDocuments({'data.transaction_id': data.transaction_id, 'data.committee_id': config.fec.committee_id}).exec((err, contributionCount) => {
+            if (err) {
+              return expenditureCb(err);
+            }
+            if (contributionCount > 0) {
+              console.log('Skipping expenditure upload because found existing entry for transaction_id:', data.transaction_id);
+              return expenditureCb();
+            }
+            console.log(`Creating expenditure data for transaction id: ${data.transaction_id}`);
+            const newPacContribution = new PACContribution({data});
+            return newPacContribution.save(expenditureCb);               
+          }) // end findOne
+        }, sCb)
+      }); // end getPacContributions
     }
   ], cb);
 }

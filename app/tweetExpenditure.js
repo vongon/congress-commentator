@@ -10,7 +10,7 @@ const Vote = require('../models/expenditure');
 
 const okayToTweet = require('../util/helpers').okayToTweet;
 const handleNullValues = require('../util/helpers').handleNullValues;
-const handleDonorName = require('../util/helpers').handleDonorName;
+const handleRecipientName = require('../util/helpers').handleRecipientName;
 const toProperCase = require('../util/helpers').toProperCase; 
 
 
@@ -51,7 +51,7 @@ module.exports = tweetExpenditure = (cb) => {
         expenditure.tweetedAt = new Date();
         expenditure.save(cb);
 
-        console.log('PAC data successfully tweeted at', expenditure.tweetedAt)
+        console.log('Expenditure data successfully tweeted at', expenditure.tweetedAt)
       });         
     });
   })
@@ -64,10 +64,9 @@ getExpenditureTweetString = (expenditure, cb) => {
   const handle = config.congressPerson.handle;
   const committee = toProperCase(expenditure.committee.name)
   const recipient = toProperCase(expenditure.recipient_name)
-  const abbrevRecipient = handleRecipientName(recipient);
   const loadDate = moment(expenditure.load_date).format('YYYY-MM-DD');
   const amount = expenditure.expenditure_receipt_amount.toLocaleString();
-  const recipientDescription = toProperCase(expenditure.disbursement_description)
+  const recipientDescription = toProperCase(expenditure.disbursement_description);
   const recipientState = expenditure.recipient_state;
   const recipientCity = toProperCase(expenditure.recipient_city)
   const pdf = expenditure.pdf_url;
@@ -79,7 +78,7 @@ getExpenditureTweetString = (expenditure, cb) => {
     // handle bitly response data:
     var json = JSON.parse(shortUrl);    
     const shortLink = json.data.url;
-    const expenditureMessage = `On ${loadDate}, ${handle} (${party}-${jurisdiction}) "${committee}" reported a $${amount} expenditure to "${abbrevRecipient}", in ${recipientCity}, ${recipientState} for ${recipientDescription}.\n\n🔎 : ${shortLink}`;
+    const expenditureMessage = `On ${loadDate}, ${handle} (${party}-${jurisdiction})'s' "${committee}" reported a $${amount} expenditure to "${abbrevRecipient}", in ${recipientCity}, ${recipientState} for "${recipientDescription}".\n\n🔎 : ${shortLink}`;
 
     return cb(null, expenditureMessage);
   })
