@@ -95,7 +95,7 @@ const toProperCase = (string) => {
 }
 
 // to avoid 186 errors, abbreviate
-const handleRecipientName = (str) => {
+const handleRecipientDesc = (str) => {
   var thingsWeDontCareAbout = ['CREDIT CARD MERCHANT FEES' ]
 
   var replaceDict = {
