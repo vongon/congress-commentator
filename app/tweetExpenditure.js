@@ -10,7 +10,7 @@ const Expenditure = require('../models/expenditure');
 
 const okayToTweet = require('../util/helpers').okayToTweet;
 const handleNullValues = require('../util/helpers').handleNullValues;
-const handleRecipientName = require('../util/helpers').handleRecipientName;
+const handleRecipientDesc = require('../util/helpers').handleRecipientDesc;
 const toProperCase = require('../util/helpers').toProperCase; 
 
 
@@ -70,6 +70,7 @@ getExpenditureTweetString = (expenditure, cb) => {
   const recipientState = expenditure.recipient_state;
   const recipientCity = toProperCase(expenditure.recipient_city)
   const pdf = expenditure.pdf_url;
+  const handledDesc = handleRecipientDesc(recipientDescription);
   
   bitlyService.shortenUrl(pdf, (err, shortUrl) => {
     if (err) {
@@ -78,7 +79,7 @@ getExpenditureTweetString = (expenditure, cb) => {
     // handle bitly response data:
     var json = JSON.parse(shortUrl);    
     const shortLink = json.data.url;
-    const expenditureMessage = `On ${loadDate}, ${handle} (${party}-${jurisdiction})'s' "${committee}" reported a $${amount} expenditure to "${recipient}", in ${recipientCity}, ${recipientState} for "${recipientDescription}".\n\n🔎 : ${shortLink}`;
+    const expenditureMessage = `On ${loadDate}, ${handle} (${party}-${jurisdiction})'s' "${committee}" reported a $${amount} expenditure to "${recipient}", in ${recipientCity}, ${recipientState} for "${handledDesc}".\n\n🔎 : ${shortLink}`;
 
     return cb(null, expenditureMessage);
   })

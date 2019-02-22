@@ -98,14 +98,15 @@ const toProperCase = (string) => {
 const handleRecipientName = (str) => {
   var thingsWeDontCareAbout = ['CREDIT CARD MERCHANT FEES' ]
 
-  var abbrevDict = {   
+  var replaceDict = {
+    '(see Below If Itemized)':""
   };
   // remove anything in parentheses
   str = str.replace(/ *\([^)]*\) */g, " ");
   // replace anything in the dict with correct word
-  var re = new RegExp(Object.keys(abbrevDict).join("|"),"gi");
+  var re = new RegExp(Object.keys(replaceDict).join("|"),"gi");
   str = str.replace(re, function(matched){
-    return abbrevDict[matched];
+    return replaceDict[matched];
   });
   return str
 };
@@ -116,5 +117,5 @@ module.exports = {
     handleDonorName: handleDonorName,
     toProperCase: toProperCase,
     trimString: trimString,
-    handleRecipientName: handleRecipientName
+    handleRecipientDesc: handleRecipientDesc
 };
