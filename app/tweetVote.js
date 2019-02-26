@@ -37,7 +37,7 @@ module.exports = tweetVote = (cb) => {
         console.log('Tweeting vote data:', message);
         twitterService.tweet(message, (err) => {
           if (err) {
-            console.log('PAC tweet err with vote._id: ', vote._id)
+            console.log('Vote tweet err with vote._id: ', vote._id)
             console.log('tweetVote err', err)
             return cb(err);
           }
