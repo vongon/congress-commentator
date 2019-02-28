@@ -95,11 +95,11 @@ module.exports = importData = (cb) => {
           return sCb(err);
         }      
         async.eachSeries(expenditureData.results, (data, expenditureCb) => {
-          PACContribution.countDocuments({'data.transaction_id': data.transaction_id, 'data.committee_id': config.fec.committee_id}).exec((err, contributionCount) => {
+          Expenditure.countDocuments({'data.transaction_id': data.transaction_id, 'data.committee_id': config.fec.committee_id}).exec((err, expenditureCount) => {
             if (err) {
               return expenditureCb(err);
             }
-            if (contributionCount > 0) {
+            if (expenditureCount > 0) {
               console.log('Skipping expenditure upload because found existing entry for transaction_id:', data.transaction_id);
               return expenditureCb();
             }
