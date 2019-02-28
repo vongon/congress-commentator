@@ -1,10 +1,10 @@
 
 // tweeting PAC contributions every 2 hours in tweetPacs
-const okayToTweet = (contribution) => {
-  if (!contribution.tweetedAt) {
+const okayToTweet = (transaction) => {
+  if (!transaction.tweetedAt) {
     return true;
   }
-  const tweetedAt = new moment(contribution.tweetedAt);
+  const tweetedAt = new moment(transaction.tweetedAt);
   const cutoff = new moment().subtract(2, 'h');
     if (tweetedAt.isBefore(cutoff)) {
       return true;
