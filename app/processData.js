@@ -120,8 +120,8 @@ const getMemeBottomString = (vote) => {
   }
 
   // super long title
-  if (title.length > 250) {
-    var abbrevTitle = trimString(title, 225)
+  if (title.length > 300) {
+    var abbrevTitle = trimString(title, 250)
     var bottomText = abbrevTitle + '. The bill ' + vote.result + ' on ' + vote.date + '.'; 
     return bottomText
   }
