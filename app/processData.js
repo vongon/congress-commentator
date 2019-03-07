@@ -111,6 +111,12 @@ const getMemeBottomString = (vote) => {
   }
 
   var title = vote.bill.title
+
+  if (title == 'Providing for consideration of the bill (H.R. 1) to expand Americans&#39; access to the ballot box, reduce the influence of big money in politics, and strengthen ethics rules for public servants, and for other purposes, and providing for consideration of motions to suspend the rules.') {
+    title = 'Providing for consideration of the bill (H.R. 1) to expand Americans\' access to the ballot box';
+    var bottomText = title + '. The bill ' + vote.result + ' on ' + vote.date + '.';  
+    return bottomText
+  }
   
   if (!title) {
     title = String(title);
