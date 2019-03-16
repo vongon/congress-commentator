@@ -117,6 +117,12 @@ const getMemeBottomString = (vote) => {
     var bottomText = title + '. The bill ' + vote.result + ' on ' + vote.date + '.';  
     return bottomText
   }
+
+  if (title == 'Providing for consideration of the concurrent resolution (H. Con. Res. 24) expressing the sense of Congress that the report of Special Counsel Mueller should be made available to the public and to Congress, and providing for proceedings during the period from March 15, 2019, through March 22, 2019.') {
+    title = 'Providing for consideration of the concurrent resolution (H. Con. Res. 24) that the report of Special Counsel Mueller should be made available to the public.';
+    var bottomText = title + '. The bill ' + vote.result + ' on ' + vote.date + '.';  
+    return bottomText
+  }
   
   if (!title) {
     title = String(title);
