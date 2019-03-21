@@ -50,6 +50,12 @@ const handleNullValues = (obj) => {
   return obj;
 };
 
+// handle individual donor contributor names for string methods
+const handleIndivContributorName = (name) => {
+ var temp = name.replace(/^(.+?) ([^\s,]+)(,? (?:[JS]r\.?|III?|IV))?$/i,"$2, $1$3");
+ return temp.replace(/,/g, '')
+};
+
 // to avoid 186 errors, abbreviate
 const handleDonorName = (str) => {
   var abbrevDict = {
@@ -117,5 +123,6 @@ module.exports = {
     handleDonorName: handleDonorName,
     toProperCase: toProperCase,
     trimString: trimString,
-    handleRecipientDesc: handleRecipientDesc
+    handleRecipientDesc: handleRecipientDesc,
+    handleIndivContributorName: handleIndivContributorName
 };

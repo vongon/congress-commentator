@@ -13,6 +13,7 @@ const okayToTweet = require('../util/helpers').okayToTweet;
 const handleNullValues = require('../util/helpers').handleNullValues;
 const handleDonorName = require('../util/helpers').handleDonorName;
 const toProperCase = require('../util/helpers').toProperCase; 
+const handleIndivContributorName = require('../util/helpers').handleIndivContributorName;
 
 
 module.exports = tweetIndivContribution = (cb) => {
