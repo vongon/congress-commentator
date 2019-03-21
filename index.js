@@ -5,6 +5,7 @@ const importData = require('./app/importData');
 const processData = require('./app/processData');
 const tweetVote = require('./app/tweetVote');
 const tweetContribution = require('./app/tweetContribution');
+const tweetIndivContribution = require('./app/tweetIndivContribution');
 const tweetPACs = require('./app/tweetPACs')
 const tweetExpenditure = require('./app/tweetExpenditure');
 const config = require('./config');
@@ -36,6 +37,10 @@ const main = (cb) => {
     (sCb) => {
       // tweet contribution
       tweetContribution(sCb);
+    },
+    (sCb) => {
+      // tweet contribution
+      tweetIndivContribution(sCb);
     },
     (sCb) => {
       // tweet PAC contribution data

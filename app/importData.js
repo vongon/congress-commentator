@@ -4,6 +4,7 @@ const Vote = require('../models/vote');
 const Contribution = require('../models/contribution')
 const fecService = require('../services/fec');
 const PACContribution = require('../models/pacContribution');
+const IndividualContribution = require('../models/indivContribution');
 const Expenditure = require('../models/expenditure');
 const config = require('../config')
 
@@ -87,6 +88,28 @@ module.exports = importData = (cb) => {
           }) // end findOne
         }, sCb)
       }); // end getPacContributions
+    },
+    (sCb)=> { 
+      // get individual contribution data from the FEC
+      fecService.getIndivContributions((err, indivContributionData) => {
+        if (err) {
+          return sCb(err);
+        }      
+        async.eachSeries(indivContributionData.results, (data, contributionCb) => {
+          IndividualContribution.countDocuments({'data.transaction_id': data.transaction_id, 'data.committee_id': config.fec.committee_id}).exec((err, contributionCount) => {
+            if (err) {
+              return contributionCb(err);
+            }
+            if (contributionCount > 0) {
+              console.log('Skipping contribution uploaded because found existing entry for transaction_id:', data.transaction_id);
+              return contributionCb();
+            }
+            console.log(`Creating contribution data for transaction id: ${data.transaction_id}`);
+            const newIndividualContribution = new IndividualContribution({data});
+            return newIndividualContribution.save(contributionCb);               
+          }) // end findOne
+        }, sCb)
+      }); // end getIndivContributions
     },
     (sCb)=> { 
       // get campaign expenditure from the FEC
