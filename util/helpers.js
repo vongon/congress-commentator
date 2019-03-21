@@ -12,6 +12,19 @@ const okayToTweet = (transaction) => {
   return false;
 };
 
+// tweeting individual contributions every 6 hours in tweetIndivContributions
+const indivContrOkayToTweet = (transaction) => {
+  if (!transaction.tweetedAt) {
+    return true;
+  }
+  const tweetedAt = new moment(transaction.tweetedAt);
+  const cutoff = new moment().subtract(6, 'h');
+    if (tweetedAt.isBefore(cutoff)) {
+      return true;
+    }
+  return false;
+};
+
 const trimString = (string, maxLength) => {
   if (!string) {
     var temp = String(string); 
@@ -52,8 +65,13 @@ const handleNullValues = (obj) => {
 
 // handle individual donor contributor names for string methods
 const handleIndivContributorName = (name) => {
- var temp = name.replace(/^(.+?) ([^\s,]+)(,? (?:[JS]r\.?|III?|IV))?$/i,"$2, $1$3");
- return temp.replace(/,/g, '')
+ // var temp = name.replace(/^(.+?) ([^\s,]+)(,? (?:[JS]r\.?|III?|IV))?$/i,"$2, $1$3");
+ // return temp.replace(/,/g, '')
+  var temp = name.split(' ')
+  var reversed = temp[temp.length - 1] + ' ' + temp[temp.length - 2] + ' ' +  temp[temp.length - 3]
+
+  return reversed.replace(/,/g, '')
+
 };
 
 // to avoid 186 errors, abbreviate
@@ -119,6 +137,7 @@ const handleRecipientDesc = (str) => {
 
 module.exports = {
     okayToTweet: okayToTweet,
+    indivContrOkayToTweet: indivContrOkayToTweet,
     handleNullValues: handleNullValues,
     handleDonorName: handleDonorName,
     toProperCase: toProperCase,

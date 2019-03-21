@@ -10,6 +10,7 @@ const Vote = require('../models/vote');
 const IndividualContribution = require('../models/indivContribution');
 
 const okayToTweet = require('../util/helpers').okayToTweet;
+const indivContrOkayToTweet = require('../util/helpers').indivContrOkayToTweet;
 const handleNullValues = require('../util/helpers').handleNullValues;
 const handleDonorName = require('../util/helpers').handleDonorName;
 const toProperCase = require('../util/helpers').toProperCase; 
@@ -29,33 +30,35 @@ module.exports = tweetIndivContribution = (cb) => {
         console.log('No new individual contributions available to tweet')
         return cb()
       }
-      if (!okayToTweet(contribution)) {
+      if (!indivContrOkayToTweet(contribution)) {
         console.log(`Skipping tweeting individual contribution because it didn't pass validation`);
         return cb();
       }       
       // need to handle Null values so string methods don't break
       handleNullValues(contribution.data)
-      // get tweet string + shortened URL
-      getIndividualContributionTweetString(contribution.data, (err, individualContributionMessage) => {
-        if (err) {
-          return cb(err);
-        }
-        // now we have individualContributionMessage with shortened url and can tweet:
-        twitterService.tweet(individualContributionMessage, (err) => {
+    
+        // get tweet string + shortened URL
+        getIndividualContributionTweetString(contribution.data, (err, individualContributionMessage) => {
           if (err) {
-            console.log('IndividualContribution tweet err with contribution._id: ', contribution._id)
-            console.log('problem with this individualContributionMessage: ', individualContributionMessage)
             return cb(err);
-        }
-        console.log('Tweeting individual contribution data:', individualContributionMessage) 
-        // save any new PAC data contribution entries to the database
-        
-        contribution.tweetedAt = new Date();
-        contribution.save(cb);
+          }
+          // now we have individualContributionMessage with shortened url and can tweet:
+          twitterService.tweet(individualContributionMessage, (err) => {
+            if (err) {
+              console.log('IndividualContribution tweet err with contribution._id: ', contribution._id)
+              console.log('problem with this individualContributionMessage: ', individualContributionMessage)
+              return cb(err);
+            }
 
-        console.log('Individual contribution data successfully tweeted at', contribution.tweetedAt)
-      });         
-    });
+            console.log('Tweeting individual contribution data:', individualContributionMessage) 
+            // save any new individual data contribution entries to the database
+          
+            contribution.tweetedAt = new Date();
+            contribution.save(cb);
+
+            console.log('Individual contribution data successfully tweeted at', contribution.tweetedAt)
+        });         
+      });       
   })
 }
 
@@ -66,7 +69,7 @@ getIndividualContributionTweetString = (contribution, cb) => {
   const handle = config.congressPerson.handle;
   const committee = toProperCase(contribution.committee.name);
   const donor = toProperCase(contribution.contributor_name);
-  // const abbrevDonor = handleDonorName(donor);
+  const handledDonorName = handleIndivContributorName(donor);
   const loadDate = moment(contribution.load_date).format('YYYY-MM-DD');
   const amount = contribution.contribution_receipt_amount.toLocaleString();
   const donorTitle = toProperCase(contribution.contributor_occupation);
@@ -82,12 +85,10 @@ getIndividualContributionTweetString = (contribution, cb) => {
     // handle bitly response data:
     var json = JSON.parse(shortUrl);    
     const shortLink = json.data.url;
-    const indivContributionMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${donor}", ${donorTitle} at ${donorEmployer} in ${donorCity}, ${donorState}.\n\n🔎 : ${shortLink}`;
+
+    const indivContributionMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${handledDonorName}", ${donorTitle} at ${donorEmployer} in ${donorCity}, ${donorState}.\n\n🔎 : ${shortLink}`;
     return cb(null, indivContributionMessage);
 
-    // const pacMessage = `On ${loadDate}, "${committee}" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${donor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\n🔎 : ${shortLink}`;
-
-    // return cb(null, pacMessage);
   })
 }
 
