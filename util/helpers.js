@@ -5,7 +5,7 @@ const okayToTweet = (transaction) => {
     return true;
   }
   const tweetedAt = new moment(transaction.tweetedAt);
-  const cutoff = new moment().subtract(2, 'h');
+  const cutoff = new moment().subtract(24, 'h');
     if (tweetedAt.isBefore(cutoff)) {
       return true;
     }
