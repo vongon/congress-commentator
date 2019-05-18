@@ -65,3 +65,4 @@ env/config.js
 
 # next.js build output
 .next
+sample_data.js
