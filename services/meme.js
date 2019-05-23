@@ -5,6 +5,7 @@ const imgur = require('imgur');
 const memeLib = require('nodejs-meme-generator');
 
 const imgurService = require('./imgurSvc');
+const config = require('../config');
 
 
 exports.createMeme = (topText, bottomText, title, description, cb) => {
@@ -25,7 +26,8 @@ exports.createMeme = (topText, bottomText, title, description, cb) => {
     bottomText: bottomText,
     //old:
     // url: 'https://imgur.com/8PE28SH.png'
-    url: 'https://i.imgur.com/72YRU2t.png'
+    // url: 'https://i.imgur.com/72YRU2t.png'
+    url: config.imgur.url
     })
     // upload to imgur:
     .then((data) => {
