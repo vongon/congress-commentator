@@ -67,11 +67,17 @@ const handleNullValues = (obj) => {
 const handleIndivContributorName = (name) => {
  // var temp = name.replace(/^(.+?) ([^\s,]+)(,? (?:[JS]r\.?|III?|IV))?$/i,"$2, $1$3");
  // return temp.replace(/,/g, '')
+  
   var temp = name.split(' ')
-  var reversed = temp[temp.length - 1] + ' ' + temp[temp.length - 2] + ' ' +  temp[temp.length - 3]
+  var reversed = temp[temp.length - 1] + ' ' + temp[temp.length - 2] + ' ' + temp[temp.length - 4] +  ' ' + temp[temp.length - 3] 
 
-  return reversed.replace(/,/g, '')
+  var tempReversed = reversed.split(' ')
+  var PATTERN = 'undefined'
+  var filtered = tempReversed.filter(function (str) { return str.indexOf(PATTERN) === -1; });
+  
+  var donorName =filtered.join(', ')
 
+  return donorName.replace(/,/g, '')
 };
 
 // to avoid 186 errors, abbreviate
