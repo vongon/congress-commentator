@@ -77,6 +77,14 @@ getPacTweetString = (contribution, cb) => {
     if (err) {
       return cb(err);
     }
+    if (committee == 'Texans For Henry Cuellar Congressional Campaign') {
+        // handle bitly response data:
+      var json = JSON.parse(shortUrl);    
+      const shortLink = json.data.url;
+      const pacMessage = `On ${loadDate}, "Texans For Henry Cuellar" reported a $${amount} contribution to ${handle} (${party}-${jurisdiction}) from "${abbrevDonor}", a(n) ${donorDescription} registered in ${donorCity}, ${donorState}.\n\n🔎 : ${shortLink}`;
+
+      return cb(null, pacMessage);
+    }
     // handle bitly response data:
     var json = JSON.parse(shortUrl);    
     const shortLink = json.data.url;
