@@ -38,3 +38,4 @@ const _getCampaignFinanceData = (cb) => {
     return cb(err);
   });
 }
+

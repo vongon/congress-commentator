@@ -7,8 +7,13 @@ const memeLib = require('nodejs-meme-generator');
 const imgurService = require('./imgurSvc');
 const config = require('../config');
 
+// FEC data
+exports.createMeme = createMeme = (cb) => {
+  // retry request 3 times before returning error because it has time-out errors
+  async.retry(3, _createMeme, cb);
+}
 
-exports.createMeme = (topText, bottomText, title, description, cb) => {
+const _createMeme = (topText, bottomText, title, description, cb) => {
   const memeGenerator = new memeLib({
     canvasOptions: { // optional
       canvasWidth: 506,
