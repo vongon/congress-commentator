@@ -8,9 +8,11 @@ const imgurService = require('./imgurSvc');
 const config = require('../config');
 
 // FEC data
-exports.createMeme = createMeme = (cb) => {
+exports.createMeme = createMeme = (topText, bottomText, title, description, cb) => {
   // retry request 3 times before returning error because it has time-out errors
-  async.retry(3, _createMeme, cb);
+  async.retry(3, (retryCb) => {
+    _createMeme(topText, bottomText, title, description, retryCb);
+  }, cb);
 }
 
 const _createMeme = (topText, bottomText, title, description, cb) => {
