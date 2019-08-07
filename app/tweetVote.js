@@ -24,7 +24,7 @@ module.exports = tweetVote = (cb) => {
       return cb()
     }
 
-    processData(vote._id, (err) => {
+    // processData(vote._id, (err) => {
       if (err) {
         return cb(err);
       }
@@ -47,7 +47,7 @@ module.exports = tweetVote = (cb) => {
           console.log('Vote data successfully tweeted at', vote.tweetedAt)
         });
       });
-    });
+    // });
   });
 };
 
