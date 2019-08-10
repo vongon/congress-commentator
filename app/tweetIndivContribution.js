@@ -20,7 +20,8 @@ const handleIndivContributorName = require('../util/helpers').handleIndivContrib
 module.exports = tweetIndivContribution = (cb) => {
     IndividualContribution.findOne({
       tweetedAt: null, 
-      'data.committee_id': config.fec.committee_id
+      'data.committee_id': config.fec.committee_id,
+      'data.contribution_receipt_amount': { $gte: 499 }
     }).sort({createdAt: 1}).exec((err, contribution) => {
       if (err) {
         return cb(err);
@@ -37,26 +38,25 @@ module.exports = tweetIndivContribution = (cb) => {
       // need to handle Null values so string methods don't break
       handleNullValues(contribution.data)
     
-        // get tweet string + shortened URL
-        getIndividualContributionTweetString(contribution.data, (err, individualContributionMessage) => {
-          if (err) {
-            return cb(err);
-          }
-          // now we have individualContributionMessage with shortened url and can tweet:
-          twitterService.tweet(individualContributionMessage, (err) => {
-            if (err) {
-              console.log('IndividualContribution tweet err with contribution._id: ', contribution._id)
-              console.log('problem with this individualContributionMessage: ', individualContributionMessage)
-              return cb(err);
-            }
+      // get tweet string + shortened URL
+      getIndividualContributionTweetString(contribution.data, (err, individualContributionMessage) => {
+        if (err) {
+          return cb(err);
+        }
+      // now we have individualContributionMessage with shortened url and can tweet:
+      twitterService.tweet(individualContributionMessage, (err) => {
+        if (err) {
+         console.log('IndividualContribution tweet err with contribution._id: ', contribution._id)
+         console.log('problem with this individualContributionMessage: ', individualContributionMessage)
+         return cb(err);
+        }
 
-            console.log('Tweeting individual contribution data:', individualContributionMessage) 
-            // save any new individual data contribution entries to the database
+        console.log('Tweeting individual contribution data:', individualContributionMessage) 
+        // save any new individual data contribution entries to the database
           
-            contribution.tweetedAt = new Date();
-            contribution.save(cb);
-
-            console.log('Individual contribution data successfully tweeted at', contribution.tweetedAt)
+        contribution.tweetedAt = new Date();
+        contribution.save(cb);
+        console.log('Individual contribution data successfully tweeted at', contribution.tweetedAt)
         });         
       });       
   })
