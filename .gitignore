@@ -65,3 +65,7 @@ env/config.js
 
 # next.js build output
 .next
+
+# misc
+	.DS_Store
+	services/.DS_Store
