@@ -33,7 +33,7 @@ const main = (cb) => {
       // tweet votes
       tweetVote(sCb);
       // TODO: create alt text for each image so screen readers can read tweets      
-    }, 
+    },
     (sCb) => {
       // tweet contribution
       tweetContribution(sCb);

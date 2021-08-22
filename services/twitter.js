@@ -10,9 +10,9 @@ var client = new Twitter({
 });
 
 exports.tweet = (message, cb) => {
-  if (process.env.NODE_ENV !== 'production') {
-    console.log(`---- Skipping actual tweet because NODE_ENV !== 'production' ----`);
-    return cb();
-  }
-  client.post('statuses/update', {status: message}, cb);
+  // if (process.env.NODE_ENV !== 'production') {
+  //   console.log(`---- Skipping actual tweet because NODE_ENV !== 'production' ----`);
+  //   return cb();
+  // }
+  client.post('statuses/update', { status: message }, cb);
 }
