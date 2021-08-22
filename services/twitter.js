@@ -14,5 +14,5 @@ exports.tweet = (message, cb) => {
     console.log(`---- Skipping actual tweet because NODE_ENV !== 'production' ----`);
     return cb();
   }
-  client.post('statuses/update', {status: message}, cb);
+  client.post('statuses/update', { status: message }, cb);
 }

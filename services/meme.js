@@ -35,10 +35,10 @@ const _createMeme = (topText, bottomText, title, description, cb) => {
     // url: 'https://imgur.com/8PE28SH.png'
     // url: 'https://i.imgur.com/72YRU2t.png'
     url: config.imgur.url
-    })
+  })
     // upload to imgur:
     .then((data) => {
-      console.log('Meme created! Buffer data: ', data) 
+      console.log('Meme created! Buffer data: ', data)
       // make an empty array, push binary into array
       var fileContentArray = [];
       fileContentArray.push(data);
@@ -47,7 +47,6 @@ const _createMeme = (topText, bottomText, title, description, cb) => {
       // encode
       var imgToUpload = fileContent.toString('base64');
       // upload & generate link
-
       var imgurData = {
         base64String: imgToUpload,
         album: null,
